@@ -25,7 +25,7 @@ export type LegalSection = { heading?: string; paragraphs: string[] };
 
 export const PRIVACY_TITLE = "Privacy Policy";
 export const TERMS_TITLE = "Terms of Service";
-export const LEGAL_LAST_UPDATED = "September 2, 2026";
+export const LEGAL_LAST_UPDATED = "September 20, 2026";
 
 export const PRIVACY_SECTIONS: LegalSection[] = [
   {
@@ -110,7 +110,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: "8. Service providers",
     paragraphs: [
       `A small number of providers are technically necessary to deliver the Service:`,
-      `Google (Gemini API) — performs the speech recognition and the translation itself. The audio and text you submit are sent to this API to produce the transcript and the translation, and are not used to train models. Privacy: https://policies.google.com/privacy`,
+      `No provider receives your text or your audio: translation and speech recognition both run on our own machine (self-hosted language and speech models, reached over an encrypted private channel from our server). Your content is not sent to any external AI service and is not used to train anything.`,
       `Google (Sign-In) — only if you choose to sign in (standard OAuth: your email address and its verified status).`,
       `Stripe — payment processing for paid plans. Receives your billing email and the amount and product of each transaction. Privacy: https://stripe.com/privacy`,
       `Cloudflare — the Turnstile anti-abuse check shown to visitors without an account, and DNS for the domain. Turnstile is designed to work without profiling visitors.`,
@@ -233,7 +233,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
     heading: "6. Data, privacy and hosting",
     paragraphs: [
       `Your account, conversations and translations are stored in our own database on our own server in the European Union, under our direct control. We run no third-party analytics and no advertising trackers; usage is measured only by our own cookieless system, described in the Privacy Policy.`,
-      `The content you submit is processed by Google's Gemini API to produce the transcript and translation, and payments are processed by Stripe. Audio is never stored.`,
+      `The content you submit is processed by our own self-hosted models to produce the transcript and translation — it is not sent to any external AI service — and payments are processed by Stripe. Audio is never stored.`,
       `For full details, see our Privacy Policy, which forms part of these Terms.`,
     ],
   },

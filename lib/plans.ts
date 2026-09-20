@@ -11,29 +11,33 @@ export type Plan = {
   popular?: boolean;
 };
 
-// Quotas sized off Gemini 3.5 Flash-Lite unit costs — same price point as
-// 2.5 Flash, which it replaces (retires 2026-10-16): text in $0.30/M tok, out
-// $2.50/M tok, audio in $1.00/M tok @ 32 tok/s. ~$1.3 per 1M translated
-// characters, ~$0.0025 per STT minute. Each plan's fully-drained quota costs
-// <= 1/3 of its price — a 3x floor on margin; real utilization sits far lower.
-// A dictated message is charged twice by design, both legs inside
-// /api/translate-voice: its seconds for the STT, then its characters for the
-// translation of the resulting transcript.
+// Quotas are unchanged by the move off the hosted API: they were sized off
+// Gemini 3.5 Flash-Lite unit costs (text in $0.30/M tok, out $2.50/M tok,
+// audio in $1.00/M tok @ 32 tok/s — ~$1.3 per 1M translated characters,
+// ~$0.0025 per STT minute) so that a fully drained plan costs <= 1/3 of its
+// price. Translation now runs on the owner's own machine and speech
+// recognition with it, so those quotas no longer price a bill — they are what
+// keeps one visitor from taking the whole engine, which has four slots for
+// everybody (see docs/local-llm.md). A dictated message is still charged
+// twice, both legs inside /api/translate-voice: its seconds for the STT, then
+// its characters for the translation of the resulting transcript.
 //
-// Two things the naive $/char estimate misses, both now bounded in
-// lib/gemini-translate.ts rather than left open-ended:
+// Three things the naive per-request estimate misses, all bounded in code
+// rather than left open-ended:
 //   - the reply is not charged at all, so an input that makes the model emit
-//     as much as it can is pure loss (MAX_OUTPUT_TOKENS caps it);
+//     as much as it can is pure wall-clock loss (maxOutputTokens in
+//     lib/llm-limits.ts caps it);
 //   - the recent-turns context is resent with every request and is not
-//     charged either (CONTEXT_MAX_CHARS caps it).
+//     charged either (CONTEXT_MAX_CHARS caps it);
+//   - a request longer than one engine call is split, so the minutes a PRO
+//     request can occupy the engine grow with its character count
+//     (CHUNK_CHARS in lib/llm-limits.ts sets the step).
 //
 // Image translation is billed per PHOTO, not per character (the OCR leg is
-// self-hosted and near-free; see services/ocr). Gemini text-only unit costs
-// put a typical 100-2000-char screenshot at ~$0.0005-0.002 including the
-// fixed prompt overhead, so a $0.02/person free budget is ~10 images. The
-// per-image cost ceiling is enforced in /api/translate-image by refusing to
-// send more than MAX_IMAGE_TEXT_CHARS to the model — one image can then never
-// cost more than ~$0.01-0.02 regardless of what a screenshot contains.
+// self-hosted and near-free; see services/ocr). The per-image ceiling is
+// enforced in /api/translate-image by refusing to send more than
+// MAX_IMAGE_TEXT_CHARS to the model — one image can then never occupy the
+// engine for longer than that text takes, whatever a screenshot contains.
 export const PLANS: Record<PlanId, Plan> = {
   STARTER: {
     id: "STARTER",
@@ -77,13 +81,11 @@ export function planRank(plan: PlanId | "FREE" | string): number {
 }
 
 // The free tier is the product without a subscription — anonymous fingerprint
-// or signed-in account alike. Lifetime (not renewing) trial pool, sized to
-// stay under $0.01 in Gemini spend even in the worst realistic case: lots of
-// short messages, each paying the ~100-token fixed prompt overhead
-// (lib/gemini-translate.ts's instruction text) on top of its own content —
-// that overhead is invisible in a naive $/char estimate but dominates when
-// messages are short. 500 chars + 30s voice ~ $0.008 worst case, leaving
-// margin for CJK languages (fewer chars per token than Latin scripts).
+// or signed-in account alike. Lifetime (not renewing) trial pool, kept small
+// enough that a visitor cannot tie up the engine for long: lots of short
+// messages is the pattern the pool allows, and each one pays the ~100-token
+// fixed prompt overhead (lib/translate.ts's instruction text) on top of its
+// own content, which is what the character count alone does not show.
 export const FREE_TRIAL = {
   chars: 500,
   seconds: 30,

@@ -2,11 +2,11 @@
 // 16-bit PCM, see lib/recorder.ts).
 //
 // The voice endpoint used to bill STT seconds as `(bytes - 44) / 32000` and
-// forward the client's own Content-Type to Gemini untouched. Both halves of
-// that were the client's to choose: a 100 KB Opus or AAC file declaring itself
-// audio/ogg was charged ~3 seconds while carrying ten minutes of speech that
-// Gemini really does bill us for. Parsing the container closes it — a format
-// we cannot measure is a format we do not accept.
+// forward the client's own Content-Type to the engine untouched. Both halves
+// of that were the client's to choose: a 100 KB Opus or AAC file declaring
+// itself audio/ogg was charged ~3 seconds while carrying ten minutes of speech
+// the engine would really have had to process. Parsing the container closes it
+// — a format we cannot measure is a format we do not accept.
 
 export const WAV_SAMPLE_RATE = 16000;
 export const WAV_CHANNELS = 1;

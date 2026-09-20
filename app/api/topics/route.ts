@@ -53,14 +53,15 @@ export async function POST(req: NextRequest) {
     if (!getLanguage(targetLang)) {
       return NextResponse.json({ error: "unknown language" }, { status: 400 });
     }
-    // Optional — lets the client carry over a source language picked before
-    // the topic existed (draft state, source chosen ahead of the first send).
-    let sourceLang: string | undefined;
-    if (typeof body.sourceLang === "string") {
-      if (!getLanguage(body.sourceLang)) {
-        return NextResponse.json({ error: "unknown language" }, { status: 400 });
-      }
-      sourceLang = body.sourceLang;
+    // Required: with auto-detect gone a topic has no way to learn its source
+    // language later, so the pair has to be complete when the thread is born.
+    const sourceLang = typeof body.sourceLang === "string" ? body.sourceLang.trim() : "";
+    if (!getLanguage(sourceLang)) {
+      return NextResponse.json({ error: "unknown language" }, { status: 400 });
+    }
+    if (sourceLang === targetLang) {
+      // Same language on both sides would make every translation the input.
+      return NextResponse.json({ error: "same_language" }, { status: 400 });
     }
 
     const existing = await prisma.topic.count({ where: { ownerKey: identity.ownerKey } });
@@ -68,8 +69,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "too_many_topics" }, { status: 409 });
     }
 
+    // writeLang starts as the source: the person opening the thread types in
+    // the language they picked for themselves (see the swap button).
     const topic = await prisma.topic.create({
-      data: { ownerKey: identity.ownerKey, targetLang, ...(sourceLang ? { sourceLang } : {}) },
+      data: { ownerKey: identity.ownerKey, targetLang, sourceLang, writeLang: sourceLang },
     });
 
     return NextResponse.json(topic);

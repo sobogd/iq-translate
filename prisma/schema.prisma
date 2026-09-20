@@ -12,8 +12,9 @@ model Topic {
   id           String        @id @default(cuid())
   ownerKey     String // verified Google email, lowercased
   title        String? // null until first translation, then a truncated transcript
-  sourceLang   String? // ISO 639-1 code; null = auto-detect pending (locked on first translation)
+  sourceLang   String? // ISO 639-1 code of this conversation's A side; null only on rows created before auto-detect was removed
   targetLang   String // ISO 639-1 code
+  writeLang    String? // ISO 639-1 code the user is writing in NOW: one of the pair above, flipped by the swap button. Kept apart from sourceLang so flipping the direction does not mirror the whole history
   lastUsedAt   DateTime      @default(now())
   createdAt    DateTime      @default(now())
   translations Translation[]

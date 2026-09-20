@@ -47,11 +47,13 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const data: { sourceLang?: string | null; targetLang?: string } = {};
+    const data: { sourceLang?: string | null; targetLang?: string; writeLang?: string | null } = {};
     if (body.sourceLang === null) {
-      // Explicit reset to auto-detect — the next translation in this topic
-      // re-detects instead of staying pinned to whatever was locked in.
+      // Explicit reset of the A side. Nothing detects it again (auto-detect is
+      // gone), so the topic stays unusable until the client sets one — the
+      // route answers `source_required` meanwhile.
       data.sourceLang = null;
+      data.writeLang = null;
     } else if (typeof body.sourceLang === "string") {
       if (!getLanguage(body.sourceLang)) {
         return NextResponse.json({ error: "unknown language" }, { status: 400 });
@@ -63,6 +65,19 @@ export async function PATCH(
         return NextResponse.json({ error: "unknown language" }, { status: 400 });
       }
       data.targetLang = body.targetLang;
+    }
+    // The direction the visitor is typing in now — flipped by the swap button.
+    // Must be one of the topic's two languages, or the next translation would
+    // go to a third one.
+    if (typeof body.writeLang === "string") {
+      if (!getLanguage(body.writeLang)) {
+        return NextResponse.json({ error: "unknown language" }, { status: 400 });
+      }
+      const pair = [data.sourceLang ?? topic.sourceLang, data.targetLang ?? topic.targetLang];
+      if (!pair.includes(body.writeLang)) {
+        return NextResponse.json({ error: "unknown language" }, { status: 400 });
+      }
+      data.writeLang = body.writeLang;
     }
 
     const updated = await prisma.topic.update({ where: { id }, data });

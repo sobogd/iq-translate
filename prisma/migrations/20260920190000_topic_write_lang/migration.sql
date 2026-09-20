@@ -1,0 +1,11 @@
+-- The direction a topic is being written in right now.
+--
+-- The pair (sourceLang, targetLang) belongs to the conversation and never
+-- changes: it is what the chat bubbles align by. writeLang is the half the
+-- visitor is currently typing in, flipped by the swap button between the two
+-- language blocks. Without it the swap would have to exchange sourceLang and
+-- targetLang, which would mirror the whole history to the other side.
+--
+-- NULL means "same as sourceLang", so existing rows keep behaving exactly as
+-- they did before the column existed.
+ALTER TABLE "topics" ADD COLUMN "writeLang" TEXT;

@@ -1,5 +1,6 @@
-// Browser WAV recorder: captures mic as raw PCM, encodes 16 kHz mono WAV.
-// Gemini accepts WAV directly (unlike MediaRecorder's webm/opus).
+// Browser WAV recorder: captures mic as raw PCM, encodes 16 kHz mono WAV —
+// the format whisper.cpp wants (unlike MediaRecorder's webm/opus, which the
+// engine would have to be taught to decode).
 
 const TARGET_RATE = 16000;
 

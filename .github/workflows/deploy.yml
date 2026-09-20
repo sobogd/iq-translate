@@ -30,7 +30,6 @@ jobs:
         run: npm run build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # Public half of the Turnstile gate. Must be present at BUILD time:
           # the pages are statically prerendered, so a NEXT_PUBLIC_* value is
           # inlined here, not read from the server's .env at runtime.
@@ -59,7 +58,6 @@ jobs:
 
             cat > .env <<EOF
             DATABASE_URL="${{ secrets.DATABASE_URL }}"
-            GEMINI_API_KEY="${{ secrets.GEMINI_API_KEY }}"
             S3_HOST="${{ secrets.S3_HOST }}"
             S3_REGION="${{ secrets.S3_REGION }}"
             S3_KEY="${{ secrets.S3_KEY }}"
@@ -92,6 +90,17 @@ jobs:
             ANALYTICS_ADMIN_EMAILS="${{ secrets.ANALYTICS_ADMIN_EMAILS }}"
             ANALYTICS_EXCLUDE_EMAILS="${{ secrets.ANALYTICS_EXCLUDE_EMAILS }}"
             OCR_SIDECAR_URL="http://127.0.0.1:8701"
+            # Translation engine and speech recognition: both live on the
+            # owner's Mac and reach this VPS through the reverse-SSH tunnel
+            # (docs/local-llm.md). LLM_CTX has to match the model server's
+            # `-c` — lib/llm-limits.ts derives every request budget from it.
+            LLM_BASE_URL="${{ secrets.LLM_BASE_URL || 'http://127.0.0.1:18812' }}"
+            LLM_MODEL="${{ secrets.LLM_MODEL || 'qwen/qwen3.5-9b' }}"
+            LLM_CTX="${{ secrets.LLM_CTX || '32768' }}"
+            LLM_REASONING="none"
+            LLM_TEMPLATE_KWARGS={"enable_thinking":false}
+            STT_BASE_URL="${{ secrets.STT_BASE_URL || 'http://127.0.0.1:18818' }}"
+            STT_TIMEOUT_MS="240000"
             PORT="8200"
             EOF
 

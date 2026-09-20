@@ -134,7 +134,10 @@ export interface TranslatorTexts {
     noTopicsYet: string;
     deleteTopic: string;
     deleteTopicConfirm: string;
-    autoDetect: string;
+    /** Swap button between the two language blocks (the writing direction).
+     *  Replaced `autoDetect` in every locale when language detection was
+     *  dropped from the product. */
+    swapAria: string;
     chooseLanguage: string;
     close: string;
     searchPlaceholder: string;

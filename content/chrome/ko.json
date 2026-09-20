@@ -352,7 +352,7 @@
     "noTopicsYet": "아직 번역이 없어요",
     "deleteTopic": "토픽 삭제",
     "deleteTopicConfirm": "이 토픽과 모든 번역 내용을 삭제할까요?",
-    "autoDetect": "자동 감지",
+    "swapAria": "언어 바꾸기",
     "chooseLanguage": "언어 선택",
     "close": "닫기",
     "searchPlaceholder": "언어 검색…",

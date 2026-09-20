@@ -352,7 +352,7 @@
     "noTopicsYet": "トピックはまだありません",
     "deleteTopic": "トピックを削除",
     "deleteTopicConfirm": "このトピックとすべての翻訳を削除しますか？",
-    "autoDetect": "自動検出",
+    "swapAria": "言語を入れ替える",
     "chooseLanguage": "言語を選択",
     "close": "閉じる",
     "searchPlaceholder": "言語を検索…",

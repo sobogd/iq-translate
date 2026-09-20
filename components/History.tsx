@@ -21,7 +21,23 @@ function speak(text: string, lang: string) {
 // the speaker's side so a back-and-forth reads like a chat, not a stack of
 // identical cards. Before the pair locks (langA === ""), everything is from
 // the same not-yet-established side, so nothing aligns right.
-function Turn({ r, langA, langB, texts }: { r: HistoryRow; langA: string; langB: string; texts: HistoryTexts }) {
+//
+// `streaming` marks the turn that is still being generated: its buttons are
+// hidden (there is nothing final to copy or read aloud yet) and a blinking
+// caret shows where the text is growing.
+function Turn({
+  r,
+  langA,
+  langB,
+  texts,
+  streaming = false,
+}: {
+  r: HistoryRow;
+  langA: string;
+  langB: string;
+  texts: HistoryTexts;
+  streaming?: boolean;
+}) {
   const target = r.sourceLang === langA ? langB : langA;
   const fromA = langA !== "" && r.sourceLang === langA;
   const [copied, setCopied] = useState(false);
@@ -31,6 +47,25 @@ function Turn({ r, langA, langB, texts }: { r: HistoryRow; langA: string; langB:
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
+
+  const actions = (
+    <div className="flex shrink-0 items-center gap-2">
+      <button
+        onClick={() => speak(r.translation, target)}
+        aria-label={texts.readAloudAria}
+        className="rounded-lg p-2 text-button transition active:scale-90"
+      >
+        <Volume2 size={15} />
+      </button>
+      <button
+        onClick={copy}
+        aria-label={texts.copyAria}
+        className="rounded-lg p-2 text-button transition active:scale-90"
+      >
+        {copied ? <Check size={15} /> : <Copy size={15} />}
+      </button>
+    </div>
+  );
 
   return (
     <div className={`flex ${fromA ? "justify-end" : "justify-start"}`}>
@@ -54,22 +89,7 @@ function Turn({ r, langA, langB, texts }: { r: HistoryRow; langA: string; langB:
               loading="lazy"
               className="block max-h-72 w-full rounded-md object-contain"
             />
-            <div className="mt-2 flex items-center justify-end gap-2">
-              <button
-                onClick={() => speak(r.translation, target)}
-                aria-label={texts.readAloudAria}
-                className="rounded-lg p-2 text-button transition active:scale-90"
-              >
-                <Volume2 size={15} />
-              </button>
-              <button
-                onClick={copy}
-                aria-label={texts.copyAria}
-                className="rounded-lg p-2 text-button transition active:scale-90"
-              >
-                {copied ? <Check size={15} /> : <Copy size={15} />}
-              </button>
-            </div>
+            <div className="mt-2 flex items-center justify-end gap-2">{actions}</div>
           </div>
         ) : (
           <>
@@ -78,23 +98,16 @@ function Turn({ r, langA, langB, texts }: { r: HistoryRow; langA: string; langB:
             <p className="mb-2 text-sm leading-snug text-hint">{r.transcript}</p>
 
             <div className="flex items-start justify-between gap-2">
-              <p className="text-base leading-relaxed">{r.translation}</p>
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  onClick={() => speak(r.translation, target)}
-                  aria-label={texts.readAloudAria}
-                  className="rounded-lg p-2 text-button transition active:scale-90"
-                >
-                  <Volume2 size={15} />
-                </button>
-                <button
-                  onClick={copy}
-                  aria-label={texts.copyAria}
-                  className="rounded-lg p-2 text-button transition active:scale-90"
-                >
-                  {copied ? <Check size={15} /> : <Copy size={15} />}
-                </button>
-              </div>
+              <p className="text-base leading-relaxed">
+                {r.translation}
+                {streaming && (
+                  <span
+                    aria-hidden="true"
+                    className="ml-0.5 inline-block h-4 w-1.5 animate-pulse rounded-sm bg-hint align-text-bottom"
+                  />
+                )}
+              </p>
+              {!streaming && actions}
             </div>
           </>
         )}
@@ -105,16 +118,20 @@ function Turn({ r, langA, langB, texts }: { r: HistoryRow; langA: string; langB:
 
 export function History({
   rows,
+  pending,
   langA,
   langB,
   texts,
 }: {
   rows: HistoryRow[];
+  /** Turn still being generated: drawn as the newest bubble, above every
+   *  stored one, with a caret instead of the copy/read-aloud buttons. */
+  pending?: HistoryRow | null;
   langA: string;
   langB: string;
   texts: HistoryTexts;
 }) {
-  if (rows.length === 0) {
+  if (rows.length === 0 && !pending) {
     return (
       <div
         className="flex min-h-full w-full flex-col items-center justify-center gap-2 px-2 text-center text-[15px] opacity-50"
@@ -128,6 +145,7 @@ export function History({
 
   return (
     <div className="flex flex-col gap-3">
+      {pending && <Turn r={pending} langA={langA} langB={langB} texts={texts} streaming />}
       {rows.map((r) => (
         <Turn key={r.id} r={r} langA={langA} langB={langB} texts={texts} />
       ))}

@@ -7,33 +7,31 @@ import { chargeImage, refundImage } from "@/lib/credits";
 import { allowRequest } from "@/lib/rate-limit";
 import { ocrImage, composeImage, OcrError } from "@/lib/image-ocr";
 import { saveTranslatedImage, translatedImageUrl } from "@/lib/translated-image";
-import {
-  translateImageBlocks,
-  detectImageTextLanguage,
-} from "@/lib/gemini-translate";
+import { translateImageBlocks } from "@/lib/translate";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-// Image translation: photo in -> OCR sidecar (text + pixel boxes) -> one
-// text-only Gemini call for per-block translations -> blocks with normalized
-// geometry back to the client, which pastes the translated text into the
-// image itself.
+// Image translation: photo in -> OCR sidecar (text + pixel boxes) -> text-only
+// calls to the local model for per-block translations -> blocks with
+// normalized geometry back to the client, which pastes the translated text
+// into the image itself.
 //
 // Quota is PER PHOTO, not per character (one image = one unit of the
 // imagesBalance pool) — a screenshot must never be refused because its
 // recognized text would be "too long for the text plan". Costs are bounded
 // two ways instead: the OCR input is capped (bytes, pixels, line count) and
 // MAX_IMAGE_TEXT_CHARS below stops one image from ever feeding an unbounded
-// prompt to Gemini, so a single image stays ~$0.01-0.02 of Gemini spend.
+// prompt to the model.
 //
 // Two modes:
 //  * topicId given (widget flow) — behaves like /api/translate-voice: reads
-//    the pair from the topic, locks sourceLang/title on the first turn and
-//    persists a translation row so the turn lands in the chat history. The
-//    response still carries the block geometry for the caller.
+//    the pair and the current direction from the topic, sets the title on the
+//    first turn and persists a translation row so the turn lands in the chat
+//    history. The response still carries the block geometry for the caller.
 //  * topicId absent (external-server flow) — stateless: targetLang is
-//    required and the response is the blocks payload only.
+//    required (sourceLang is an optional hint) and the response is the blocks
+//    payload only.
 
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024; // matches sidecar OCR_MAX_BYTES
 const ALLOWED_MIME: Record<string, string> = {
@@ -41,9 +39,9 @@ const ALLOWED_MIME: Record<string, string> = {
   "image/png": "image/png",
   "image/webp": "image/webp",
 };
-// Safety ceiling on what a single image may feed Gemini (~$0.01-0.02 worst
-// case at Flash-Lite output rates). Real screenshots/photos are far below;
-// only a pathological dense image would ever hit it.
+// Safety ceiling on what a single image may feed the model: the whole batch
+// has to fit the window (see lib/llm-limits.ts) on top of the OCR sidecar's
+// own limits. Real screenshots/photos are far below it.
 const MAX_IMAGE_TEXT_CHARS = 12000;
 
 export async function POST(req: NextRequest) {
@@ -55,7 +53,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Anonymous traffic must carry a valid Turnstile pass before anything
-  // reaches the OCR sidecar or Gemini.
+  // reaches the OCR sidecar or the model.
   if (requiresTurnstile(identity) && !hasValidPass(req)) {
     return NextResponse.json({ error: "turnstile_required" }, { status: 403 });
   }
@@ -80,25 +78,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "bad_image" }, { status: 400 });
     }
 
-    // Resolve the pair. A topicId wins (its locked pair decides, exactly like
-    // voice); otherwise the caller must declare targetLang (and may hint
-    // sourceLang) — the stateless mode used by external renderers.
-    let topic: { id: string; ownerKey: string; sourceLang: string | null; targetLang: string; title: string | null } | null = null;
+    // Resolve the direction. A topicId wins (its pair and writeLang decide,
+    // exactly like voice); otherwise the caller must declare targetLang (and
+    // may hint sourceLang) — the stateless mode used by external renderers,
+    // where a photo is translated into a language without any conversation.
+    let topic: { id: string; ownerKey: string; sourceLang: string | null; writeLang: string | null; targetLang: string; title: string | null } | null = null;
     let targetLang = getLanguage(targetLangCode);
     let sourceLang: ReturnType<typeof getLanguage> | null = sourceLangCode ? getLanguage(sourceLangCode) ?? null : null;
-    let lockSource = false; // first turn on a fresh topic: detect + persist source
 
     if (topicId) {
       topic = await prisma.topic.findUnique({ where: { id: topicId } });
       if (!topic || topic.ownerKey !== identity.ownerKey) {
         return NextResponse.json({ error: "topic not found" }, { status: 404 });
       }
-      targetLang = getLanguage(topic.targetLang);
-      sourceLang = topic.sourceLang ? getLanguage(topic.sourceLang) ?? null : null;
-      lockSource = !topic.sourceLang;
-      if (!targetLang) {
-        return NextResponse.json({ error: "server_error" }, { status: 500 });
+      const langA = topic.sourceLang ? getLanguage(topic.sourceLang) : undefined;
+      const langB = getLanguage(topic.targetLang);
+      if (!langA || !langB) {
+        return NextResponse.json({ error: "source_required" }, { status: 400 });
       }
+      const written = topic.writeLang ? getLanguage(topic.writeLang) : undefined;
+      sourceLang = written ?? langA;
+      targetLang = sourceLang.code === langA.code ? langB : langA;
     } else if (!targetLang) {
       return NextResponse.json({ error: "no targetLang" }, { status: 400 });
     }
@@ -133,19 +133,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "text_too_long" }, { status: 413 });
     }
 
-    // Fresh topic, no locked source yet: identify the language once so the
-    // pair locks like it does for a text/voice first message.
-    if (lockSource) {
-      const code = await detectImageTextLanguage(texts);
-      const detected = code ? getLanguage(code) : undefined;
-      if (!detected) {
-        await refundImage(identity);
-        charged = false;
-        return NextResponse.json({ error: "not_recognized" }, { status: 422 });
-      }
-      sourceLang = detected;
-    }
-
+    // The direction is decided before the model is asked (see the pair
+    // resolution above) — there is no detection left to do here, and none is
+    // wanted: a model that has to name the language of a photo AND translate
+    // it does both worse.
     const translations = await translateImageBlocks(targetLang, texts, sourceLang);
     if (translations.every((t) => !t)) {
       // Model returned nothing at all — nothing was translated, refund.
@@ -186,7 +177,7 @@ export async function POST(req: NextRequest) {
       const row = await prisma.translation.create({
         data: {
           topicId: topic.id,
-          sourceLang: (sourceLang?.code ?? topic.sourceLang ?? "und") as string,
+          sourceLang: sourceLang?.code ?? "und",
           transcript,
           translation: translations.join("\n"),
         },
@@ -195,7 +186,6 @@ export async function POST(req: NextRequest) {
         where: { id: topic.id },
         data: {
           lastUsedAt: new Date(),
-          ...(topic.sourceLang || !sourceLang ? {} : { sourceLang: sourceLang.code }),
           ...(topic.title ? {} : { title: transcript.slice(0, 40) }),
         },
       });

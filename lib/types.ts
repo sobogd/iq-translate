@@ -5,6 +5,9 @@ export interface Topic {
   title: string | null;
   sourceLang: string | null;
   targetLang: string;
+  /** Half of the pair the visitor is writing in right now, flipped by the swap
+   *  button; null on rows from before that column existed (= sourceLang). */
+  writeLang?: string | null;
   lastUsedAt: string;
   createdAt: string;
   translationCount?: number;

@@ -33,7 +33,8 @@ Three independent walls, in the order a request meets them:
 
 1. **Rate** — `lib/rate-limit.ts`, keyed on `quotaKey`. Quotas say how much,
    never how fast; without this the free 500 characters could be spent as 500
-   separate Gemini calls, each re-paying the fixed prompt overhead.
+   separate model calls, each re-paying the fixed prompt overhead and each
+   occupying one of the engine's four slots.
 2. **Turnstile** — `lib/turnstile.ts`. Anonymous callers only. One solve buys a
    30-minute pass cookie, HMAC-bound to the request fingerprint with a key
    *derived* from `TS_SECRET`, never `TS_SECRET` itself. The siteverify answer
@@ -42,15 +43,17 @@ Three independent walls, in the order a request meets them:
    concurrent requests can never both pass zero. Charged before the model call,
    refunded (`refundChars` / `refundSeconds`) on every path that fails after.
 
-What the quota does *not* charge for is bounded in `lib/gemini-translate.ts`
-instead: `MAX_OUTPUT_TOKENS` caps the reply (the input is attacker-supplied, so
+What the quota does *not* charge for is bounded in `lib/llm-limits.ts`
+instead: `maxOutputTokens` caps the reply (the input is attacker-supplied, so
 "write as much as you can" is a valid instruction to hide in it) and
 `CONTEXT_MAX_CHARS` caps the recent-turns block that is resent every request.
+The same module keeps a single request inside the model's context window — one
+over-long prompt is a rejected request, not a slow one.
 
 Audio is measured from the WAV container, never from the byte count
-(`lib/wav.ts`), and the mime type handed to Gemini is ours, not the uploader's:
-a small Opus file declaring itself `audio/ogg` used to be charged three seconds
-while carrying ten minutes of speech.
+(`lib/wav.ts`), and the mime type handed to the speech engine is ours, not the
+uploader's: a small Opus file declaring itself `audio/ogg` used to be charged
+three seconds while carrying ten minutes of speech.
 
 ## Billing
 

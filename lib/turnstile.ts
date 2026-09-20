@@ -2,11 +2,11 @@ import crypto from "crypto";
 import { computeFingerprint, parseCookie, type Identity } from "./auth";
 import { SITE_URL } from "./site";
 
-// Cloudflare Turnstile gate for the endpoints that actually spend Gemini
-// tokens (/api/translate, /api/translate-voice). Only anonymous identities
-// are challenged: a signed-in account already has a verified Google identity
-// and a paid/limited pool behind it, while the free anonymous pool is keyed
-// on a fingerprint anyone can rotate by changing IP or User-Agent.
+// Cloudflare Turnstile gate for the endpoints that actually do work
+// (/api/translate, /api/translate-voice, /api/translate-image). Only anonymous
+// identities are challenged: a signed-in account already has a verified Google
+// identity and a paid/limited pool behind it, while the free anonymous pool is
+// keyed on a fingerprint anyone can rotate by changing IP or User-Agent.
 //
 // A Turnstile token is single-use and only valid for ~5 minutes, so solving
 // on every message would put a challenge round-trip in front of every turn

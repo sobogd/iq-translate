@@ -16,15 +16,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { GoogleGenAI, Type } from "@google/genai";
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const MODEL = "gemini-3.5-flash-lite";
-const CONCURRENCY = 6;
+// The generation engine is the same local llama.cpp the app translates with
+// (see docs/local-llm.md) — a batch script has no reason to hold a cloud key.
+const BASE_URL = (process.env.LLM_BASE_URL ?? "http://127.0.0.1:1234").replace(/\/+$/, "");
+const MODEL = process.env.LLM_MODEL ?? "qwen/qwen3.5-9b";
+// The engine has four slots, and every worker occupies one for the whole
+// request, so more workers than slots would only queue inside llama.cpp.
+const CONCURRENCY = 4;
+// A heading batch is short; the ceiling is for the slot, not the text.
+const MAX_TOKENS = 512;
 
 // .env.local is not loaded by plain node the way next does it.
 function loadEnv() {
-  if (process.env.GEMINI_API_KEY) return;
+  if (process.env.LLM_BASE_URL) return;
   const file = path.join(ROOT, ".env.local");
   if (!fs.existsSync(file)) return;
   for (const line of fs.readFileSync(file, "utf8").split("\n")) {
@@ -43,10 +49,13 @@ const SLOTS = [
   "TEXT — typing or pasting instead of speaking. Must contain the text-translation modifier (e.g. 'text translator', 'перевод текста').",
 ];
 
+// JSON Schema the engine compiles into a grammar, so the shape of the answer
+// is guaranteed and the script only has to sanity-check the contents.
 const SCHEMA = {
-  type: Type.OBJECT,
-  properties: { headings: { type: Type.ARRAY, items: { type: Type.STRING } } },
+  type: "object",
+  properties: { headings: { type: "array", items: { type: "string" } } },
   required: ["headings"],
+  additionalProperties: false,
 };
 
 function prompt(pair, content, langNames) {
@@ -71,16 +80,27 @@ ${blocks}
 Return exactly 4 headings, in block order.`;
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 async function headingsFor(pair, content, langNames, attempt = 1) {
   try {
-    const res = await ai.models.generateContent({
-      model: MODEL,
-      contents: prompt(pair, content, langNames),
-      config: { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.9 },
+    const res = await fetch(`${BASE_URL}/v1/chat/completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: "system", content: "You write SEO headings. Answer with a JSON object only." },
+          { role: "user", content: prompt(pair, content, langNames) },
+        ],
+        temperature: 0.9,
+        max_tokens: MAX_TOKENS,
+        reasoning_effort: "none",
+        chat_template_kwargs: { enable_thinking: false },
+        response_format: { type: "json_schema", json_schema: { name: "headings", strict: true, schema: SCHEMA } },
+      }),
     });
-    const out = JSON.parse(res.text).headings;
+    if (!res.ok) throw new Error(`engine answered ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    const body = await res.json();
+    const out = JSON.parse(body.choices?.[0]?.message?.content ?? "{}").headings;
     if (!Array.isArray(out) || out.length !== 4 || out.some((h) => typeof h !== "string" || !h.trim())) {
       throw new Error(`bad shape: ${JSON.stringify(out)?.slice(0, 120)}`);
     }

@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
-import { ArrowUp, BookOpen, ChevronDown, Image as ImageIcon, Loader2, Mic, Plus, Square, Trash2, Type, X } from "lucide-react";
+import { ArrowLeftRight, ArrowUp, BookOpen, ChevronDown, Image as ImageIcon, Loader2, Mic, Plus, Square, Trash2, Type, X } from "lucide-react";
 import { WavRecorder } from "@/lib/recorder";
 import { History } from "@/components/History";
-import { apiFetch } from "@/lib/client";
+import { apiFetch, readSse } from "@/lib/client";
 import type { Topic, TopicDetail } from "@/lib/types";
 import { LANGUAGES, getLanguage } from "@/lib/languages";
 import { Modal } from "./Modal";
@@ -21,7 +21,7 @@ const TO_KEY = "translator_to_lang";
 // How long a remembered pair lives (see PAIR_COOKIE) — same ceiling as the
 // session/locale cookies.
 const PAIR_MAX_AGE = 400 * 86400;
-const rememberPair = (source: string | null, target: string) => {
+const rememberPair = (source: string, target: string) => {
   document.cookie = `${PAIR_COOKIE}=${formatPairCookie(source, target)}; path=/; max-age=${PAIR_MAX_AGE}; samesite=lax`;
 };
 // Last thread the visitor had open, restored on the next visit to the same
@@ -40,6 +40,22 @@ const rememberTopic = (id: string) => {
 // secret half (TS_SECRET) never leaves lib/turnstile.ts.
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TS_SITE ?? null;
 const DEFAULT_TO = "es";
+// The other half of that default. There is no auto-detect any more, so a page
+// that seeds only its target still needs a source to open with: English is the
+// language most visitors need translated, and on the English site itself the
+// pair falls back to DEFAULT_TO so the two halves never collide.
+const DEFAULT_FROM = "en";
+
+// Seed pair of a freshly mounted widget: exactly one half may be missing (a
+// locale home seeds the target only) and the two halves must differ — a pair
+// of one language would make every translation the input. The guessed half is
+// always the source: pages seed the target deliberately, so when the two
+// collide it is the source that moves.
+function seedPair(source: string | null, target: string): { source: string; target: string } {
+  const fallback = target === DEFAULT_FROM ? DEFAULT_TO : DEFAULT_FROM;
+  const from = source && source !== target ? source : fallback;
+  return { source: from, target };
+}
 
 // Every browser on iOS is WebKit (Safari's engine is mandatory there), and
 // WebKit treats the on-screen keyboard as an overlay: it does NOT shrink the
@@ -154,21 +170,14 @@ function matchesQuery(l: { nameRu: string; nameNative: string }, q: string): boo
 // There is no header/close button; a click on the blurred background closes.
 function LanguagePickerModal({
   current,
-  forSource,
   texts,
   onClose,
   onSelect,
 }: {
   current: string | null;
-  /** Only the source picker offers "Auto-detect" — the target always needs
-   *  a concrete language. Both pickers otherwise list every language,
-   *  including whatever's currently selected on the other side — picking a
-   *  colliding pair is resolved by auto-substituting the source with
-   *  auto-detect (see selectSource/selectTarget), not by hiding options. */
-  forSource?: boolean;
   texts: WidgetTexts;
   onClose: () => void;
-  onSelect: (code: string | null) => void;
+  onSelect: (code: string) => void;
 }) {
   const [query, setQuery] = useState("");
   const list = LANGUAGES.filter((l) => matchesQuery(l, query));
@@ -222,19 +231,11 @@ function LanguagePickerModal({
         </button>
       </div>
 
-      {/* Language list — fills the remaining height of the panel */}
+      {/* Language list — fills the remaining height of the panel. Every
+          language is offered in both pickers, including whatever is selected
+          on the other side: a colliding pick swaps the pair instead of being
+          hidden (see selectSource/selectTarget). */}
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-lg bg-[var(--window-bg)] p-2">
-        {forSource && (
-          <button
-            type="button"
-            onClick={() => onSelect(null)}
-            className={`flex w-full items-center px-2 py-2 text-left text-sm transition-colors hover:bg-accent ${
-              current === null ? "font-semibold text-text" : "text-text/80"
-            }`}
-          >
-            {texts.autoDetect}
-          </button>
-        )}
         {ordered.map((l) => (
           <button
             key={l.code}
@@ -268,8 +269,9 @@ export function Translator({
   presetTarget?: string;
   /** Soft default target (locale homes/pricing/legal): initial value only. */
   initialTarget?: string;
-  /** Source half of the pair resolved server-side for pages that need it
-   *  (null = auto-detect). */
+  /** Source half of the pair for pages that seed only a target (locale homes).
+   *  Both halves are always concrete: auto-detect is gone, so a page that
+   *  seeds nothing gets English here and DEFAULT_TO as the target. */
   initialSource?: string | null;
   /** Locale-local pricing path for the out-of-quota error link. */
   pricingHref?: string;
@@ -277,7 +279,10 @@ export function Translator({
   const t = texts.translator;
   // Signed-in visitors are never bot-challenged (see lib/turnstile.ts).
   const { signedIn, quota } = useSession();
-  const [defaultTarget, setDefaultTarget] = useState(presetTarget ?? initialTarget ?? DEFAULT_TO);
+  // Seeded pair, normalised once — the two states below are then edited
+  // independently (and the cookie/localStorage may replace both on mount).
+  const seed = seedPair(presetSource ?? initialSource ?? null, presetTarget ?? initialTarget ?? DEFAULT_TO);
+  const [defaultTarget, setDefaultTarget] = useState(seed.target);
   const [topics, setTopics] = useState<Topic[]>([]);
   // Only pair pages auto-open a thread (the matching one, fetched below);
   // home always starts as a blank draft. A topic only ever lands there once
@@ -285,15 +290,18 @@ export function Translator({
   // translateText/stopRec), so the hero picker never ends up showing some
   // unrelated pair.
   const [topic, setTopic] = useState<TopicDetail | null>(null);
-  // Source language chosen before a topic exists yet — carried into the
-  // topic created on first send. Mirrors topic.sourceLang's semantics
-  // (null = auto-detect).
-  const [draftSourceLang, setDraftSourceLang] = useState<string | null>(presetSource ?? initialSource);
+  // Language the visitor writes in before a topic exists yet — carried into
+  // the topic created on first send, and mirrored by the swap button.
+  const [draftSourceLang, setDraftSourceLang] = useState(seed.source);
   const [loadingTopic, setLoadingTopic] = useState(true);
   const [pickerFor, setPickerFor] = useState<"source" | "target" | null>(null);
   const [topicsOpen, setTopicsOpen] = useState(false);
   const [text, setText] = useState("");
   const [textBusy, setTextBusy] = useState(false);
+  // Turn being generated right now — drawn in the thread while the stream
+  // fills it, and dropped as soon as the stored row arrives (see
+  // translateText/stopRec and the pending prop of History).
+  const [pending, setPending] = useState<{ transcript: string; translation: string } | null>(null);
   const [status, setStatus] = useState<RecStatus>("idle");
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -308,7 +316,7 @@ export function Translator({
   const attachFileRef = useRef<HTMLInputElement>(null);
   const composerIslandRef = useRef<HTMLDivElement>(null);
 
-  // Bot gate in front of the Gemini-spending endpoints. Anonymous visitors
+  // Bot gate in front of the endpoints that occupy the engine. Anonymous
   // only: an account's requests are never challenged server-side, so the
   // widget script isn't even loaded for them.
   const { containerRef: turnstileRef, ensurePass, invalidatePass } = useTurnstileGate(
@@ -328,14 +336,17 @@ export function Translator({
     const stored = parsePairCookie(readCookieValue(PAIR_COOKIE));
     // one-time init from storage, not a render cascade.
     if (stored) {
+      // A cookie written while auto-detect still existed has no source half;
+      // seedPair fills it in rather than leaving the widget without one.
+      const pair = seedPair(stored.source, stored.target);
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setDefaultTarget(stored.target);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setDraftSourceLang(stored.source);
+      setDefaultTarget(pair.target);
+       
+      setDraftSourceLang(pair.source);
       return;
     }
     const saved = localStorage.getItem(TO_KEY);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     if (saved) setDefaultTarget(saved);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -345,10 +356,29 @@ export function Translator({
     if (res.ok) setTopics(await res.json());
   }, []);
 
-  const loadTopic = useCallback(async (id: string) => {
-    const res = await apiFetch(`/api/topics/${id}`);
-    if (res.ok) setTopic(await res.json());
-  }, []);
+  // Opens a thread. A row created while auto-detect still existed can carry no
+  // source language — such a thread is empty by definition (the first
+  // translation is what used to lock the source), so it is quietly given the
+  // pair the visitor has in front of them instead of being shown a picker for
+  // a conversation that never happened.
+  const loadTopic = useCallback(
+    async (id: string) => {
+      const res = await apiFetch(`/api/topics/${id}`);
+      if (!res.ok) return;
+      const loaded = (await res.json()) as TopicDetail;
+      if (loaded.sourceLang) {
+        setTopic(loaded);
+        return;
+      }
+      const fixed = await apiFetch(`/api/topics/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sourceLang: draftSourceLang, targetLang: defaultTarget, writeLang: draftSourceLang }),
+      });
+      setTopic(fixed.ok ? ((await fixed.json()) as TopicDetail) : { ...loaded, sourceLang: draftSourceLang });
+    },
+    [draftSourceLang, defaultTarget],
+  );
 
   // Drops a topic that was created for a send that then failed — without this
   // every failed first attempt left an empty thread behind in the list (see
@@ -431,6 +461,7 @@ export function Translator({
     analytics.track("Click", "Topic switch");
     rememberTopic(id);
     setText("");
+    setPending(null);
     setError(null);
     setLoadingTopic(true);
     await loadTopic(id);
@@ -442,8 +473,8 @@ export function Translator({
   function newTopic() {
     analytics.track("Click", "Topic new");
     setTopic(null);
-    setDraftSourceLang(null);
     setText("");
+    setPending(null);
     setError(null);
   }
 
@@ -465,36 +496,54 @@ export function Translator({
         }
       } else {
         setTopic(null);
-        setDraftSourceLang(null);
       }
     }
   }
 
   // Both pickers list every language, including the one already selected on
-  // the other side — a same-language pair is resolved by falling back the
-  // source to auto-detect (target always stays a concrete language; only
-  // the source can mean "figure it out from the text").
+  // the other side. The two halves of a pair must differ (there is no
+  // auto-detect to fall back on), so picking the language that already sits on
+  // the other side swaps them instead of hiding the option.
+  //
   // Only ever triggered from the hero picker (home) — always resets to a
   // fresh draft, never mutates whatever topic happens to be loaded.
-  function selectSource(code: string | null) {
-    analytics.track("Click", `Language source ${code ?? "auto"}`);
+  function selectSource(code: string) {
+    analytics.track("Click", `Language source ${code}`);
     setPickerFor(null);
     setTopic(null);
-    const next = code !== null && code === defaultTarget ? null : code;
-    rememberPair(next, defaultTarget);
-    setDraftSourceLang(next);
+    if (code === defaultTarget) {
+      setDraftSourceLang(defaultTarget);
+      setDefaultTarget(draftSourceLang);
+      rememberPair(defaultTarget, draftSourceLang);
+      return;
+    }
+    rememberPair(code, defaultTarget);
+    setDraftSourceLang(code);
   }
 
   function selectTarget(code: string) {
     analytics.track("Click", `Language target ${code}`);
     setPickerFor(null);
-    setDefaultTarget(code);
     setTopic(null);
-    // A source colliding with the new target falls back to auto-detect — the
-    // remembered pair has to follow.
-    rememberPair(draftSourceLang === code ? null : draftSourceLang, code);
-    setDraftSourceLang((prev) => (prev === code ? null : prev));
+    if (code === draftSourceLang) {
+      setDraftSourceLang(defaultTarget);
+      setDefaultTarget(draftSourceLang);
+      rememberPair(defaultTarget, draftSourceLang);
+      return;
+    }
+    setDefaultTarget(code);
+    rememberPair(draftSourceLang, code);
   }
+
+  // Direction of the pair the visitor is looking at: the half they write in.
+  // The conversation's A side (topic.sourceLang) never moves — that is what
+  // the chat bubbles align by — while this follows the swap button.
+  const direction = topic ? (topic.writeLang ?? topic.sourceLang ?? draftSourceLang) : draftSourceLang;
+  const directionTarget = topic
+    ? direction === topic.sourceLang
+      ? topic.targetLang
+      : (topic.sourceLang ?? defaultTarget)
+    : defaultTarget;
 
   // Caps at 3 lines: leading-6 (24px) × 3 + the textarea's own py-2.5 (20px).
   // One line is 44px — the resting height of the field — and the island adds
@@ -512,9 +561,39 @@ export function Translator({
   const quotaChars = quota ? quota.chars.toLocaleString() : "–";
 
   // Language pair of whatever is about to be sent, as one locale-stable token
-  // ("es-en", "auto-fr") — the analytics name, never a translated label.
-  const trackPair = () =>
-    `${topic?.sourceLang ?? draftSourceLang ?? "auto"}-${topic?.targetLang ?? defaultTarget}`;
+  // ("es-en") — the analytics name, never a translated label. It follows the
+  // current direction, so a swapped thread reports the swap.
+  const trackPair = () => `${direction}-${directionTarget}`;
+
+  // Swap button between the two language blocks. In a draft it just exchanges
+  // the halves; in a thread it persists the new writing direction on the topic
+  // (writeLang) rather than exchanging sourceLang/targetLang, which would flip
+  // every bubble of the history to the other side.
+  async function swapDirection() {
+    analytics.track("Click", "Language swap");
+    setPickerFor(null);
+    if (!topic) {
+      setDraftSourceLang(directionTarget);
+      setDefaultTarget(direction);
+      rememberPair(directionTarget, direction);
+      return;
+    }
+    const writeLang = directionTarget;
+    // Shown immediately; the PATCH below only has to make it survive a reload.
+    setTopic({ ...topic, writeLang });
+    const res = await apiFetch(`/api/topics/${topic.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ writeLang }),
+    });
+    if (!res.ok) {
+      // Fall back to what the server still believes rather than showing a
+      // direction the next message will not use.
+      setTopic(topic);
+      setError(t.errors.generic);
+    }
+    rememberPair(topic.sourceLang ?? draftSourceLang, topic.targetLang);
+  }
 
   function autosize() {
     const el = taRef.current;
@@ -541,7 +620,7 @@ export function Translator({
       // First send with no topic yet: create one now, carrying over
       // whatever source/target were picked in draft state.
       if (!(await ensurePass())) throw new Error("turnstile_failed");
-      if (!topic) createdId = await createTopic(defaultTarget, draftSourceLang);
+      if (!topic) createdId = await createTopic(directionTarget, direction);
       const topicId = topic?.id ?? (createdId as string);
       const send = () =>
         apiFetch("/api/translate", {
@@ -557,16 +636,42 @@ export function Translator({
         if (!(await ensurePass())) throw new Error("turnstile_failed");
         res = await send();
       }
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "error");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error || "error");
+      }
+
+      // The answer arrives as a stream: the input shows up as its own turn
+      // immediately, the translation fills in token by token. Everything after
+      // the status check is a frame — including a failure, because by then the
+      // response has already started.
+      let failure: string | null = null;
+      let streamed = "";
+      await readSse(res, ({ event, data }) => {
+        const payload = (data ?? {}) as { text?: string; error?: string };
+        if (event === "transcript") {
+          setPending({ transcript: payload.text ?? sent, translation: "" });
+        } else if (event === "delta") {
+          streamed += payload.text ?? "";
+          setPending((prev) => (prev ? { ...prev, translation: streamed } : prev));
+        } else if (event === "error") {
+          failure = payload.error ?? "error";
+        }
+      });
+      if (failure) throw new Error(failure);
+
       setText("");
       requestAnimationFrame(autosize);
       analytics.track("Translate", `Text ${pair}`);
+      // The stored turn replaces the streamed one only once it is really in
+      // the thread, so the text never blinks out between the two.
       await loadTopic(topicId);
+      setPending(null);
       await loadTopics();
       window.dispatchEvent(new Event(QUOTA_EVENT));
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Error";
+      setPending(null);
       if (createdId) await discardTopic(createdId);
       if (msg === "insufficient_credits") setQuotaModal(true);
       else {
@@ -589,7 +694,7 @@ export function Translator({
     let createdId: string | null = null;
     try {
       if (!(await ensurePass())) throw new Error("turnstile_failed");
-      if (!topic) createdId = await createTopic(defaultTarget, draftSourceLang);
+      if (!topic) createdId = await createTopic(directionTarget, direction);
       const topicId = topic?.id ?? (createdId as string);
       const fd = new FormData();
       fd.append("image", file);
@@ -597,7 +702,7 @@ export function Translator({
       // Tell the OCR engine which script it is about to read.
       fd.append(
         "recLang",
-        guessRecLang(topic?.sourceLang ?? draftSourceLang, topic?.targetLang ?? defaultTarget),
+        guessRecLang(direction, directionTarget),
       );
       const send = () => apiFetch("/api/translate-image", { method: "POST", body: fd });
       let res = await send();
@@ -692,7 +797,7 @@ export function Translator({
       const blob = await rec.stop();
       recRef.current = null;
       if (!(await ensurePass())) throw new Error("turnstile_failed");
-      if (!topic) createdId = await createTopic(defaultTarget, draftSourceLang);
+      if (!topic) createdId = await createTopic(directionTarget, direction);
       const topicId = topic?.id ?? (createdId as string);
       const fd = new FormData();
       fd.append("audio", blob, "speech.wav");
@@ -704,14 +809,37 @@ export function Translator({
         if (!(await ensurePass())) throw new Error("turnstile_failed");
         res = await send();
       }
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "error");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error || "error");
+      }
+
+      // Recognising speech and translating it are two engines on the Mac, so
+      // the transcript arrives on its own frame and is shown while the
+      // translation is still being generated.
+      let failure: string | null = null;
+      let streamed = "";
+      await readSse(res, ({ event, data }) => {
+        const payload = (data ?? {}) as { text?: string; error?: string };
+        if (event === "transcript") {
+          setPending({ transcript: payload.text ?? "", translation: "" });
+        } else if (event === "delta") {
+          streamed += payload.text ?? "";
+          setPending((prev) => (prev ? { ...prev, translation: streamed } : prev));
+        } else if (event === "error") {
+          failure = payload.error ?? "error";
+        }
+      });
+      if (failure) throw new Error(failure);
+
       analytics.track("Translate", `Voice ${pair}`);
       await loadTopic(topicId);
+      setPending(null);
       await loadTopics();
       window.dispatchEvent(new Event(QUOTA_EVENT));
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Error";
+      setPending(null);
       // Nothing was transcribed, so the thread this send just opened is empty.
       if (createdId) await discardTopic(createdId);
       if (msg === "insufficient_credits") setQuotaModal(true);
@@ -886,9 +1014,9 @@ export function Translator({
     if (quotaModal) analytics.track("Show", "Quota modal");
   }, [quotaModal]);
 
-  const currentSourceCode = topic ? topic.sourceLang : draftSourceLang;
-  const targetLanguage = useMemo(() => getLanguage(topic?.targetLang ?? defaultTarget), [topic?.targetLang, defaultTarget]);
-  const currentTargetCode = topic?.targetLang ?? defaultTarget;
+  // Both halves of the pair as they are shown in the header: the writing
+  // direction on the left, the language it is translated into on the right.
+  const targetLanguage = useMemo(() => getLanguage(directionTarget), [directionTarget]);
   const rows = topic ? [...topic.translations].reverse() : [];
 
   // History is global across all language pairs: every thread is listed
@@ -1032,10 +1160,10 @@ export function Translator({
     </div>
   );
 
-  const sourceLanguageLabel = currentSourceCode
-    ? (getLanguage(currentSourceCode)?.nameNative ?? currentSourceCode)
-    : t.autoDetect;
-  const targetLanguageLabel = targetLanguage?.nameNative ?? defaultTarget;
+  // Every half is a concrete language now (auto-detect is gone), so both
+  // labels always resolve to a name.
+  const sourceLanguageLabel = getLanguage(direction)?.nameNative ?? direction;
+  const targetLanguageLabel = targetLanguage?.nameNative ?? directionTarget;
 
   // Topic rows — the shared history across every pair. Each topic is a plain
   // row (no card background): just the thread title at text-sm, with the
@@ -1159,10 +1287,10 @@ export function Translator({
         }`}
         style={{ gap: LAYOUT_GAP }}
       >
-        {/* Row 1 — the two languages as separate blocks side by side (no
-            swap icon), each with a header-style chevron on the right of the
-            label hinting at the dropdown. The mobile history toggle keeps
-            its own small block on the left. */}
+        {/* Row 1 — the two languages as separate blocks side by side with the
+            swap button between them, each block carrying a header-style
+            chevron on the right of the label hinting at the dropdown. The
+            mobile history toggle keeps its own small block on the left. */}
         <div className="relative z-10 flex h-12 shrink-0 items-stretch gap-2">
           <button
             type="button"
@@ -1195,6 +1323,20 @@ export function Translator({
                 aria-hidden="true"
               />
             </span>
+          </button>
+          {/* Swap — the direction of the pair, between its two halves: the
+              left block is the language you write in, the right one is what
+              it is translated into. Pressing it exchanges them, which is how
+              the other person in a two-language conversation answers without
+              anyone having to guess the language of a message. */}
+          <button
+            type="button"
+            onClick={() => void swapDirection()}
+            aria-label={t.swapAria}
+            title={t.swapAria}
+            className="flex w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--window-bg)] text-hint transition hover:bg-accent hover:text-text active:scale-90"
+          >
+            <ArrowLeftRight size={16} />
           </button>
           <button
             type="button"
@@ -1233,11 +1375,10 @@ export function Translator({
         >
           {pickerFor ? (
             <LanguagePickerModal
-              current={pickerFor === "source" ? currentSourceCode : currentTargetCode}
-              forSource={pickerFor === "source"}
+              current={pickerFor === "source" ? direction : directionTarget}
               texts={t}
               onClose={() => setPickerFor(null)}
-              onSelect={pickerFor === "source" ? selectSource : (code) => code && selectTarget(code)}
+              onSelect={pickerFor === "source" ? selectSource : selectTarget}
             />
           ) : (
             <div className="flex h-full min-h-0 flex-col">
@@ -1249,6 +1390,17 @@ export function Translator({
                 ) : (
                   <History
                     rows={rows}
+                    pending={
+                      pending
+                        ? {
+                            id: "pending",
+                            sourceLang: direction,
+                            transcript: pending.transcript,
+                            translation: pending.translation,
+                            createdAt: "",
+                          }
+                        : null
+                    }
                     langA={topic?.sourceLang ?? ""}
                     langB={topic?.targetLang ?? ""}
                     texts={texts.history}

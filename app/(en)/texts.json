@@ -332,7 +332,7 @@
   "noTopicsYet": "No translations yet",
   "deleteTopic": "Delete topic",
   "deleteTopicConfirm": "Delete this topic and all its translations?",
-  "autoDetect": "Auto-detect",
+  "swapAria": "Swap languages",
   "chooseLanguage": "Choose a language",
   "close": "Close",
   "searchPlaceholder": "Search a language…",

@@ -6,7 +6,7 @@ PM2 process** (`translator-ocr`) next to the Next.js app and only listens on
 
 Pipeline: **RapidOCR v3** (PP-OCRv5, ONNX Runtime CPU) → det + cls + rec.
 Returns detected text lines with pixel geometry; the Node route
-(`/api/translate-image`) sends only the recognized text to Gemini for
+(`/api/translate-image`) sends only the recognized text to the local model for
 translation and normalizes the boxes to 0..1.
 
 ## Resource limits (why this service can't hurt the other apps on the box)

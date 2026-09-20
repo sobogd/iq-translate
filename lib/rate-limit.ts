@@ -3,8 +3,9 @@
 // Quotas bound how MUCH a visitor can translate; they bound nothing about how
 // fast or how many at a time, so the free 500-character pool could be spent as
 // 500 one-character requests, each paying the fixed prompt overhead again, and
-// nothing stopped an account from holding hundreds of Gemini calls open at
-// once. This is the missing "how often" half.
+// nothing stopped an account from holding hundreds of model calls open at
+// once — and the engine has four slots for the whole site. This is the missing
+// "how often" half.
 //
 // In memory on purpose: the app runs as a single pm2 process (see
 // nginx/translator.conf — one upstream on :8200). A cluster deployment would
