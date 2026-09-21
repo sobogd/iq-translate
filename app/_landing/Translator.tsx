@@ -6,7 +6,7 @@ import { WavRecorder } from "@/lib/recorder";
 import { History } from "@/components/History";
 import { apiFetch, readSse } from "@/lib/client";
 import type { Topic, TopicDetail } from "@/lib/types";
-import { LANGUAGES, getLanguage } from "@/lib/languages";
+import { LANGUAGES, getLanguage, supportsVoice } from "@/lib/languages";
 import { Modal } from "./Modal";
 import { LAYOUT_GAP } from "./desktop/layout";
 import { QUOTA_EVENT, useSession } from "./session";
@@ -1029,6 +1029,12 @@ export function Translator({
   const busyLabel = status === "recording" ? t.recording : status === "processing" ? t.recognizing : (t.imageReading ?? "Reading image…");
   const addLabel = t.add ?? "Add";
   const addImageLabel = t.addImage ?? "Image";
+  // Whether the mic may be offered at all: the spoken half of the pair is the
+  // writing direction, and the speech engine only knows its own list of codes
+  // (lib/languages.ts). For the rest the recording would come back as some
+  // other language with no error to show, so the button is not drawn — typing
+  // and photos still work, those go to the translation model.
+  const voiceAvailable = supportsVoice(direction);
   const micOrSend = status === "recording" ? () => stopRec(false) : showSend ? translateText : startRec;
 
   const composerRow = (
@@ -1121,32 +1127,36 @@ export function Translator({
         />
       )}
       {/* Square CTA — stays a fixed square (never stretches with the field);
-          the input grows on its own. */}
-      <button
-        onClick={() => {
-          setAttachOpen(false);
-          void micOrSend();
-        }}
-        disabled={status === "processing" || imageBusy || (showSend && textBusy)}
-        aria-label={status === "recording" ? t.stopAria : showSend ? t.translateAria : t.recordAria}
-        className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-button font-semibold text-button-text transition-all hover:opacity-90 active:scale-[0.99] disabled:opacity-40 ${
-          status === "recording" ? "animate-pulse-ring" : ""
-        }`}
-      >
-        {status === "processing" || imageBusy ? (
-          <Loader2 className="h-5 w-5 animate-spin" />
-        ) : status === "recording" ? (
-          <Square className="h-4 w-4" fill="currentColor" />
-        ) : showSend ? (
-          textBusy ? (
+          the input grows on its own. With nothing typed and no voice for this
+          language there is no action left to offer, so the button is dropped
+          rather than drawn dead. */}
+      {status === "idle" && !showSend && !voiceAvailable ? null : (
+        <button
+          onClick={() => {
+            setAttachOpen(false);
+            void micOrSend();
+          }}
+          disabled={status === "processing" || imageBusy || (showSend && textBusy)}
+          aria-label={status === "recording" ? t.stopAria : showSend ? t.translateAria : t.recordAria}
+          className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-button font-semibold text-button-text transition-all hover:opacity-90 active:scale-[0.99] disabled:opacity-40 ${
+            status === "recording" ? "animate-pulse-ring" : ""
+          }`}
+        >
+          {status === "processing" || imageBusy ? (
             <Loader2 className="h-5 w-5 animate-spin" />
+          ) : status === "recording" ? (
+            <Square className="h-4 w-4" fill="currentColor" />
+          ) : showSend ? (
+            textBusy ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <ArrowUp className="h-5 w-5" />
+            )
           ) : (
-            <ArrowUp className="h-5 w-5" />
-          )
-        ) : (
-          <Mic className="h-5 w-5" />
-        )}
-      </button>
+            <Mic className="h-5 w-5" />
+          )}
+        </button>
+      )}
       {/* Hidden file input — opened by the "Image" menu item. accept list must
           match the server's ALLOWED_MIME (and 15MB sidecar cap). */}
       <input

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { resolveIdentity, type Identity } from "@/lib/auth";
 import { hasValidPass, requiresTurnstile } from "@/lib/turnstile";
-import { Language, getLanguage } from "@/lib/languages";
+import { Language, getLanguage, whisperCode } from "@/lib/languages";
 import { chargeChars, chargeSeconds, refundChars, refundSeconds } from "@/lib/credits";
 import { transcribe, SttError } from "@/lib/stt";
 import { translateStream, type RecentTurn } from "@/lib/translate";
@@ -68,6 +68,18 @@ export async function POST(req: NextRequest) {
   const sourceLang = written ?? langA;
   const targetLang = sourceLang.code === langA.code ? langB : langA;
 
+  // The spoken half has to be a language the speech engine knows, and it has to
+  // reach the engine under the code the engine files it under (whisper spells
+  // Javanese jw and has no nb — see lib/languages.ts). The widget hides the mic
+  // for everything else, but this route is reachable on its own — a preset pair
+  // from a landing page, a replayed request — and an unknown code is not an
+  // error the engine reports: it quietly transcribes into some other language.
+  // So the refusal belongs here, before a second of audio is charged.
+  const sttLang = whisperCode(sourceLang.code);
+  if (!sttLang) {
+    return NextResponse.json({ error: "voice_unsupported" }, { status: 400 });
+  }
+
   const audioBuf = Buffer.from(await file.arrayBuffer());
   if (audioBuf.length > MAX_AUDIO_BYTES) {
     return NextResponse.json({ error: "audio_too_long" }, { status: 413 });
@@ -100,6 +112,7 @@ export async function POST(req: NextRequest) {
       hasTitle: !!topic.title,
       sourceLang,
       targetLang,
+      sttLang,
       audio: audioBuf,
       seconds: wav.seconds,
       recent,
@@ -123,12 +136,16 @@ async function run(params: {
   hasTitle: boolean;
   sourceLang: Language;
   targetLang: Language;
+  /** Code to hand the speech engine — the app's own code except where the two
+   *  spellings differ (see whisperCode in lib/languages.ts). Never null here:
+   *  the pre-stream half refuses a language the engine does not know. */
+  sttLang: string;
   audio: Buffer;
   seconds: number;
   recent: RecentTurn[];
   signal: AbortSignal;
 }): Promise<void> {
-  const { emit, identity, topicId, hasTitle, sourceLang, targetLang, audio, seconds, recent, signal } = params;
+  const { emit, identity, topicId, hasTitle, sourceLang, targetLang, sttLang, audio, seconds, recent, signal } = params;
   let chargedSeconds = seconds;
   let chargedChars = 0;
   let translation = "";
@@ -141,7 +158,7 @@ async function run(params: {
     // The topic's own language is the hint, and whisper.cpp obeys it either
     // way: a short or noisy recording is exactly where an engine left to guess
     // picks the wrong language, and here there is nothing left to guess.
-    const transcript = await transcribe(audio, sourceLang.code, signal);
+    const transcript = await transcribe(audio, sttLang, signal);
     if (!transcript) {
       await refundSeconds(identity, chargedSeconds);
       emit("error", { error: "not_recognized" });
