@@ -93,7 +93,12 @@ jobs:
             # `-c` — lib/llm-limits.ts derives every request budget from it.
             LLM_BASE_URL="${{ secrets.LLM_BASE_URL || 'http://127.0.0.1:18812' }}"
             LLM_MODEL="${{ secrets.LLM_MODEL || 'qwen/qwen3.5-9b' }}"
-            LLM_CTX="${{ secrets.LLM_CTX || '32768' }}"
+            # 16384, not 32768: the Mac's run-llm.sh moved that server to -c
+            # 16384 (KV cache halved on a 16 GB machine that also runs the
+            # translation engine and whisper). The two numbers are one setting
+            # in two files: a mismatch here means the app sizes requests for a
+            # window the server does not have, and llama.cpp answers 400.
+            LLM_CTX="${{ secrets.LLM_CTX || '16384' }}"
             LLM_REASONING="none"
             LLM_TEMPLATE_KWARGS={"enable_thinking":false}
             # Second engine: TranslateGemma-4B on the same Mac, its own tunnel
@@ -102,13 +107,12 @@ jobs:
             # else stays on the general engine above. MT_CTX matches that
             # server's `-c`, and its request budget is ten times smaller.
             #
-            # MT_BASE_URL is deliberately empty here: the code treats an empty
-            # address as "no translation engine" and sends every pair to the
-            # general one, so this deploy changes nothing a visitor can see.
-            # Turning the routing on is one line below — the address, not a
-            # secret: it is a loopback tunnel port, exactly like LLM_BASE_URL
-            # above — and that is done as a separate deploy.
-            MT_BASE_URL="${{ secrets.MT_BASE_URL || '' }}"
+            # MT_BASE_URL is the address of the translation engine — a loopback
+            # tunnel port, not a secret, exactly like LLM_BASE_URL above. The
+            # code treats an empty address as "no translation engine" and sends
+            # every pair to the general one, so emptying this line is the whole
+            # rollback.
+            MT_BASE_URL="${{ secrets.MT_BASE_URL || 'http://127.0.0.1:18822' }}"
             MT_MODEL="${{ secrets.MT_MODEL || 'translategemma-4b' }}"
             MT_CTX="${{ secrets.MT_CTX || '4096' }}"
             STT_BASE_URL="${{ secrets.STT_BASE_URL || 'http://127.0.0.1:18818' }}"
