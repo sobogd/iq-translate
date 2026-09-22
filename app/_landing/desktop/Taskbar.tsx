@@ -12,9 +12,6 @@ import {
   Monitor,
   Sun,
   Moon,
-  Mic,
-  Type,
-  Image as ImageIcon,
   LogOut,
   ArrowRight,
 } from "lucide-react";
@@ -24,7 +21,6 @@ import { localeSwitchHref } from "@/lib/locale-slug-overrides";
 import { getLanguage } from "@/lib/languages";
 import { defaultLocale, locales, type Locale } from "@/lib/locales";
 import { analytics } from "@/lib/analytics";
-import { apiFetch } from "@/lib/client";
 import { useSession } from "../session";
 import { SignInPanel } from "../SignInPanel";
 import { applyResolvedTheme, getThemeChoice, setThemeChoice, subscribeTheme, type ThemeChoice } from "@/lib/theme";
@@ -52,8 +48,6 @@ const THEME_OPTIONS: { key: ThemeChoice; icon: React.ReactNode }[] = [
   { key: "light", icon: <Sun className="h-4 w-4" /> },
   { key: "dark", icon: <Moon className="h-4 w-4" /> },
 ];
-
-const fmtSeconds = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
 export type MenuKind = "features" | "languages" | "legal" | "theme";
 
@@ -89,11 +83,14 @@ export function Taskbar({
 }) {
   const [openMenu, setOpenMenu] = useState<MenuKind | null>(null);
   const [authOpen, setAuthOpen] = useState(false);
-  const [portalBusy, setPortalBusy] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSub, setMobileSub] = useState<MenuKind | null>(null);
+  // Email of the signed-in account, shown in the account dropdown. Fetched
+  // when the dropdown opens: the header itself only knows the yes/no hint
+  // cookie, and there is no quota endpoint to carry the email any more.
+  const [email, setEmail] = useState<string | null>(null);
 
-  const { signedIn, quota } = useSession();
+  const { signedIn } = useSession();
 
   // The theme choice shown in the header's Theme menu, as an external store so
   // it stays in sync with lib/theme.ts without local state/effects.
@@ -142,23 +139,20 @@ export function Taskbar({
     };
   }, []);
 
-  const isPaid = signedIn && quota?.kind === "account" && quota.plan !== "FREE";
-  const nf = new Intl.NumberFormat(locale);
-
-  async function openPortal() {
-    analytics.track("Click", "Manage subscription");
-    setPortalBusy(true);
-    try {
-      const res = await apiFetch("/api/billing/portal", { method: "POST" });
-      const data = await res.json();
-      if (data.url) {
-        analytics.flush();
-        window.location.href = data.url;
-      }
-    } finally {
-      setPortalBusy(false);
-    }
-  }
+  // Load the account email when the dropdown opens.
+  useEffect(() => {
+    if (!signedIn || !authOpen) return;
+    let alive = true;
+    void fetch("/api/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { email?: string | null } | null) => {
+        if (alive) setEmail(d?.email ?? null);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [signedIn, authOpen]);
 
   async function logout() {
     analytics.track("Click", "Log out");
@@ -348,103 +342,30 @@ export function Taskbar({
     </div>
   );
 
-  const accountContent = (onDone: () => void) =>
-    signedIn ? (
-      <div className="flex w-full flex-col">
-        <div className="flex flex-col gap-1 px-2 pb-2 pt-1">
-          {quota?.email && <p className="truncate text-sm text-hint">{quota.email}</p>}
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span className="text-hint">{accountTexts.planLabel}</span>
-            <span className="font-semibold leading-normal">
-              {isPaid ? (quota?.planName ?? quota?.plan) : accountTexts.freePlan}
-            </span>
-          </div>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span
-              role="img"
-              aria-label={accountTexts.minutesLeft}
-              className="flex items-center text-hint"
-              title={quota ? `${accountTexts.minutesLeft}: ${fmtSeconds(quota.seconds)}` : accountTexts.minutesLeft}
-            >
-              <Mic className="h-3.5 w-3.5" aria-hidden="true" />
-            </span>
-            <span className="font-medium leading-normal tabular-nums">{quota ? fmtSeconds(quota.seconds) : "…"}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span
-              role="img"
-              aria-label={accountTexts.charsLeft}
-              className="flex items-center text-hint"
-              title={quota ? `${accountTexts.charsLeft}: ${nf.format(quota.chars)}` : accountTexts.charsLeft}
-            >
-              <Type className="h-3.5 w-3.5" aria-hidden="true" />
-            </span>
-            <span className="font-medium leading-normal tabular-nums">{quota ? nf.format(quota.chars) : "…"}</span>
-          </div>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span
-              role="img"
-              aria-label={accountTexts.imagesLeft}
-              className="flex items-center text-hint"
-              title={
-                quota
-                  ? `${accountTexts.imagesLeft}: ${typeof quota.images === "number" ? nf.format(quota.images) : "0"}`
-                  : accountTexts.imagesLeft
-              }
-            >
-              <ImageIcon className="h-3.5 w-3.5" aria-hidden="true" />
-            </span>
-            <span className="font-medium leading-normal tabular-nums">
-              {quota ? (typeof quota.images === "number" ? nf.format(quota.images) : "…") : "…"}
-            </span>
-          </div>
-        </div>
-        <div className="my-1 border-t border-border/60" />
-        {isPaid ? (
-          <button
-            type="button"
-            disabled={portalBusy}
-            onClick={() => {
-              closeAll();
-              void openPortal();
-            }}
-            className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm font-medium leading-normal transition-colors hover:bg-accent disabled:opacity-60"
-          >
-            <span className="flex-1">{accountTexts.manageSubscription}</span>
-          </button>
-        ) : (
-          pricingHref && (
-            <Link
-              href={pricingHref}
-              onClick={() => {
-                analytics.track("Click", "Upgrade");
-                analytics.flush();
-                onDone();
-              }}
-              className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-medium leading-normal text-text transition-colors hover:bg-accent"
-            >
-              <span className="flex-1">{accountTexts.upgrade}</span>
-              <ArrowRight className="h-4 w-4 text-hint" />
-            </Link>
-          )
-        )}
-        <button
-          type="button"
-          onClick={() => {
-            closeAll();
-            void logout();
-          }}
-          className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm font-medium leading-normal text-text transition-colors hover:bg-accent"
-        >
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded text-hint">
-            <LogOut className="h-4 w-4" />
-          </span>
-          <span className="flex-1">{texts.logOut}</span>
-        </button>
+  // Signed-in dropdown: whose account it is, and the way out. No plan and no
+  // counters — the service is free and unlimited for everyone.
+  const accountContent = () => (
+    <div className="flex w-full flex-col">
+      <div className="flex flex-col gap-1 px-2 pb-2 pt-1">
+        <span className="text-xs font-medium uppercase tracking-wide text-hint">{accountTexts.title}</span>
+        {email && <p className="truncate text-sm text-hint">{email}</p>}
       </div>
-    ) : (
-      <SignInPanel texts={texts} />
-    );
+      <div className="my-1 border-t border-border/60" />
+      <button
+        type="button"
+        onClick={() => {
+          closeAll();
+          void logout();
+        }}
+        className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm font-medium leading-normal text-text transition-colors hover:bg-accent"
+      >
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded text-hint">
+          <LogOut className="h-4 w-4" />
+        </span>
+        <span className="flex-1">{texts.logOut}</span>
+      </button>
+    </div>
+  );
 
   const submenuTitle = (sub: MenuKind): string => {
     if (sub === "features") return texts.translate;
@@ -609,7 +530,7 @@ export function Taskbar({
             </button>
             {authOpen && (
               <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-lg bg-[var(--taskbar-bg)] p-1.5 shadow-xl">
-                {signedIn ? accountContent(() => setAuthOpen(false)) : <SignInPanel texts={texts} />}
+                {signedIn ? accountContent() : <SignInPanel texts={texts} />}
               </div>
             )}
           </div>

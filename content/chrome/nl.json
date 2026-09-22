@@ -65,7 +65,7 @@
     },
     {
       "title": "Geen registratie nodig",
-      "sub": "Probeer het direct op deze pagina — log alleen in voor een groter maandelijks quotum"
+      "sub": "Probeer het direct op deze pagina — log alleen in om je geschiedenis te bewaren"
     },
     {
       "title": "Geschiedenis per taalpaar",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Wis of verwijder op elk moment",
-          "sub": "Wis de geschiedenis van een gesprek of verwijder het helemaal via het menu"
+          "sub": "Wis de geschiedenis van een paar wanneer je wilt met de prullenbak boven de chat"
         }
       ]
     },
     {
       "heading": "Geen registratie nodig om te starten",
-      "sub": "Probeer het direct op deze pagina — geen account, geen wachtwoord. Log alleen in met Google als je een groter maandelijks quotum wilt en geschiedenis die wordt gesynchroniseerd tussen apparaten.",
+      "sub": "Probeer het direct op deze pagina — geen account, geen wachtwoord. Log alleen in met e-mail, Google of Apple als je je geschiedenis aan een account wilt koppelen in plaats van aan deze browser.",
       "bullets": [
         {
           "title": "Optioneel inloggen met één tik",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Moet ik een account aanmaken?",
-        "a": "Nee. Probeer het direct op deze pagina zonder registratie. Log alleen in met Google als je een groter maandelijks quotum wilt en geschiedenis gesynchroniseerd over apparaten."
+        "a": "Nee. Probeer het direct op deze pagina zonder aanmelding. Log alleen in met e-mail, Google of Apple als je je geschiedenis aan een account wilt koppelen in plaats van aan deze browser."
       },
       {
-        "q": "Wordt mijn vertaalgeschiedenis opgeslagen?",
-        "a": "Ja, per taalpaar, zodat eerdere gesprekken overzichtelijk blijven — zelfs zonder in te loggen wordt je browser onthouden. Wis of verwijder elke gespreksdraad op elk moment via het menu."
+        "q": "Wordt mijn vertaalbgeschiedenis opgeslagen?",
+        "a": "Ja, één geschiedenis per talenpaar — ook zonder inloggen wordt je browser onthouden. Wis de geschiedenis van een paar wanneer je wilt met de prullenbak boven de chat."
       },
       {
         "q": "Kan ik tekst gebruiken in plaats van spraak?",
@@ -255,97 +255,16 @@
     "pairsHeading": "Meer taalcombinaties"
   },
   "account": {
-    "title": "Account",
-    "planLabel": "Abonnement",
-    "freePlan": "Gratis proefperiode",
-    "minutesLeft": "Resterende spraakminuten",
-    "charsLeft": "Resterende tekens",
-    "imagesLeft": "Resterende afbeeldingen",
-    "manageSubscription": "Abonnement beheren",
-    "upgrade": "Upgraden"
+    "title": "Account"
   },
   "pricing": {
     "meta": {
-      "title": "Prijzen – Abonnementen voor Spraak & Tekst | IQ Translate",
-      "description": "Drie eenvoudige maandelijkse abonnementen met spraakminuten en tekstkarakters inbegrepen. Probeer het gratis zonder registratie — geen kaart nodig."
+      "title": "Gratis spraak- en tekstvertaler | IQ Translate",
+      "description": "Gratis spraak- en tekstvertaling, zonder abonnement, limieten en creditcard. Log alleen in als je je geschiedenis aan een account wilt koppelen."
     },
-    "heading": "Eenvoudige maandelijkse",
-    "headingAccent": "prijzen",
-    "sub": "Elk abonnement bevat spraakminuten en tekstkarakters. Probeer het gratis direct op de homepage — geen registratie, geen kaart.",
-    "perMonth": "/mnd",
-    "mostPopular": "Meest gekozen",
-    "cta": "Aan de slag",
     "freeNote": {
-      "title": "Geen gratis abonnement nodig — de homepage zelf is de gratis laag.",
-      "sub": "Vertaal zonder registratie: elke bezoeker krijgt 2 spraakminuten en 4.000 tekens om te proberen, rechtstreeks in de widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 spraakminuten per maand",
-          "1.500.000 tekstkarakters per maand",
-          "Tot 30.000 tekens per aanvraag",
-          "Alle 186 talen",
-          "Opgeslagen gespreksgeschiedenis"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 spraakminuten per maand",
-          "3.000.000 tekstkarakters per maand",
-          "Tot 100.000 tekens per aanvraag",
-          "Alle 186 talen",
-          "Opgeslagen gespreksgeschiedenis",
-          "Prioritaire verwerking"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 spraakminuten per maand",
-          "8.000.000 tekstkarakters per maand",
-          "Tot 150.000 tekens per aanvraag",
-          "Alle 186 talen",
-          "Opgeslagen gespreksgeschiedenis",
-          "Prioritaire verwerking"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Vragen over",
-      "headingAccent": "prijzen",
-      "sub": "Wat mensen vragen voordat ze zich abonneren.",
-      "items": [
-        {
-          "q": "Hoe werken spraakminuten en tekens?",
-          "a": "Spraakminuten dekken het omzetten van je stem naar tekst; tekens dekken het vertalen van tekst (ook bewerkte transcripties). Elk abonnement vult beide maandelijks aan."
-        },
-        {
-          "q": "Wat gebeurt er als ik door mijn limiet heen ben?",
-          "a": "Vertalen wordt gepauzeerd totdat je maandelijkse limiet wordt aangevuld of je upgradet naar een hoger abonnement via het facturatieportaal."
-        },
-        {
-          "q": "Is er een gratis manier om het te proberen?",
-          "a": "Ja — de widget op de homepage werkt zonder registratie: elke bezoeker krijgt 2 spraakminuten en 4.000 tekens."
-        },
-        {
-          "q": "Kan ik op elk moment opzeggen?",
-          "a": "Ja. Beheer of zeg je abonnement op elk moment op via het facturatieportaal — geen langetermijnverplichting."
-        },
-        {
-          "q": "Kan ik later van abonnement wisselen?",
-          "a": "Ja, upgrade of downgrade op elk moment; een nieuw abonnement geeft direct zijn volledige maandelijkse limiet."
-        },
-        {
-          "q": "Bieden jullie jaarlijkse facturatie aan?",
-          "a": "Nog niet — alle abonnementen worden voorlopig maandelijks gefactureerd."
-        }
-      ]
+      "title": "Gratis voor iedereen — geen abonnementen of limieten.",
+      "sub": "Vertaal met spraak of tekst zonder te betalen en zonder maximum. Log alleen in met e-mail, Google of Apple als je je geschiedenis aan een account wilt koppelen."
     },
     "finalCta": {
       "heading": "Nog niet zeker?",
@@ -355,22 +274,13 @@
     }
   },
   "translator": {
-    "topics": "Vertalingen",
-    "newTopic": "Nieuwe vertaling",
-    "noTopicsYet": "Nog geen vertalingen",
-    "deleteTopic": "Onderwerp verwijderen",
-    "deleteTopicConfirm": "Dit onderwerp en alle vertalingen verwijderen?",
     "swapAria": "Talen omwisselen",
-    "chooseLanguage": "Kies een taal",
     "close": "Sluiten",
     "searchPlaceholder": "Zoek een taal…",
     "clearHistory": "Geschiedenis wissen",
     "clearHistoryConfirm": "Alle vertalingen in dit onderwerp wissen?",
-    "noTranslationsYet": "Nog geen vertalingen in dit onderwerp.",
-    "translating": "Bezig met vertalen…",
     "typePlaceholder": "Typ een bericht…",
     "translateAria": "Vertalen",
-    "micDeniedError": "Toegang tot microfoon geweigerd",
     "micBlockedTitle": "Toegang tot de microfoon staat uit",
     "micBlockedDesc": "Je hebt de toegang tot de microfoon geblokkeerd, dus spraakinvoer kan niet werken. Spraakinvoer heeft de microfoon nodig om je spraak op te nemen.",
     "micBlockedHow": "Zo zet je het weer aan: klik op het slot- / site-pictogram in de adresbalk, zet Microfoon op Toestaan en herlaad de pagina. In Safari: Instellingen → Websites → Microfoon → Toestaan. Op iPhone/iPad: Instellingen → Safari → Microfoon → Toestaan.",
@@ -383,10 +293,8 @@
     "recognizing": "Herkennen…",
     "recordAria": "Opnemen",
     "stopAria": "Stoppen",
-    "pricingLink": "Prijzen",
     "errors": {
-      "insufficientCredits": "Quotum verbruikt — upgrade je abonnement",
-      "textTooLong": "Tekst te lang voor je abonnement",
+      "textTooLong": "De tekst is te lang om in één keer te vertalen",
       "turnstileFailed": "Verificatie mislukt — herlaad de pagina en probeer het opnieuw",
       "notRecognized": "Kon dit niet herkennen — probeer het opnieuw",
       "rateLimited": "Te veel verzoeken — wacht even",

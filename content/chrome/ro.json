@@ -65,7 +65,7 @@
     },
     {
       "title": "Fără cont necesar",
-      "sub": "Încearcă chiar pe această pagină — conectează-te doar pentru o cotă lunară mai mare"
+      "sub": "Încercați direct pe această pagină — autentificați-vă doar pentru a păstra istoricul"
     },
     {
       "title": "Istoric pe fiecare pereche de limbi",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Șterge sau elimină oricând",
-          "sub": "Golește istoricul unui subiect sau elimină-l complet din meniu"
+          "sub": "Ștergeți istoricul perechii oricând cu butonul de coș de deasupra chatului"
         }
       ]
     },
     {
       "heading": "Nu ai nevoie de cont pentru a începe",
-      "sub": "Încearcă chiar pe această pagină — fără cont, fără parolă. Conectează-te cu Google doar când vrei o cotă lunară mai mare și istoric sincronizat pe toate dispozitivele.",
+      "sub": "Încercați direct pe această pagină — fără cont și fără parolă. Autentificați-vă cu e-mail, Google sau Apple doar dacă vreți istoricul pe un cont, nu în acest browser.",
       "bullets": [
         {
           "title": "Conectare opțională, dintr-o atingere",
@@ -194,12 +194,12 @@
         "a": "186 de limbi. Alege-ți limba o singură dată, apoi începe un fir de conversație cu oricare altă limbă."
       },
       {
-        "q": "Trebuie să îmi creez un cont?",
-        "a": "Nu. Încearcă chiar pe această pagină, fără cont. Conectează-te cu Google doar dacă vrei o cotă lunară mai mare și istoric sincronizat pe toate dispozitivele."
+        "q": "Trebuie să creez un cont?",
+        "a": "Nu. Încercați direct pe această pagină, fără înregistrare. Autentificați-vă cu e-mail, Google sau Apple doar dacă vreți istoricul pe un cont, nu în acest browser."
       },
       {
-        "q": "Este salvat istoricul traducerilor?",
-        "a": "Da, pe fiecare pereche de limbi, astfel încât conversațiile anterioare rămân organizate — chiar și fără conectare, browserul tău este reținut. Șterge sau elimină orice subiect oricând, din meniul lui."
+        "q": "Se salvează istoricul traducerilor?",
+        "a": "Da, un istoric pentru fiecare pereche de limbi — chiar și fără autentificare browserul este reținut. Ștergeți istoricul perechii oricând cu butonul de coș de deasupra chatului."
       },
       {
         "q": "Pot folosi text în loc de voce?",
@@ -255,97 +255,16 @@
     "pairsHeading": "Alte perechi de limbi"
   },
   "account": {
-    "title": "Cont",
-    "planLabel": "Plan",
-    "freePlan": "Perioadă de probă gratuită",
-    "minutesLeft": "Minute vocale rămase",
-    "charsLeft": "Caractere rămase",
-    "imagesLeft": "Imagini rămase",
-    "manageSubscription": "Gestionează abonamentul",
-    "upgrade": "Upgrade"
+    "title": "Cont"
   },
   "pricing": {
     "meta": {
-      "title": "Prețuri – Planuri de Traducere Vocală și Text | IQ Translate",
-      "description": "Trei planuri lunare simple cu minute vocale și caractere de text incluse. Încearcă gratuit fără cont — nu ai nevoie de card."
+      "title": "Traducător vocal și text gratuit | IQ Translate",
+      "description": "Traducere vocală și text gratuită, fără abonament, fără cote și fără card. Autentificați-vă doar dacă vreți istoricul pe un cont."
     },
-    "heading": "Prețuri lunare",
-    "headingAccent": "simple",
-    "sub": "Fiecare plan include minute vocale și caractere de text. Încearcă gratuit chiar pe pagina principală — fără cont, fără card.",
-    "perMonth": "/lună",
-    "mostPopular": "Cel mai popular",
-    "cta": "Începe",
     "freeNote": {
-      "title": "Nu ai nevoie de un plan gratuit — nivelul gratuit este chiar pagina principală.",
-      "sub": "Traduce fără cont: fiecare vizitator primește 2 minute vocale și 4.000 de caractere pentru a încerca, chiar în widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 de minute vocale pe lună",
-          "1.500.000 de caractere de text pe lună",
-          "Până la 30.000 de caractere per solicitare",
-          "Toate cele 186 de limbi",
-          "Istoric de conversații salvat"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 de minute vocale pe lună",
-          "3.000.000 de caractere de text pe lună",
-          "Până la 100.000 de caractere per solicitare",
-          "Toate cele 186 de limbi",
-          "Istoric de conversații salvat",
-          "Procesare prioritară"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 de minute vocale pe lună",
-          "8.000.000 de caractere de text pe lună",
-          "Până la 150.000 de caractere per solicitare",
-          "Toate cele 186 de limbi",
-          "Istoric de conversații salvat",
-          "Procesare prioritară"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Întrebări despre",
-      "headingAccent": "prețuri",
-      "sub": "Ce întreabă oamenii înainte de a se abona.",
-      "items": [
-        {
-          "q": "Cum funcționează minutele vocale și caracterele?",
-          "a": "Minutele vocale acoperă transformarea vocii tale în text; caracterele acoperă traducerea textului (inclusiv transcrierile editate). Ambele se reînnoiesc în fiecare lună."
-        },
-        {
-          "q": "Ce se întâmplă când se termină?",
-          "a": "Traducerea se oprește până când cota lunară se reînnoiește sau treci la un plan superior din portalul de facturare."
-        },
-        {
-          "q": "Există o modalitate gratuită de a încerca?",
-          "a": "Da — widgetul de pe pagina principală funcționează fără cont: fiecare vizitator primește 2 minute vocale și 4.000 de caractere."
-        },
-        {
-          "q": "Pot anula oricând?",
-          "a": "Da. Gestionează sau anulează abonamentul oricând din portalul de facturare — fără angajament pe termen lung."
-        },
-        {
-          "q": "Pot schimba planul mai târziu?",
-          "a": "Da, treci la un plan superior sau inferior oricând; noul plan primește imediat cota lunară completă."
-        },
-        {
-          "q": "Oferiți facturare anuală?",
-          "a": "Nu încă — toate planurile sunt facturate lunar deocamdată."
-        }
-      ]
+      "title": "Gratuit pentru toți — fără planuri și fără cote.",
+      "sub": "Traduceți vocal sau text fără plată și fără limită de volum. Autentificați-vă cu e-mail, Google sau Apple doar dacă vreți istoricul pe un cont."
     },
     "finalCta": {
       "heading": "Nu ești încă sigur?",
@@ -355,22 +274,13 @@
     }
   },
   "translator": {
-    "topics": "Subiecte",
-    "newTopic": "Subiect nou",
-    "noTopicsYet": "Niciun subiect încă",
-    "deleteTopic": "Șterge subiectul",
-    "deleteTopicConfirm": "Ștergi acest subiect și toate traducerile lui?",
     "swapAria": "Inversați limbile",
-    "chooseLanguage": "Alege o limbă",
     "close": "Închide",
     "searchPlaceholder": "Caută o limbă…",
     "clearHistory": "Șterge istoricul",
     "clearHistoryConfirm": "Ștergi toate traducerile din acest subiect?",
-    "noTranslationsYet": "Nicio traducere încă în acest subiect.",
-    "translating": "Se traduce…",
     "typePlaceholder": "Scrie un mesaj…",
     "translateAria": "Tradu",
-    "micDeniedError": "Acces la microfon refuzat",
     "micBlockedTitle": "Accesul la microfon este oprit",
     "micBlockedDesc": "Ați blocat accesul la microfon, așa că intrarea vocală nu poate funcționa. Intrarea vocală are nevoie de microfon pentru a vă înregistra vocea.",
     "micBlockedHow": "Pentru a-l reactiva: faceți clic pe iconița de lacăt / site din bara de adrese, comutați Microfonul pe Permite, apoi reîncărcați pagina. În Safari: Preferințe → Site-uri web → Microfon → Permite. Pe iPhone/iPad: Setări → Safari → Microfon → Permite.",
@@ -383,10 +293,8 @@
     "recognizing": "Se recunoaște…",
     "recordAria": "Înregistrează",
     "stopAria": "Oprește",
-    "pricingLink": "Prețuri",
     "errors": {
-      "insufficientCredits": "Cotă epuizată — actualizează planul",
-      "textTooLong": "Text prea lung pentru planul tău",
+      "textTooLong": "Textul este prea lung pentru a fi tradus dintr-o dată",
       "turnstileFailed": "Verificarea a eșuat — reîncarcă pagina și încearcă din nou",
       "notRecognized": "Nu a putut fi recunoscut — încearcă din nou",
       "rateLimited": "Prea multe cereri — așteaptă un moment",

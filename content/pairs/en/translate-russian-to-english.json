@@ -13,7 +13,7 @@
     "badgeLanguages": "186 languages",
     "title": "Russian to English translator",
     "titleAccent": "no Cyrillic keyboard required",
-    "description": "You don't need to read Cyrillic to know what was said. Record the sentence or paste the text and the English appears, then answer in English and let it go back in Russian in the same thread.",
+    "description": "You don't need to read Cyrillic to know what was said. Record the sentence or paste the text and the English appears, then answer in English and let it go back in Russian in the same conversation.",
     "mockFromLabel": "🇷🇺 Russian",
     "mockFromPhrase": "Подскажите, где здесь ближайшая аптека?",
     "mockToLabel": "🇬🇧 English",
@@ -45,8 +45,8 @@
           "sub": "Your answer is translated back and can be played aloud for the other person"
         },
         {
-          "title": "Threads that stay",
-          "sub": "Each conversation is saved as a topic and reopens where you left it"
+          "title": "Conversations that stay",
+          "sub": "Each conversation is saved per language pair and reopens where you left it"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Russian out, one thread.",
+        "us": "English in, Russian out, one conversation.",
         "them": "Two separate lookups."
       },
       {
         "title": "History",
-        "us": "Saved as topics you can reopen.",
+        "us": "Saved per language pair you can reopen.",
         "them": "Gone on close."
       },
       {
@@ -132,15 +132,15 @@
       },
       {
         "q": "Can I reply in English and send Russian?",
-        "a": "Yes, the same thread runs both ways and the Russian can be read aloud."
+        "a": "Yes, the same conversation runs both ways and the Russian can be read aloud."
       },
       {
         "q": "Is my history kept?",
-        "a": "Conversations are saved as topics, and you can delete any thread or clear everything whenever you want."
+        "a": "Yes, one history per language pair. Even without signing in, this browser is remembered. Clear a pair's history anytime with the trash button above the chat."
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, with a free allowance available immediately. Signing in with Google raises the monthly quota and syncs your history across devices."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

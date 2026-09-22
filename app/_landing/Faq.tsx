@@ -11,11 +11,11 @@ const DEFAULT_ITEMS: FaqItem[] = [
   },
   {
     q: "Do I need to create an account?",
-    a: "No. Try it right on this page with no sign-up. Sign in with Google only if you want a bigger monthly quota and history synced across devices.",
+    a: "No. Try it right on this page with no sign-up. Sign in with email, Google or Apple only if you want your history attached to an account instead of just this browser.",
   },
   {
     q: "Is my translation history saved?",
-    a: "Yes, per language pair, so past conversations stay organized — even without signing in, your browser is remembered. Clear or delete any thread anytime from its menu.",
+    a: "Yes, one history per language pair — even without signing in, your browser is remembered. Clear a pair's history anytime from the trash button above the chat.",
   },
   {
     q: "Can I use text instead of voice?",

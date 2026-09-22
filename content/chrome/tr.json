@@ -65,7 +65,7 @@
     },
     {
       "title": "Kayıt gerekmez",
-      "sub": "Bu sayfada hemen deneyin — daha yüksek aylık kota için giriş yapın"
+      "sub": "Bu sayfada hemen deneyin — sadece geçmişinizi saklamak için giriş yapın"
     },
     {
       "title": "Dil çiftine göre geçmiş",
@@ -127,13 +127,13 @@
         },
         {
           "title": "İstediğiniz an temizleyin veya silin",
-          "sub": "Bir konuşmanın geçmişini menüden temizleyin ya da tamamen kaldırın"
+          "sub": "Bir çiftin geçmişini sohbetin üstündeki çöp kutusuyla istediğiniz zaman silin"
         }
       ]
     },
     {
       "heading": "Başlamak için kayıt gerekmez",
-      "sub": "Bu sayfada hemen deneyin — hesap yok, şifre yok. Daha yüksek aylık kota ve cihazlar arası senkronize geçmiş için Google ile giriş yapın.",
+      "sub": "Bu sayfada hemen deneyin — hesap yok, şifre yok. Geçmişi bu tarayıcı yerine bir hesapta tutmak istiyorsanız e-posta, Google veya Apple ile giriş yapın.",
       "bullets": [
         {
           "title": "İsteğe bağlı tek dokunuşla giriş",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Hesap oluşturmam gerekiyor mu?",
-        "a": "Hayır. Bu sayfada kayıt olmadan hemen deneyebilirsiniz. Daha yüksek aylık kota ve cihazlar arası senkronize geçmiş için Google ile giriş yapabilirsiniz."
+        "a": "Hayır. Bu sayfada hemen, kaydolmadan deneyin. Geçmişi bu tarayıcı yerine bir hesapta tutmak istiyorsanız e-posta, Google veya Apple ile giriş yapın."
       },
       {
         "q": "Çeviri geçmişim kaydediliyor mu?",
-        "a": "Evet, dil çiftine göre kaydedilir, böylece geçmiş konuşmalar düzenli kalır — giriş yapmasanız bile tarayıcınız hatırlanır. Herhangi bir konuşmayı menüsünden istediğiniz an temizleyebilir veya silebilirsiniz."
+        "a": "Evet, her dil çifti için bir geçmiş — giriş yapmadan bile tarayıcınız hatırlanır. Bir çiftin geçmişini sohbetin üstündeki çöp kutusuyla istediğiniz zaman silin."
       },
       {
         "q": "Ses yerine metin kullanabilir miyim?",
@@ -259,97 +259,16 @@
     "pairsHeading": "Diğer dil çiftleri"
   },
   "account": {
-    "title": "Hesap",
-    "planLabel": "Plan",
-    "freePlan": "Ücretsiz deneme",
-    "minutesLeft": "Kalan sesli dakika",
-    "charsLeft": "Kalan karakter",
-    "imagesLeft": "Kalan görsel",
-    "manageSubscription": "Aboneliği yönet",
-    "upgrade": "Yükselt"
+    "title": "Hesap"
   },
   "pricing": {
     "meta": {
-      "title": "Sesli ve Metin Çeviri Fiyatları | IQ Translate",
-      "description": "Ses dakikaları ve metin karakterleri içeren üç basit aylık plan sunuyoruz. Kayıt olmadan ücretsiz deneyin — kredi kartı bilgisi gerekmez."
+      "title": "Ücretsiz sesli ve metin çeviri | IQ Translate",
+      "description": "Ücretsiz sesli ve metin çeviri; abonelik, kota ve kart yok. Geçmişiniz bir hesaba bağlansın istiyorsanız giriş yapın."
     },
-    "heading": "Basit aylık",
-    "headingAccent": "fiyatlandırma",
-    "sub": "Her plan ses dakikaları ve metin karakterleri içerir. Ana sayfada ücretsiz deneyin — kayıt yok, kart yok.",
-    "perMonth": "/ay",
-    "mostPopular": "En popüler",
-    "cta": "Başlayın",
     "freeNote": {
-      "title": "Ücretsiz plana gerek yok — ücretsiz katman zaten ana sayfanın kendisi.",
-      "sub": "Kayıt olmadan çevirin: her ziyaretçi widget üzerinde denemek için 2 ses dakikası ve 4.000 karakter alır."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "Ayda 250 ses dakikası",
-          "Ayda 1.500.000 metin karakteri",
-          "İstek başına 30.000 karaktere kadar",
-          "186 dilin tamamı",
-          "Kaydedilen konuşma geçmişi"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "Ayda 600 ses dakikası",
-          "Ayda 3.000.000 metin karakteri",
-          "İstek başına 100.000 karaktere kadar",
-          "186 dilin tamamı",
-          "Kaydedilen konuşma geçmişi",
-          "Öncelikli işleme"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "Ayda 1.500 ses dakikası",
-          "Ayda 8.000.000 metin karakteri",
-          "İstek başına 150.000 karaktere kadar",
-          "186 dilin tamamı",
-          "Kaydedilen konuşma geçmişi",
-          "Öncelikli işleme"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Fiyatlandırma",
-      "headingAccent": "soruları",
-      "sub": "İnsanların abone olmadan önce sorduğu sorular.",
-      "items": [
-        {
-          "q": "Ses dakikaları ve karakterler nasıl çalışır?",
-          "a": "Ses dakikaları konuşmanızın metne çevrilmesini kapsar; karakterler metin çevirisini (düzenlenmiş dökümler dahil) kapsar. Her ikisi de her ay yenilenir."
-        },
-        {
-          "q": "Kotam bittiğinde ne olur?",
-          "a": "Aylık kotanız yenilenene veya faturalandırma portalından daha üst bir plana geçene kadar çeviri duraklar."
-        },
-        {
-          "q": "Ücretsiz deneme yolu var mı?",
-          "a": "Evet — ana sayfadaki widget kayıt olmadan çalışır: her ziyaretçi 2 ses dakikası ve 4.000 karakter alır."
-        },
-        {
-          "q": "İstediğim zaman iptal edebilir miyim?",
-          "a": "Evet. Aboneliğinizi faturalandırma portalından istediğiniz zaman yönetin veya iptal edin — uzun vadeli taahhüt yok."
-        },
-        {
-          "q": "Planımı daha sonra değiştirebilir miyim?",
-          "a": "Evet, istediğiniz zaman yükseltin veya düşürün; yeni plan hemen tam aylık kotasını verir."
-        },
-        {
-          "q": "Yıllık faturalandırma sunuyor musunuz?",
-          "a": "Henüz değil — tüm planlar şu an için aylık faturalandırılıyor."
-        }
-      ]
+      "title": "Herkes için ücretsiz — plan yok, kota yok.",
+      "sub": "Sesle veya metinle ödeme yapmadan ve sınır olmadan çevirin. Geçmişinizin bir hesaba bağlanmasını istiyorsanız e-posta, Google veya Apple ile giriş yapın."
     },
     "finalCta": {
       "heading": "Henüz emin değil misiniz?",
@@ -359,22 +278,13 @@
     }
   },
   "translator": {
-    "topics": "Çeviriler",
-    "newTopic": "Yeni çeviri",
-    "noTopicsYet": "Henüz çeviri yok",
-    "deleteTopic": "Konuyu sil",
-    "deleteTopicConfirm": "Bu konu ve tüm çevirileri silinsin mi?",
     "swapAria": "Dilleri değiştir",
-    "chooseLanguage": "Dil seçin",
     "close": "Kapat",
     "searchPlaceholder": "Dil ara…",
     "clearHistory": "Geçmişi temizle",
     "clearHistoryConfirm": "Bu konudaki tüm çeviriler silinsin mi?",
-    "noTranslationsYet": "Bu konuda henüz çeviri yok.",
-    "translating": "Çevriliyor…",
     "typePlaceholder": "Bir mesaj yazın…",
     "translateAria": "Çevir",
-    "micDeniedError": "Mikrofon erişimi reddedildi",
     "micBlockedTitle": "Mikrofon erişimi kapalı",
     "micBlockedDesc": "Mikrofon erişimini engellediniz, bu yüzden sesli giriş çalışamıyor. Sesli giriş, konuşmanızı kaydetmek için mikrofona ihtiyaç duyar.",
     "micBlockedHow": "Yeniden açmak için: adres çubuğundaki kilit / site simgesine tıklayın, Mikrofonu İzin Ver olarak değiştirin, ardından sayfayı yenileyin. Safari'de: Tercihler → Web siteleri → Mikrofon → İzin Ver. iPhone/iPad'de: Ayarlar → Safari → Mikrofon → İzin Ver.",
@@ -387,10 +297,8 @@
     "recognizing": "Tanınıyor…",
     "recordAria": "Kaydet",
     "stopAria": "Durdur",
-    "pricingLink": "Fiyatlandırma",
     "errors": {
-      "insufficientCredits": "Kotanız doldu — planınızı yükseltin",
-      "textTooLong": "Metin planınız için çok uzun",
+      "textTooLong": "Metin tek seferde çevrilemeyecek kadar uzun",
       "turnstileFailed": "Doğrulama başarısız — sayfayı yenileyip tekrar deneyin",
       "notRecognized": "Tanınamadı — tekrar dene",
       "rateLimited": "Çok fazla istek — biraz bekle",

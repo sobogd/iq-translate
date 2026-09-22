@@ -65,7 +65,7 @@
     },
     {
       "title": "Registruotis nereikia",
-      "sub": "Išbandykite tiesiai šiame puslapyje — prisijunkite tik norėdami atnaujinti planą"
+      "sub": "Išbandykite tiesiog šiame puslapyje — prisijunkite tik istorijai išsaugoti"
     },
     {
       "title": "Kiekvienos kalbų poros istorija",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Išvalykite arba ištrinkite bet kada",
-          "sub": "Ištrinkite gijos istoriją arba pašalinkite ją visiškai iš meniu"
+          "sub": "Išvalykite poros istoriją bet kada šiukšliadėžės mygtuku virš pokalbio"
         }
       ]
     },
     {
       "heading": "Registruotis pradžioje nereikia",
-      "sub": "Išbandykite tiesiai šiame puslapyje — be paskyros, be slaptažodžio. Prisijunkite su Google tik tada, kai norėsite didesnės mėnesinės kvotos ir istorijos, sinchronizuotos tarp įrenginių.",
+      "sub": "Išbandykite tiesiog šiame puslapyje — be paskyros ir slaptažodžio. Prisijunkite el. paštu, Google ar Apple tik jei norite istorijos paskyroje, o ne šioje naršyklėje.",
       "bullets": [
         {
           "title": "Neprivalomas prisijungimas vienu palietimu",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Ar reikia susikurti paskyrą?",
-        "a": "Ne. Išbandykite tiesiai šiame puslapyje be registracijos. Prisijunkite su Google tik jei norite didesnės mėnesinės kvotos ir istorijos, sinchronizuotos tarp įrenginių."
+        "a": "Ne. Išbandykite tiesiog šiame puslapyje be registracijos. Prisijunkite el. paštu, Google ar Apple tik jei norite istorijos paskyroje, o ne šioje naršyklėje."
       },
       {
-        "q": "Ar mano vertimų istorija išsaugoma?",
-        "a": "Taip, kiekvienai kalbų porai atskirai, todėl ankstesni pokalbiai lieka sutvarkyti — net neprisijungę, jūsų naršyklė prisimenama. Bet kada išvalykite arba ištrinkite bet kurią giją iš jos meniu."
+        "q": "Ar išsaugoma vertimų istorija?",
+        "a": "Taip, po vieną istoriją kiekvienai kalbų porai — net neprisijungus naršyklė atpažįstama. Išvalykite poros istoriją bet kada šiukšliadėžės mygtuku virš pokalbio."
       },
       {
         "q": "Ar galiu naudoti tekstą vietoj balso?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Daugiau kalbų porų"
   },
   "account": {
-    "title": "Paskyra",
-    "planLabel": "Planas",
-    "freePlan": "Nemokamas bandomasis laikotarpis",
-    "minutesLeft": "Likusios balso minutės",
-    "charsLeft": "Likę simboliai",
-    "imagesLeft": "Likusios nuotraukos",
-    "manageSubscription": "Tvarkyti prenumeratą",
-    "upgrade": "Atnaujinti"
+    "title": "Paskyra"
   },
   "pricing": {
     "meta": {
-      "title": "Kainos — Balso ir Teksto Vertimo Planai | IQ Translate",
-      "description": "Trys paprasti mėnesiniai planai su balso minutėmis ir teksto simboliais. Išbandykite nemokamai be registracijos — kortelė nereikalinga."
+      "title": "Nemokamas balso ir teksto vertėjas | IQ Translate",
+      "description": "Nemokamas balso ir teksto vertimas, be prenumeratos, limitų ir kortelės. Prisijunkite tik jei norite istorijos paskyroje."
     },
-    "heading": "Paprastos mėnesinės",
-    "headingAccent": "kainos",
-    "sub": "Kiekviename plane yra balso minučių ir teksto simbolių. Išbandykite nemokamai tiesiai pagrindiniame puslapyje — be registracijos, be kortelės.",
-    "perMonth": "/mėn.",
-    "mostPopular": "Populiariausias",
-    "cta": "Pradėti",
     "freeNote": {
-      "title": "Nemokamo plano nereikia — nemokamas lygis yra pats pagrindinis puslapis.",
-      "sub": "Verskite be registracijos: kiekvienas lankytojas gauna 2 balso minutes ir 4 000 simbolių išbandymui, tiesiai valdiklyje."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 balso minučių per mėnesį",
-          "1 500 000 teksto simbolių per mėnesį",
-          "Iki 30 000 simbolių per užklausą",
-          "Visos 186 kalbos",
-          "Išsaugota pokalbių istorija"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 balso minučių per mėnesį",
-          "3 000 000 teksto simbolių per mėnesį",
-          "Iki 100 000 simbolių per užklausą",
-          "Visos 186 kalbos",
-          "Išsaugota pokalbių istorija",
-          "Prioritetinis apdorojimas"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 balso minučių per mėnesį",
-          "8 000 000 teksto simbolių per mėnesį",
-          "Iki 150 000 simbolių per užklausą",
-          "Visos 186 kalbos",
-          "Išsaugota pokalbių istorija",
-          "Prioritetinis apdorojimas"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Kainų",
-      "headingAccent": "klausimai",
-      "sub": "Ką žmonės klausia prieš užsiprenumeruodami.",
-      "items": [
-        {
-          "q": "Kaip veikia balso minutės ir simboliai?",
-          "a": "Balso minutės skirtos jūsų kalbai paversti tekstu; simboliai — teksto vertimui (įskaitant redaguotus nuorašus). Kiekvienas planas abu limitus atnaujina kas mėnesį."
-        },
-        {
-          "q": "Kas atsitinka, kai limitas baigiasi?",
-          "a": "Vertimas pristabdomas, kol atsinaujins mėnesinis limitas arba kol pereisite prie aukštesnio plano per atsiskaitymų portalą."
-        },
-        {
-          "q": "Ar yra nemokamas būdas išbandyti?",
-          "a": "Taip — pagrindinio puslapio valdiklis veikia be jokios registracijos: kiekvienam lankytojui suteikiama 2 balso minutės ir 4 000 simbolių."
-        },
-        {
-          "q": "Ar galiu bet kada atsisakyti?",
-          "a": "Taip. Valdykite arba atšaukite prenumeratą bet kada per atsiskaitymų portalą — jokių ilgalaikių įsipareigojimų."
-        },
-        {
-          "q": "Ar galiu vėliau pakeisti planą?",
-          "a": "Taip, bet kada padidinkite ar sumažinkite planą; naujas planas iš karto suteikia visą mėnesio limitą."
-        },
-        {
-          "q": "Ar siūlote metinį atsiskaitymą?",
-          "a": "Kol kas ne — visi planai šiuo metu apmokestinami mėnesiui."
-        }
-      ]
+      "title": "Nemokama visiems — be planų ir limitų.",
+      "sub": "Verskite balsu ar tekstu nemokamai ir be apimties apribojimų. Prisijunkite el. paštu, Google ar Apple tik jei norite istorijos paskyroje."
     },
     "finalCta": {
       "heading": "Dar neapsisprendėte?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Vertimai",
-    "newTopic": "Naujas vertimas",
-    "noTopicsYet": "Kol kas nėra vertimų",
-    "deleteTopic": "Ištrinti temą",
-    "deleteTopicConfirm": "Ištrinti šią temą ir visus jos vertimus?",
     "swapAria": "Sukeisti kalbas",
-    "chooseLanguage": "Pasirinkite kalbą",
     "close": "Uždaryti",
     "searchPlaceholder": "Ieškoti kalbos…",
     "clearHistory": "Išvalyti istoriją",
     "clearHistoryConfirm": "Išvalyti visus šios temos vertimus?",
-    "noTranslationsYet": "Šioje temoje kol kas nėra vertimų.",
-    "translating": "Verčiama…",
     "typePlaceholder": "Rašykite žinutę…",
     "translateAria": "Versti",
-    "micDeniedError": "Prieiga prie mikrofono uždrausta",
     "micBlockedTitle": "Mikrofono prieiga išjungta",
     "micBlockedDesc": "Užblokavai mikrofono prieigą, todėl balso įvestis negali veikti. Balso įvesčiai reikia mikrofono, kad įrašytų tavo kalbą.",
     "micBlockedHow": "Norėdamas vėl jį įjungti: adresų juostoje spustelėk spynos / svetainės piktogramą, perjunk Mikrofonas į Leisti, tada perkrauk puslapį. Safari: Nuostatos → Svetainės → Mikrofonas → Leisti. iPhone/iPad: Nustatymai → Safari → Mikrofonas → Leisti.",
@@ -371,10 +281,8 @@
     "recognizing": "Atpažįstama…",
     "recordAria": "Įrašyti",
     "stopAria": "Sustabdyti",
-    "pricingLink": "Kainos",
     "errors": {
-      "insufficientCredits": "Kvota išnaudota — atnaujinkite planą",
-      "textTooLong": "Tekstas per ilgas jūsų planui",
+      "textTooLong": "Tekstas per ilgas, kad būtų išverstas vienu kartu",
       "turnstileFailed": "Patikra nepavyko — perkraukite puslapį ir bandykite dar kartą",
       "notRecognized": "Nepavyko atpažinti — bandyk dar kartą",
       "rateLimited": "Per daug užklausų — palauk akimirką",

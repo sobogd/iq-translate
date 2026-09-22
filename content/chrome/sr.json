@@ -65,7 +65,7 @@
     },
     {
       "title": "Bez registracije",
-      "sub": "Isprobajte odmah na ovoj stranici – prijava samo kada nadograđujete plan"
+      "sub": "Isprobajte odmah na ovoj stranici — prijavite se samo da sačuvate istoriju"
     },
     {
       "title": "Istorija po jezičkom paru",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Obrišite kad god želite",
-          "sub": "Očistite istoriju teme ili je uklonite u potpunosti iz menija"
+          "sub": "Obrišite istoriju para bilo kada dugmetom korpe iznad razgovora"
         }
       ]
     },
     {
       "heading": "Nije potrebna registracija za početak",
-      "sub": "Isprobajte odmah na ovoj stranici – bez naloga, bez lozinke. Prijavite se preko Google-a samo kada želite veći mesečni limit i istoriju sinhronizovanu na svim uređajima.",
+      "sub": "Isprobajte odmah na ovoj stranici — bez naloga i lozinke. Prijavite se imejlom, Google-om ili Apple-om samo ako želite istoriju na nalogu, a ne u ovom pregledaču.",
       "bullets": [
         {
           "title": "Opciona prijava jednim dodirom",
@@ -194,12 +194,12 @@
         "a": "186 jezika. Izaberite svoj jezik jednom, pa započnite temu razgovora sa bilo kojim drugim jezikom."
       },
       {
-        "q": "Da li moram da napravim nalog?",
-        "a": "Ne. Isprobajte direktno na ovoj stranici bez registracije. Prijavite se preko Google-a samo ako želite veći mesečni limit i istoriju sinhronizovanu na svim uređajima."
+        "q": "Treba li da napravim nalog?",
+        "a": "Ne. Isprobajte odmah na ovoj stranici bez registracije. Prijavite se imejlom, Google-om ili Apple-om samo ako želite istoriju na nalogu, a ne u ovom pregledaču."
       },
       {
-        "q": "Da li se čuva istorija mojih prevoda?",
-        "a": "Da, po jezičkom paru, tako da prethodni razgovori ostaju organizovani – čak i bez prijave, vaš pregledač se pamti. Obrišite bilo koju temu kad god želite, iz njenog menija."
+        "q": "Da li se čuva istorija prevoda?",
+        "a": "Da, jedna istorija za svaki jezički par — čak i bez prijave pregledač se pamti. Obrišite istoriju para bilo kada dugmetom korpe iznad razgovora."
       },
       {
         "q": "Mogu li da koristim tekst umesto glasa?",
@@ -255,97 +255,16 @@
     "pairsHeading": "Više jezičkih parova"
   },
   "account": {
-    "title": "Nalog",
-    "planLabel": "Plan",
-    "freePlan": "Besplatan probni period",
-    "minutesLeft": "Preostalih glasovnih minuta",
-    "charsLeft": "Preostalih karaktera",
-    "imagesLeft": "Preostalih slika",
-    "manageSubscription": "Upravljanje pretplatom",
-    "upgrade": "Nadogradi"
+    "title": "Nalog"
   },
   "pricing": {
     "meta": {
-      "title": "Cene glasovnog i tekstualnog prevoda | IQ Translate",
-      "description": "Tri jednostavna mesečna plana sa uključenim minutima govora i karakterima teksta. Isprobajte besplatno bez registracije — kartica nije potrebna."
+      "title": "Besplatan glasovni i tekstualni prevodilac | IQ Translate",
+      "description": "Besplatan glasovni i tekstualni prevod, bez pretplate, kvota i kartice. Prijavite se samo ako želite istoriju na nalogu."
     },
-    "heading": "Jednostavne mesečne",
-    "headingAccent": "cene",
-    "sub": "Svaki plan uključuje minute govora i karaktere teksta. Isprobajte besplatno direktno na početnoj strani – bez registracije, bez kartice.",
-    "perMonth": "/mes.",
-    "mostPopular": "Najpopularniji",
-    "cta": "Započni",
     "freeNote": {
-      "title": "Besplatan plan nije ni potreban — besplatan nivo je sama početna stranica.",
-      "sub": "Prevodite bez registracije: svaki posetilac dobija 2 minuta govora i 4.000 karaktera za probu, direktno u vidžetu."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minuta govora mesečno",
-          "1.500.000 karaktera teksta mesečno",
-          "Do 30.000 karaktera po zahtevu",
-          "Svih 186 jezika",
-          "Sačuvana istorija razgovora"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minuta govora mesečno",
-          "3.000.000 karaktera teksta mesečno",
-          "Do 100.000 karaktera po zahtevu",
-          "Svih 186 jezika",
-          "Sačuvana istorija razgovora",
-          "Prioritetna obrada"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 minuta govora mesečno",
-          "8.000.000 karaktera teksta mesečno",
-          "Do 150.000 karaktera po zahtevu",
-          "Svih 186 jezika",
-          "Sačuvana istorija razgovora",
-          "Prioritetna obrada"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Pitanja o",
-      "headingAccent": "cenama",
-      "sub": "Šta ljudi pitaju pre pretplate.",
-      "items": [
-        {
-          "q": "Kako funkcionišu minuti govora i karakteri?",
-          "a": "Minuti govora pokrivaju pretvaranje vašeg govora u tekst; karakteri pokrivaju prevod teksta (uključujući izmenjene transkripte). Svaki plan oba limita obnavlja mesečno."
-        },
-        {
-          "q": "Šta se dešava kada mi ponestane?",
-          "a": "Prevođenje se pauzira dok se mesečni limit ne obnovi ili dok ne nadogradite na viši plan preko portala za naplatu."
-        },
-        {
-          "q": "Postoji li besplatan način da probam?",
-          "a": "Da — vidžet na početnoj stranici radi bez ikakve registracije: svaki posetilac dobija 2 minuta govora i 4.000 karaktera."
-        },
-        {
-          "q": "Mogu li da otkažem u bilo kom trenutku?",
-          "a": "Da. Upravljajte ili otkažite pretplatu u bilo kom trenutku preko portala za naplatu — bez dugoročnih obaveza."
-        },
-        {
-          "q": "Mogu li kasnije da promenim plan?",
-          "a": "Da, nadogradite ili smanjite plan kad god želite; novi plan odmah dobija pun mesečni limit."
-        },
-        {
-          "q": "Da li nudite godišnju naplatu?",
-          "a": "Još ne — svi planovi se za sada naplaćuju mesečno."
-        }
-      ]
+      "title": "Besplatno za sve — bez paketa i kvota.",
+      "sub": "Prevodite glasom ili tekstom bez plaćanja i bez ograničenja. Prijavite se imejlom, Google-om ili Apple-om samo ako želite istoriju na nalogu."
     },
     "finalCta": {
       "heading": "Još niste sigurni?",
@@ -355,22 +274,13 @@
     }
   },
   "translator": {
-    "topics": "Prevodi",
-    "newTopic": "Nov prevod",
-    "noTopicsYet": "Još nema prevoda",
-    "deleteTopic": "Obriši temu",
-    "deleteTopicConfirm": "Obrisati ovu temu i sve njene prevode?",
     "swapAria": "Замени језике",
-    "chooseLanguage": "Izaberite jezik",
     "close": "Zatvori",
     "searchPlaceholder": "Pretraži jezik…",
     "clearHistory": "Obriši istoriju",
     "clearHistoryConfirm": "Obrisati sve prevode u ovoj temi?",
-    "noTranslationsYet": "Još nema prevoda u ovoj temi.",
-    "translating": "Prevođenje…",
     "typePlaceholder": "Unesite poruku…",
     "translateAria": "Prevedi",
-    "micDeniedError": "Pristup mikrofonu odbijen",
     "micBlockedTitle": "Pristup mikrofonu je isključen",
     "micBlockedDesc": "Blokirali ste pristup mikrofonu, pa glasovni unos ne može da radi. Glasovni unos treba mikrofon za snimanje vašeg govora.",
     "micBlockedHow": "Da biste ga ponovo uključili: kliknite na ikonu lokota / sajta u adresnoj traci, promenite Mikrofon na Dozvoli, a zatim ponovo učitajte stranicu. U Safariju: Podešavanja → Veb-sajtovi → Mikrofon → Dozvoli. Na iPhone/iPad-u: Podešavanja → Safari → Mikrofon → Dozvoli.",
@@ -383,10 +293,8 @@
     "recognizing": "Prepoznavanje…",
     "recordAria": "Snimi",
     "stopAria": "Zaustavi",
-    "pricingLink": "Cene",
     "errors": {
-      "insufficientCredits": "Mesečni limit je iskorišćen – nadogradite plan",
-      "textTooLong": "Tekst je predugačak za vaš plan",
+      "textTooLong": "Tekst je predugačak za prevod odjednom",
       "turnstileFailed": "Provera nije uspela — osvežite stranicu i pokušajte ponovo",
       "notRecognized": "Nije moguće prepoznati — pokušaj ponovo",
       "rateLimited": "Previše zahteva — sačekaj trenutak",

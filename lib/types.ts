@@ -1,16 +1,27 @@
 export type Lang = string; // ISO 639-1 code
 
-export interface Topic {
+// One conversation per language pair. The pair is canonical (sourceLang is the
+// lexicographically smaller code) and writeLang is the half the visitor is
+// writing in now — flipped by the swap button, never by reordering the pair
+// (see prisma/schema.prisma, Conversation).
+export interface Conversation {
   id: string;
-  title: string | null;
-  sourceLang: string | null;
+  sourceLang: string;
   targetLang: string;
-  /** Half of the pair the visitor is writing in right now, flipped by the swap
-   *  button; null on rows from before that column existed (= sourceLang). */
-  writeLang?: string | null;
+  writeLang: string;
   lastUsedAt: string;
   createdAt: string;
-  translationCount?: number;
+}
+
+// What GET /api/conversation returns: the stored row plus its turns, or — when
+// the pair has no history yet — a synthetic row with a null id and no turns.
+// The row itself is created only once something is actually sent.
+export interface ConversationDetail {
+  id: string | null;
+  sourceLang: string;
+  targetLang: string;
+  writeLang: string;
+  translations: HistoryRow[];
 }
 
 export interface HistoryRow {
@@ -18,32 +29,5 @@ export interface HistoryRow {
   sourceLang: string;
   transcript: string;
   translation: string;
-  /** Photo translation: relative URL of the composed result image. */
-  imageUrl?: string | null;
   createdAt: string;
-}
-
-export interface TopicDetail extends Topic {
-  translations: HistoryRow[];
-}
-
-// Remaining free/plan quota for the current visitor, as returned by
-// GET /api/quota. Anonymous visitors are keyed by request fingerprint, signed-in
-// ones by their account email (see lib/credits.ts).
-export interface Quota {
-  kind: "anonymous" | "account";
-  email?: string;
-  plan: string;
-  planName?: string | null;
-  /** Raw subscription state ("ACTIVE" | "PAST_DUE" | ...). `plan` above is the
-   *  ENTITLED plan, which reads FREE while a payment is failing. */
-  subscriptionStatus?: string;
-  chars: number;
-  seconds: number;
-  /** Photo translations left (per-image quota, not characters). */
-  images?: number;
-  /** Opens the admin traffic screens in the account modal. Server-decided
-   *  (ANALYTICS_ADMIN_EMAILS) — the endpoints re-check it, this only paints
-   *  the button. */
-  isAdmin?: boolean;
 }

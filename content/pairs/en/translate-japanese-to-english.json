@@ -42,11 +42,11 @@
       "bullets": [
         {
           "title": "Both directions",
-          "sub": "Japanese in, English out, English in, Japanese out, one thread"
+          "sub": "Japanese in, English out, English in, Japanese out, one conversation"
         },
         {
-          "title": "Threads that stay",
-          "sub": "Each conversation is saved as a topic to continue later"
+          "title": "Conversations that stay",
+          "sub": "Each conversation is saved per language pair to continue later"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Japanese out, same thread.",
+        "us": "English in, Japanese out, same conversation.",
         "them": "Start over the other way."
       },
       {
         "title": "History",
-        "us": "Saved as topics.",
+        "us": "Saved per language pair.",
         "them": "Nothing kept."
       },
       {
@@ -132,15 +132,15 @@
       },
       {
         "q": "Can I answer in English?",
-        "a": "Yes, your reply is translated into Japanese in the same thread and can be read aloud."
+        "a": "Yes, your reply is translated into Japanese in the same conversation and can be read aloud."
       },
       {
         "q": "Is my history saved?",
-        "a": "Conversations are kept as topics you can reopen, delete individually or clear completely."
+        "a": "Yes, one history per language pair. Even without signing in, this browser is remembered. Clear a pair's history anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "Yes, a free allowance is available without an account, and signing in with Google raises the monthly quota and syncs your history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

@@ -58,16 +58,11 @@ export interface TranslatorTexts {
     errNotAllowed?: string;
     errGeneric?: string;
   };
-  // The header's account modal (signed-in) / quota badge labels.
+  // Label of the account dropdown (the signed-in visitor's email and a way
+  // out); the header's signed-in/out button itself uses header.account /
+  // header.signIn.
   account: {
     title: string;
-    planLabel: string;
-    freePlan: string;
-    minutesLeft: string;
-    charsLeft: string;
-    imagesLeft: string;
-    manageSubscription: string;
-    upgrade: string;
   };
   hero: {
     badgeVoice: string;
@@ -113,41 +108,28 @@ export interface TranslatorTexts {
     pairsHeading: string;
     featureLinks: { routeKey: string; label: string }[];
   };
-  // The /pricing page, localized. Quota numbers live inside the translated
-  // feature strings (agents write them from lib/plans.ts facts).
+  // The /pricing page, localized. There is nothing to price any more: the
+  // page states that the service is free, so only the free note and the
+  // closing CTA are rendered.
   pricing: {
     meta: { title: string; description: string };
-    heading: string;
-    headingAccent: string;
-    sub: string;
-    perMonth: string;
-    mostPopular: string;
-    cta: string;
     freeNote: { title: string; sub: string };
-    plans: { id: string; name: string; features: string[] }[];
-    faq: { heading: string; headingAccent: string; sub: string; items: FaqItem[] };
     finalCta: { heading: string; headingAccent: string; sub: string; ctaLabel: string };
   };
   translator: {
-    topics: string;
-    newTopic: string;
-    noTopicsYet: string;
-    deleteTopic: string;
-    deleteTopicConfirm: string;
     /** Swap button between the two language blocks (the writing direction).
      *  Replaced `autoDetect` in every locale when language detection was
      *  dropped from the product. */
     swapAria: string;
-    chooseLanguage: string;
     close: string;
     searchPlaceholder: string;
+    /** Clears the current language pair's history (the trash button above the
+     *  chat). There is one conversation per pair, so there is no list to open
+     *  any more. */
     clearHistory: string;
     clearHistoryConfirm: string;
-    noTranslationsYet: string;
-    translating: string;
     typePlaceholder: string;
     translateAria: string;
-    micDeniedError: string;
     /** Mic-failure copy, split by cause so a failed getUserMedia can say WHAT
      *  went wrong instead of folding every cause into one "denied" string.
      *  See classifyMicError() in Translator.tsx. */
@@ -163,15 +145,7 @@ export interface TranslatorTexts {
     recognizing: string;
     recordAria: string;
     stopAria: string;
-    pricingLink: string;
-    /** "Add" trigger that opens the attachment context menu (composer).
-     *  Optional: locales without the translated key fall back to English —
-     *  same policy as the taskbar chrome keys. */
-    add?: string;
-    addImage?: string;
-    imageReading?: string;
     errors: {
-      insufficientCredits: string;
       textTooLong: string;
       turnstileFailed: string;
       notRecognized: string;

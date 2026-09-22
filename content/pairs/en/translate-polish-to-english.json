@@ -46,7 +46,7 @@
         },
         {
           "title": "Conversations kept",
-          "sub": "Each thread is saved as a topic so a later reply lands in context"
+          "sub": "Each thread is saved per language pair so a later reply lands in context"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Polish out, one thread.",
+        "us": "English in, Polish out, one conversation.",
         "them": "Separate translation each way."
       },
       {
         "title": "History",
-        "us": "Kept as topics you can reopen.",
+        "us": "Kept per language pair you can reopen.",
         "them": "Nothing saved."
       },
       {
@@ -136,11 +136,11 @@
       },
       {
         "q": "Are conversations saved?",
-        "a": "Each one is stored as a topic you can reopen, delete individually or clear entirely."
+        "a": "Yes, one history per language pair. It stays saved, and you can clear it anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "There is a free allowance you can use straight away, and signing in with Google gives a larger monthly quota and synced history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

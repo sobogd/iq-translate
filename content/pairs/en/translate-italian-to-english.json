@@ -41,11 +41,11 @@
       "sub": "Your English reply goes out in Italian and can be played out loud.",
       "bullets": [
         {
-          "title": "Two directions, one thread",
+          "title": "Two directions, one conversation",
           "sub": "Italian in, English out, then back again without setting anything up"
         },
         {
-          "title": "Kept as a topic",
+          "title": "Kept per language pair",
           "sub": "Reopen the same conversation next time instead of starting over"
         }
       ]
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Italian out, same thread.",
+        "us": "English in, Italian out, same conversation.",
         "them": "A separate translation each way."
       },
       {
         "title": "History",
-        "us": "Saved as topics you can reopen.",
+        "us": "Saved per language pair you can reopen.",
         "them": "Cleared on close."
       },
       {
@@ -136,11 +136,11 @@
       },
       {
         "q": "Are my conversations saved?",
-        "a": "Each one is kept as a topic you can reopen, and you can delete a thread or clear everything at any time."
+        "a": "Yes, one history per language pair. It stays saved, and you can clear it anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "There is a free allowance to try right away without an account; signing in with Google raises the monthly quota and syncs history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

@@ -38,15 +38,15 @@
     },
     {
       "heading": "French to English conversation translator",
-      "sub": "Your English answer goes out in French, in the same thread, and can be played aloud.",
+      "sub": "Your English answer goes out in French, in the same conversation, and can be played aloud.",
       "bullets": [
         {
-          "title": "One thread, both directions",
+          "title": "One conversation, both directions",
           "sub": "French in and English out, then the other way round, without starting again"
         },
         {
           "title": "Picked up where you left it",
-          "sub": "Conversations are saved as topics, so a follow-up tomorrow keeps its context"
+          "sub": "Conversations are saved per language pair, so a follow-up tomorrow keeps its context"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Answering back",
-        "us": "Reply in English, it goes out in French in the same thread.",
+        "us": "Reply in English, it goes out in French in the same conversation.",
         "them": "A second, separate translation."
       },
       {
         "title": "History",
-        "us": "Every French conversation is kept as its own topic.",
+        "us": "Every French conversation is kept per language pair.",
         "them": "Gone when the tab closes."
       },
       {
@@ -140,7 +140,7 @@
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, with a free allowance you can use immediately and without an account. Sign in with Google for a larger monthly quota and synced history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

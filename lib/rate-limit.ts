@@ -1,11 +1,9 @@
-// Fixed-window limiter shared by the endpoints that cost money to serve.
+// Fixed-window limiter shared by the endpoints that occupy the translation
+// engine.
 //
-// Quotas bound how MUCH a visitor can translate; they bound nothing about how
-// fast or how many at a time, so the free 500-character pool could be spent as
-// 500 one-character requests, each paying the fixed prompt overhead again, and
-// nothing stopped an account from holding hundreds of model calls open at
-// once — and the engine has four slots for the whole site. This is the missing
-// "how often" half.
+// Everything is free and unmetered, so this is the only wall against one caller
+// holding hundreds of model calls open at once — and the engine has four slots
+// for the whole site. It bounds how OFTEN, never how much.
 //
 // In memory on purpose: the app runs as a single pm2 process (see
 // nginx/translator.conf — one upstream on :8200). A cluster deployment would
@@ -29,15 +27,10 @@ export const RULES = {
   // A person types one message at a time; the burst covers a retry plus the
   // voice leg landing next to a text one.
   translate: { burst: 5, burstMs: 10_000, sustained: 60, sustainedMs: 300_000 },
-  // Topics are free to create and were unlimited — the cheapest way to grow
-  // the database from the outside.
+  // Opening a pair's history row is cheap, but it is still a write.
   topic: { burst: 5, burstMs: 10_000, sustained: 40, sustainedMs: 3_600_000 },
   // One solve per 30-minute pass in normal use.
   turnstile: { burst: 5, burstMs: 10_000, sustained: 40, sustainedMs: 600_000 },
-  // Several Stripe API round trips per call.
-  checkout: { burst: 3, burstMs: 10_000, sustained: 20, sustainedMs: 3_600_000 },
-  // The header polls this every 10s per open tab; a few tabs are normal.
-  quota: { burst: 8, burstMs: 5_000, sustained: 200, sustainedMs: 600_000 },
   // Same shape as the iq-rest throttle on the analytics ingest route.
   ingest: { burst: 10, burstMs: 1_000, sustained: 200, sustainedMs: 60_000 },
 } satisfies Record<string, Rule>;

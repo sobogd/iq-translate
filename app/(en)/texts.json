@@ -52,7 +52,7 @@
   "titleAccent": "for any conversation",
   "description": "Speak naturally and get an instant translation, spoken or written, in 186 languages. No sign-up required to try it.",
   "ctaTry": "Try it now — free",
-  "ctaSignIn": "Sign in with Google",
+  "ctaSignIn": "Sign in",
   "mockFromLabel": "🇪🇸 Spanish",
   "mockFromPhrase": "Hola, ¿cómo estás?",
   "mockToLabel": "🇬🇧 English",
@@ -65,7 +65,7 @@
   },
   {
    "title": "No sign-up needed",
-   "sub": "Try it right on this page — sign in only when you upgrade"
+   "sub": "Try it right on this page — sign in only to keep your history"
   },
   {
    "title": "History per language pair",
@@ -127,13 +127,13 @@
     },
     {
      "title": "Clear or delete anytime",
-     "sub": "Wipe a thread's history or remove it entirely from the menu"
+     "sub": "Clear a pair's history anytime with the trash button above the chat"
     }
    ]
   },
   {
    "heading": "No sign-up required to start",
-   "sub": "Try it right on this page — no account, no password. Sign in with Google only when you want a bigger monthly quota and history synced across devices.",
+   "sub": "Try it right on this page — no account, no password. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser.",
    "bullets": [
     {
      "title": "Optional one-tap sign-in",
@@ -195,11 +195,11 @@
    },
    {
     "q": "Do I need to create an account?",
-    "a": "No. Try it right on this page with no sign-up. Sign in with Google only if you want a bigger monthly quota and history synced across devices."
+    "a": "No. Try it right on this page with no sign-up. Sign in with email, Google or Apple only if you want your history attached to an account instead of just this browser."
    },
    {
     "q": "Is my translation history saved?",
-    "a": "Yes, per language pair, so past conversations stay organized — even without signing in, your browser is remembered. Clear or delete any thread anytime from its menu."
+    "a": "Yes, one history per language pair — even without signing in, your browser is remembered. Clear a pair's history anytime from the trash button above the chat."
    },
    {
     "q": "Can I use text instead of voice?",
@@ -327,22 +327,13 @@
   "pairsHeading": "More language pairs"
  },
  "translator": {
-  "topics": "Translations",
-  "newTopic": "New translation",
-  "noTopicsYet": "No translations yet",
-  "deleteTopic": "Delete topic",
-  "deleteTopicConfirm": "Delete this topic and all its translations?",
   "swapAria": "Swap languages",
-  "chooseLanguage": "Choose a language",
   "close": "Close",
   "searchPlaceholder": "Search a language…",
   "clearHistory": "Clear history",
-  "clearHistoryConfirm": "Clear all translations in this topic?",
-  "noTranslationsYet": "No translations yet in this topic.",
-  "translating": "Translating…",
+  "clearHistoryConfirm": "Clear all translations for this language pair?",
   "typePlaceholder": "Type a message…",
   "translateAria": "Translate",
-  "micDeniedError": "Microphone access denied",
   "micBlockedTitle": "Microphone access is off",
   "micBlockedDesc": "You've blocked microphone access, so voice input can't work. Voice input needs the microphone to record your speech.",
   "micBlockedHow": "To turn it back on: click the lock / site icon in the address bar, switch Microphone to Allow, then reload the page. On Safari: Preferences → Websites → Microphone → Allow. On iPhone/iPad: Settings → Safari → Microphone → Allow.",
@@ -355,18 +346,13 @@
   "recognizing": "Recognizing…",
   "recordAria": "Record",
   "stopAria": "Stop",
-  "pricingLink": "Pricing",
   "errors": {
-   "insufficientCredits": "Quota used up — upgrade your plan",
-   "textTooLong": "Text too long for your plan",
+   "textTooLong": "Text is too long to translate in one go",
    "turnstileFailed": "Verification failed — reload the page and try again",
    "notRecognized": "Couldn't recognise that — please try again",
    "rateLimited": "Too many requests — wait a moment and try again",
    "generic": "Something went wrong — please try again"
-  },
-  "add": "Add",
-  "addImage": "Image",
-  "imageReading": "Reading image…"
+  }
  },
  "history": {
   "emptyState": "Speak or type in any language — we will build the conversation for you.",
@@ -374,101 +360,20 @@
   "copyAria": "Copy"
  },
  "account": {
-  "title": "Account",
-  "planLabel": "Plan",
-  "freePlan": "Free trial",
-  "minutesLeft": "Voice minutes left",
-  "charsLeft": "Characters left",
-  "imagesLeft": "Photo translations left",
-  "manageSubscription": "Manage subscription",
-  "upgrade": "Upgrade"
+  "title": "Account"
  },
  "pricing": {
   "meta": {
-   "title": "Pricing — Voice & Text Translation Plans | IQ Translate",
-   "description": "Three simple monthly plans with voice minutes and text characters included. Try it free without signing up — no card required."
+   "title": "Pricing — Free Voice & Text Translation | IQ Translate",
+   "description": "IQ Translate is free: voice and text translation with no subscription, no quota and no card. Sign in only if you want your history attached to an account."
   },
-  "heading": "Simple monthly",
-  "headingAccent": "pricing",
-  "sub": "Every plan includes voice minutes and text characters. Try it free right on the homepage — no sign-up, no card.",
-  "perMonth": "/mo",
-  "mostPopular": "Most popular",
-  "cta": "Get started",
   "freeNote": {
-   "title": "No free plan needed — the free tier is the homepage itself.",
-   "sub": "Translate without signing up: every visitor gets 2 voice minutes and 4,000 characters to try, right in the widget."
-  },
-  "plans": [
-   {
-    "id": "STARTER",
-    "name": "Starter",
-    "features": [
-     "250 voice minutes per month",
-     "1,500,000 text characters per month",
-     "Up to 30,000 characters per request",
-     "All 186 languages",
-     "Saved conversation history"
-    ]
-   },
-   {
-    "id": "PRO",
-    "name": "Pro",
-    "features": [
-     "600 voice minutes per month",
-     "3,000,000 text characters per month",
-     "Up to 100,000 characters per request",
-     "All 186 languages",
-     "Saved conversation history",
-     "Priority processing"
-    ]
-   },
-   {
-    "id": "ULTIMATE",
-    "name": "Ultimate",
-    "features": [
-     "1,500 voice minutes per month",
-     "8,000,000 text characters per month",
-     "Up to 150,000 characters per request",
-     "All 186 languages",
-     "Saved conversation history",
-     "Priority processing"
-    ]
-   }
-  ],
-  "faq": {
-   "heading": "Pricing",
-   "headingAccent": "questions",
-   "sub": "What people ask before subscribing.",
-   "items": [
-    {
-     "q": "How do voice minutes and characters work?",
-     "a": "Voice minutes cover turning your speech into text; characters cover translating text (including edited transcripts). Each plan refills both every month."
-    },
-    {
-     "q": "What happens when I run out?",
-     "a": "Translation pauses until your monthly quota refills or you upgrade to a higher plan from the billing portal."
-    },
-    {
-     "q": "Is there a free way to try it?",
-     "a": "Yes — the homepage widget works without any sign-up: 2 voice minutes and 4,000 characters are included for every visitor."
-    },
-    {
-     "q": "Can I cancel anytime?",
-     "a": "Yes. Manage or cancel your subscription anytime from the billing portal — no long-term commitment."
-    },
-    {
-     "q": "Can I change plans later?",
-     "a": "Yes, upgrade or downgrade anytime; a new plan grants its full monthly quota immediately."
-    },
-    {
-     "q": "Do you offer yearly billing?",
-     "a": "Not yet — all plans are billed monthly for now."
-    }
-   ]
+   "title": "Free for everyone — no plans, no quotas.",
+   "sub": "Translate by voice or text without paying and without a cap on how much. Sign in with email, Google or Apple only if you want your history tied to an account instead of this browser."
   },
   "finalCta": {
    "heading": "Not sure yet?",
-   "headingAccent": "Try it free first.",
+   "headingAccent": "Try it — it's free.",
    "sub": "No sign-up required — go back to the homepage and translate right away.",
    "ctaLabel": "Try it now"
   }

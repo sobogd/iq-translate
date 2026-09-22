@@ -1,7 +1,0 @@
-# OCR sidecar. Python >=3.10,<3.13 (onnxruntime wheels).
-# rapidocr bundles the OCR pipeline; onnxruntime is the CPU inference engine.
-rapidocr>=3.8.1,<4.0
-onnxruntime>=1.19
-fastapi>=0.115
-uvicorn>=0.30
-Pillow>=10.0

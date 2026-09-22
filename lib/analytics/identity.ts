@@ -111,7 +111,7 @@ export async function resolveTopicId(email: string | null, topicId: string | nul
   const cached = get(topics, key);
   if (cached !== undefined) return cached ? topicId : null;
 
-  const row = await prisma.topic.findFirst({
+  const row = await prisma.conversation.findFirst({
     where: { id: topicId, ownerKey: email },
     select: { id: true },
   });

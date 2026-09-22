@@ -41,15 +41,10 @@ export type TaskbarTexts = {
   errGeneric: string;
 };
 
+// Label of the signed-in account dropdown. The service is free and has no
+// plan, quota or subscription, so the only thing left to render is the heading.
 export type AccountTexts = {
   title: string;
-  planLabel: string;
-  freePlan: string;
-  minutesLeft: string;
-  charsLeft: string;
-  imagesLeft: string;
-  manageSubscription: string;
-  upgrade: string;
 };
 
 export const DEFAULT_TEXTS: TaskbarTexts = {
@@ -90,13 +85,6 @@ export const DEFAULT_TEXTS: TaskbarTexts = {
 
 export const DEFAULT_ACCOUNT_TEXTS: AccountTexts = {
   title: "Account",
-  planLabel: "Plan",
-  freePlan: "Free trial",
-  minutesLeft: "Voice minutes left",
-  charsLeft: "Characters left",
-  imagesLeft: "Photo translations left",
-  manageSubscription: "Manage subscription",
-  upgrade: "Upgrade",
 };
 
 /** Merges a locale's header copy over the English fallbacks, so the taskbar

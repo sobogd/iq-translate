@@ -33,10 +33,10 @@ const Q_MAX_UTM = 256;
 // want: reset on a real document load, kept across soft navigations.
 let documentCtxSent = false;
 
-/** Collect visit attribution (?from=, search referrer, colour scheme) and the
- *  Stripe return marker, then strip the ENTIRE query string so a reload does
- *  not re-send them. Must run before any other tracking on the page. */
-function collectCtxAndCleanUrl(): { ctx?: TrackCtx; billing: string | null } {
+/** Collect visit attribution (?from=, search referrer, colour scheme), then
+ *  strip the ENTIRE query string so a reload does not re-send it. Must run
+ *  before any other tracking on the page. */
+function collectCtxAndCleanUrl(): { ctx?: TrackCtx } {
   const ctx: TrackCtx = {};
   const sp = new URLSearchParams(window.location.search);
 
@@ -63,10 +63,6 @@ function collectCtxAndCleanUrl(): { ctx?: TrackCtx; billing: string | null } {
     ctx.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
-  // Where Stripe Checkout dropped the visitor back (app/api/billing/checkout).
-  const raw = sp.get("billing");
-  const billing = raw === "success" || raw === "canceled" ? raw : null;
-
   if ([...sp.keys()].length > 0) {
     // Preserve the existing state object. Passing a fresh {} overwrites the App
     // Router's internal history state, and Back onto this entry then finds
@@ -77,7 +73,7 @@ function collectCtxAndCleanUrl(): { ctx?: TrackCtx; billing: string | null } {
       window.location.pathname + window.location.hash,
     );
   }
-  return { ctx: Object.keys(ctx).length > 0 ? ctx : undefined, billing };
+  return { ctx: Object.keys(ctx).length > 0 ? ctx : undefined };
 }
 
 /** A `?from=` or an allowlisted click-id / utm_* param only ever comes from a
@@ -230,7 +226,7 @@ export function PageTracker({ page }: { page: string }) {
     analytics.setPage(toPageLabel(page));
     analytics.setLocale(document.documentElement.lang || "");
 
-    const { ctx, billing } = collectCtxAndCleanUrl();
+    const { ctx } = collectCtxAndCleanUrl();
     const attribution = ctx && (!documentCtxSent || hasFreshAttribution(ctx)) ? ctx : undefined;
     documentCtxSent = true;
     // The pageview carries the attribution ctx — the server applies it to the
@@ -238,7 +234,6 @@ export function PageTracker({ page }: { page: string }) {
     // quick bounce would lose the whole visit, and the response carries the
     // visit token every later batch wants.
     analytics.track("Show", "Pageview", attribution, { instant: true });
-    if (billing) analytics.track("Show", billing === "success" ? "Checkout success" : "Checkout canceled");
 
     const scroll = createScrollTracker();
     scroll.begin();

@@ -38,15 +38,15 @@
     },
     {
       "heading": "Spanish to English conversation translator",
-      "sub": "Type or say your reply in English and it goes out in Spanish, in the same thread.",
+      "sub": "Type or say your reply in English and it goes out in Spanish, in the same conversation.",
       "bullets": [
         {
           "title": "Both directions, one conversation",
           "sub": "Spanish in, English out, English in, Spanish out — nothing to flip or restart"
         },
         {
-          "title": "Threads you can reopen",
-          "sub": "The exchange stays saved as a topic, so tomorrow's message lands in the same place"
+          "title": "Conversations you can reopen",
+          "sub": "The exchange stays saved per language pair, so tomorrow's message lands in the same place"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "Answer in English, it goes out in Spanish in the same thread.",
+        "us": "Answer in English, it goes out in Spanish in the same conversation.",
         "them": "Start a second translation the other way round."
       },
       {
         "title": "Keeping the conversation",
-        "us": "Every exchange is saved as its own topic.",
+        "us": "Every exchange is saved per language pair.",
         "them": "Cleared the moment you close the tab."
       },
       {
@@ -132,15 +132,15 @@
       },
       {
         "q": "Can I reply in English and have it sent in Spanish?",
-        "a": "Yes. The same thread works both ways: your English is translated into Spanish and can be read aloud for the other person."
+        "a": "Yes. The same conversation works both ways: your English is translated into Spanish and can be read aloud for the other person."
       },
       {
         "q": "Is my Spanish conversation saved?",
-        "a": "Each conversation is kept as a topic you can reopen, and you can delete any thread or clear the whole history whenever you like."
+        "a": "Yes, one history per language pair. It stays saved, and you can clear it anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "Yes, there is a free allowance you can use straight away without an account. Signing in with Google raises the monthly quota and syncs your history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

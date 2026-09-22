@@ -12,6 +12,7 @@ import {
 } from "@/lib/auth";
 import { SIGNED_IN_COOKIE } from "@/lib/cookies";
 import { trackServerEvent } from "@/lib/analytics/server-event";
+import { mergeAnonymousHistory } from "@/lib/merge-conversations";
 
 export const runtime = "nodejs";
 
@@ -86,6 +87,12 @@ export async function GET(req: Request) {
       name: "Google",
     });
 
+    // Hand the pre-sign-in anonymous history to the account. Best-effort: a
+    // merge failure must not fail the sign-in itself.
+    await mergeAnonymousHistory(req, email).catch((err) => {
+      console.error("[auth] anonymous history merge failed", err);
+    });
+
     const res = NextResponse.redirect(new URL("/", origin), 302);
     res.cookies.set(STATE_COOKIE, "", { path: "/", maxAge: 0 });
     res.cookies.set(SESSION_COOKIE, token, {
@@ -97,7 +104,7 @@ export async function GET(req: Request) {
     });
     // Readable-by-JS twin of the session cookie: carries no credential, only
     // the yes/no the prerendered header needs to paint "Account" instead of
-    // "Sign in" before /api/quota answers (see app/_landing/session.tsx).
+    // "Sign in" on the first frame (see app/_landing/session.tsx).
     res.cookies.set(SIGNED_IN_COOKIE, "1", {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",

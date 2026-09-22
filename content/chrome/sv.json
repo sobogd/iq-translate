@@ -65,7 +65,7 @@
     },
     {
       "title": "Ingen registrering krävs",
-      "sub": "Prova direkt på den här sidan — logga in bara för en större månatlig kvot"
+      "sub": "Prova direkt på den här sidan — logga in bara för att spara din historik"
     },
     {
       "title": "Historik per språkpar",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Rensa eller ta bort när som helst",
-          "sub": "Rensa en tråds historik eller ta bort den helt från menyn"
+          "sub": "Rensa ett språkpars historik när som helst med papperskorgen ovanför chatten"
         }
       ]
     },
     {
       "heading": "Ingen registrering krävs för att börja",
-      "sub": "Prova direkt på den här sidan — inget konto, inget lösenord. Logga in med Google bara när du vill ha en större månatlig kvot och historik synkad mellan enheter.",
+      "sub": "Prova direkt på den här sidan — inget konto, inget lösenord. Logga in med e-post, Google eller Apple bara om du vill ha historiken på ett konto i stället för i den här webbläsaren.",
       "bullets": [
         {
           "title": "Valfri inloggning med ett tryck",
@@ -194,12 +194,12 @@
         "a": "186 språk. Välj ditt eget språk en gång och starta sedan en samtalstråd med vem som helst."
       },
       {
-        "q": "Behöver jag skapa ett konto?",
-        "a": "Nej. Prova direkt på den här sidan utan registrering. Logga in med Google bara om du vill ha en större månatlig kvot och historik synkad mellan enheter."
+        "q": "Måste jag skapa ett konto?",
+        "a": "Nej. Prova direkt på den här sidan utan registrering. Logga bara in med e-post, Google eller Apple om du vill ha historiken på ett konto i stället för i den här webbläsaren."
       },
       {
         "q": "Sparas min översättningshistorik?",
-        "a": "Ja, per språkpar, så tidigare samtal hålls organiserade — även utan inloggning känns din webbläsare igen. Rensa eller ta bort valfri tråd när som helst från dess meny."
+        "a": "Ja, en historik per språkpar — även utan inloggning kommer din webbläsare ihåg. Rensa ett språkpars historik när som helst med papperskorgen ovanför chatten."
       },
       {
         "q": "Kan jag använda text istället för röst?",
@@ -259,97 +259,16 @@
     "pairsHeading": "Fler språkpar"
   },
   "account": {
-    "title": "Konto",
-    "planLabel": "Plan",
-    "freePlan": "Gratis provperiod",
-    "minutesLeft": "Röstminuter kvar",
-    "charsLeft": "Tecken kvar",
-    "imagesLeft": "Bilder kvar",
-    "manageSubscription": "Hantera abonnemang",
-    "upgrade": "Uppgradera"
+    "title": "Konto"
   },
   "pricing": {
     "meta": {
-      "title": "Priser – Planer för Röst & Text | IQ Translate",
-      "description": "Tre enkla månadsabonnemang med röstminuter och textecken ingår, för alla 186 språk. Prova gratis direkt utan registrering — inget kort krävs."
+      "title": "Gratis tal- och textöversättare | IQ Translate",
+      "description": "Gratis tal- och textöversättning, utan abonnemang, kvoter och kort. Logga in bara om du vill ha historiken på ett konto."
     },
-    "heading": "Enkla månatliga",
-    "headingAccent": "priser",
-    "sub": "Varje plan inkluderar röstminuter och textecken. Prova gratis direkt på startsidan — ingen registrering, inget kort.",
-    "perMonth": "/mån",
-    "mostPopular": "Mest populär",
-    "cta": "Kom igång",
     "freeNote": {
-      "title": "Ingen gratisplan behövs — startsidan är själva gratisnivån.",
-      "sub": "Översätt utan registrering: varje besökare får 2 röstminuter och 4 000 tecken att prova, direkt i widgeten."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 röstminuter per månad",
-          "1 500 000 textecken per månad",
-          "Upp till 30 000 tecken per förfrågan",
-          "Alla 186 språk",
-          "Sparad samtalshistorik"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 röstminuter per månad",
-          "3 000 000 textecken per månad",
-          "Upp till 100 000 tecken per förfrågan",
-          "Alla 186 språk",
-          "Sparad samtalshistorik",
-          "Prioriterad bearbetning"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 röstminuter per månad",
-          "8 000 000 textecken per månad",
-          "Upp till 150 000 tecken per förfrågan",
-          "Alla 186 språk",
-          "Sparad samtalshistorik",
-          "Prioriterad bearbetning"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Frågor om",
-      "headingAccent": "priser",
-      "sub": "Det folk undrar innan de prenumererar.",
-      "items": [
-        {
-          "q": "Hur fungerar röstminuter och tecken?",
-          "a": "Röstminuter täcker omvandlingen av ditt tal till text; tecken täcker översättning av text (inklusive redigerade transkript). Varje plan fyller på båda varje månad."
-        },
-        {
-          "q": "Vad händer när jag har använt allt?",
-          "a": "Översättningen pausas tills din månatliga kvot fylls på eller du uppgraderar till en högre plan från faktureringsportalen."
-        },
-        {
-          "q": "Finns det ett gratis sätt att prova?",
-          "a": "Ja — startsidans widget fungerar utan registrering: 2 röstminuter och 4 000 tecken ingår för varje besökare."
-        },
-        {
-          "q": "Kan jag avbryta när som helst?",
-          "a": "Ja. Hantera eller avbryt din prenumeration när som helst från faktureringsportalen — inget långsiktigt åtagande."
-        },
-        {
-          "q": "Kan jag byta plan senare?",
-          "a": "Ja, uppgradera eller nedgradera när som helst; en ny plan ger sin fulla månatliga kvot direkt."
-        },
-        {
-          "q": "Erbjuder ni årlig fakturering?",
-          "a": "Inte än — alla planer faktureras månadsvis tills vidare."
-        }
-      ]
+      "title": "Gratis för alla — inga abonnemang, inga kvoter.",
+      "sub": "Översätt med tal eller text utan att betala och utan tak. Logga in med e-post, Google eller Apple bara om du vill ha historiken på ett konto."
     },
     "finalCta": {
       "heading": "Fortfarande osäker?",
@@ -359,22 +278,13 @@
     }
   },
   "translator": {
-    "topics": "Översättningar",
-    "newTopic": "Ny översättning",
-    "noTopicsYet": "Inga översättningar än",
-    "deleteTopic": "Ta bort ämne",
-    "deleteTopicConfirm": "Ta bort det här ämnet och alla dess översättningar?",
     "swapAria": "Byt språk",
-    "chooseLanguage": "Välj ett språk",
     "close": "Stäng",
     "searchPlaceholder": "Sök ett språk…",
     "clearHistory": "Rensa historik",
     "clearHistoryConfirm": "Rensa alla översättningar i det här ämnet?",
-    "noTranslationsYet": "Inga översättningar än i det här ämnet.",
-    "translating": "Översätter…",
     "typePlaceholder": "Skriv ett meddelande…",
     "translateAria": "Översätt",
-    "micDeniedError": "Mikrofonåtkomst nekad",
     "micBlockedTitle": "Mikrofonåtkomst är avstängd",
     "micBlockedDesc": "Du har blockerat mikrofonåtkomst, så röstinmatning kan inte fungera. Röstinmatning behöver mikrofonen för att spela in ditt tal.",
     "micBlockedHow": "Så här slår du på den igen: klicka på hänglås-/platsikonen i adressfältet, ändra Mikrofon till Tillåt, och ladda om sidan. Safari: Inställningar → Webbplatser → Mikrofon → Tillåt. iPhone/iPad: Inställningar → Safari → Mikrofon → Tillåt.",
@@ -387,10 +297,8 @@
     "recognizing": "Känner igen…",
     "recordAria": "Spela in",
     "stopAria": "Stoppa",
-    "pricingLink": "Priser",
     "errors": {
-      "insufficientCredits": "Kvoten är slut — uppgradera ditt abonnemang",
-      "textTooLong": "Texten är för lång för ditt abonnemang",
+      "textTooLong": "Texten är för lång för att översättas på en gång",
       "turnstileFailed": "Verifieringen misslyckades — ladda om sidan och försök igen",
       "notRecognized": "Kunde inte kännas igen — försök igen",
       "rateLimited": "För många förfrågningar — vänta en stund",

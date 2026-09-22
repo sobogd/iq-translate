@@ -1,6 +1,6 @@
 // Shared "issue a session for a verified email" helper for the OTP email and
 // Apple sign-in flows. Reuses translator's existing identity model (email is
-// the key — Session/Account/Topic all hang off it), cookie names and the
+// the key — Session and Conversation both hang off it), cookie names and the
 // readable signed-in hint, exactly like the Google callback does.
 import { prisma } from "./prisma";
 import {
@@ -11,6 +11,7 @@ import {
 } from "./auth";
 import { SIGNED_IN_COOKIE } from "./cookies";
 import { trackServerEvent } from "./analytics/server-event";
+import { mergeAnonymousHistory } from "./merge-conversations";
 
 export type CookieSetter = {
   cookies: {
@@ -32,6 +33,11 @@ export async function establishSession(req: Request, email: string, provider: st
     page: "Auth",
     action: priorSessions === 0 ? "Register" : "Sign in",
     name: provider,
+  });
+  // Hand the pre-sign-in anonymous history to the account. Best-effort: a
+  // merge failure must not fail the sign-in itself.
+  await mergeAnonymousHistory(req, email).catch((err) => {
+    console.error("[auth] anonymous history merge failed", err);
   });
   return token;
 }

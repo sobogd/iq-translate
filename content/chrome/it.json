@@ -65,7 +65,7 @@
     },
     {
       "title": "Nessuna registrazione richiesta",
-      "sub": "Provalo direttamente su questa pagina — accedi solo per passare a un piano superiore"
+      "sub": "Provalo direttamente su questa pagina — accedi solo per conservare la cronologia"
     },
     {
       "title": "Cronologia per coppia di lingue",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Cancella o elimina in qualsiasi momento",
-          "sub": "Svuota la cronologia di un filo o rimuovilo del tutto dal menu"
+          "sub": "Cancella la cronologia di una coppia quando vuoi con il cestino sopra la chat"
         }
       ]
     },
     {
       "heading": "Nessuna registrazione richiesta per iniziare",
-      "sub": "Provalo direttamente su questa pagina — niente account, niente password. Accedi con Google solo se vuoi una quota mensile più alta e la cronologia sincronizzata su più dispositivi.",
+      "sub": "Provalo direttamente su questa pagina — niente account, niente password. Accedi con email, Google o Apple solo se vuoi la cronologia su un account invece che in questo browser.",
       "bullets": [
         {
           "title": "Accesso opzionale in un tocco",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Devo creare un account?",
-        "a": "No. Provalo direttamente su questa pagina senza registrazione. Accedi con Google solo se vuoi una quota mensile più alta e la cronologia sincronizzata su più dispositivi."
+        "a": "No. Provalo direttamente su questa pagina senza registrarti. Accedi con email, Google o Apple solo se vuoi la cronologia su un account invece che in questo browser."
       },
       {
-        "q": "La mia cronologia delle traduzioni viene salvata?",
-        "a": "Sì, per coppia di lingue, così le conversazioni passate restano organizzate — anche senza accedere, il tuo browser viene ricordato. Cancella o elimina qualsiasi filo in qualsiasi momento dal suo menu."
+        "q": "La cronologia delle traduzioni viene salvata?",
+        "a": "Sì, una cronologia per ogni coppia di lingue — anche senza accesso il browser viene ricordato. Cancella la cronologia di una coppia quando vuoi con il cestino sopra la chat."
       },
       {
         "q": "Posso usare il testo invece della voce?",
@@ -259,97 +259,16 @@
     "pairsHeading": "Altre combinazioni linguistiche"
   },
   "account": {
-    "title": "Account",
-    "planLabel": "Piano",
-    "freePlan": "Prova gratuita",
-    "minutesLeft": "Minuti vocali rimanenti",
-    "charsLeft": "Caratteri rimanenti",
-    "imagesLeft": "Immagini rimanenti",
-    "manageSubscription": "Gestisci abbonamento",
-    "upgrade": "Aggiorna piano"
+    "title": "Account"
   },
   "pricing": {
     "meta": {
-      "title": "Prezzi — Piani di traduzione vocale e testo | IQ Translate",
-      "description": "Tre semplici piani mensili, ciascuno con minuti vocali e caratteri di testo inclusi. Provalo gratis senza registrazione — non serve alcuna carta."
+      "title": "Traduttore vocale e di testo gratuito | IQ Translate",
+      "description": "Traduzione vocale e di testo gratuita, senza abbonamento, senza quote e senza carta. Accedi solo se vuoi la cronologia su un account."
     },
-    "heading": "Prezzi mensili",
-    "headingAccent": "semplici",
-    "sub": "Ogni piano include minuti vocali e caratteri di testo. Provalo gratis direttamente sulla home page — senza registrazione, senza carta.",
-    "perMonth": "/mese",
-    "mostPopular": "Più popolare",
-    "cta": "Inizia ora",
     "freeNote": {
-      "title": "Non serve un piano gratuito — il livello gratuito è già la home page.",
-      "sub": "Traduci senza registrarti: ogni visitatore ha a disposizione 2 minuti vocali e 4.000 caratteri di prova, direttamente nel widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minuti vocali al mese",
-          "1.500.000 caratteri di testo al mese",
-          "Fino a 30.000 caratteri per richiesta",
-          "Tutte le 186 lingue",
-          "Cronologia delle conversazioni salvata"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minuti vocali al mese",
-          "3.000.000 caratteri di testo al mese",
-          "Fino a 100.000 caratteri per richiesta",
-          "Tutte le 186 lingue",
-          "Cronologia delle conversazioni salvata",
-          "Elaborazione prioritaria"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 minuti vocali al mese",
-          "8.000.000 caratteri di testo al mese",
-          "Fino a 150.000 caratteri per richiesta",
-          "Tutte le 186 lingue",
-          "Cronologia delle conversazioni salvata",
-          "Elaborazione prioritaria"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Domande sui",
-      "headingAccent": "prezzi",
-      "sub": "Cosa chiedono le persone prima di abbonarsi.",
-      "items": [
-        {
-          "q": "Come funzionano i minuti vocali e i caratteri?",
-          "a": "I minuti vocali coprono la trascrizione della tua voce in testo; i caratteri coprono la traduzione del testo (incluse le trascrizioni modificate). Ogni piano rinnova entrambi ogni mese."
-        },
-        {
-          "q": "Cosa succede quando li esaurisco?",
-          "a": "La traduzione si mette in pausa finché non si rinnova la quota mensile o passi a un piano superiore dal portale di fatturazione."
-        },
-        {
-          "q": "C'è un modo gratuito per provarlo?",
-          "a": "Sì — il widget nella home page funziona senza registrazione: ogni visitatore ha a disposizione 2 minuti vocali e 4.000 caratteri inclusi."
-        },
-        {
-          "q": "Posso annullare in qualsiasi momento?",
-          "a": "Sì. Gestisci o annulla il tuo abbonamento quando vuoi dal portale di fatturazione — senza vincoli a lungo termine."
-        },
-        {
-          "q": "Posso cambiare piano in seguito?",
-          "a": "Sì, passa a un piano superiore o inferiore quando vuoi; il nuovo piano assegna subito la sua quota mensile completa."
-        },
-        {
-          "q": "Offrite la fatturazione annuale?",
-          "a": "Non ancora — per ora tutti i piani sono fatturati mensilmente."
-        }
-      ]
+      "title": "Gratis per tutti — senza piani né quote.",
+      "sub": "Traduci con voce o testo senza pagare e senza limiti di quantità. Accedi con email, Google o Apple solo se vuoi la cronologia su un account."
     },
     "finalCta": {
       "heading": "Ancora indeciso?",
@@ -359,22 +278,13 @@
     }
   },
   "translator": {
-    "topics": "Traduzioni",
-    "newTopic": "Nuova traduzione",
-    "noTopicsYet": "Nessuna traduzione ancora",
-    "deleteTopic": "Elimina argomento",
-    "deleteTopicConfirm": "Eliminare questo argomento e tutte le sue traduzioni?",
     "swapAria": "Inverti le lingue",
-    "chooseLanguage": "Scegli una lingua",
     "close": "Chiudi",
     "searchPlaceholder": "Cerca una lingua…",
     "clearHistory": "Cancella cronologia",
     "clearHistoryConfirm": "Cancellare tutte le traduzioni in questo argomento?",
-    "noTranslationsYet": "Nessuna traduzione ancora in questo argomento.",
-    "translating": "Traduzione in corso…",
     "typePlaceholder": "Scrivi un messaggio…",
     "translateAria": "Traduci",
-    "micDeniedError": "Accesso al microfono negato",
     "micBlockedTitle": "L'accesso al microfono è disattivato",
     "micBlockedDesc": "Hai bloccato l'accesso al microfono, quindi l'input vocale non può funzionare. L'input vocale ha bisogno del microfono per registrare la tua voce.",
     "micBlockedHow": "Per riattivarlo: fai clic sull'icona del lucchetto / del sito nella barra degli indirizzi, imposta Microfono su Consenti, poi ricarica la pagina. Su Safari: Preferenze → Siti web → Microfono → Consenti. Su iPhone/iPad: Impostazioni → Safari → Microfono → Consenti.",
@@ -387,10 +297,8 @@
     "recognizing": "Riconoscimento…",
     "recordAria": "Registra",
     "stopAria": "Ferma",
-    "pricingLink": "Prezzi",
     "errors": {
-      "insufficientCredits": "Quota esaurita — aggiorna il tuo piano",
-      "textTooLong": "Testo troppo lungo per il tuo piano",
+      "textTooLong": "Il testo è troppo lungo per essere tradotto in una volta",
       "turnstileFailed": "Verifica non riuscita — ricarica la pagina e riprova",
       "notRecognized": "Non è stato possibile riconoscere — riprova",
       "rateLimited": "Troppe richieste — attendi un momento",

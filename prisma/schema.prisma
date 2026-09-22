@@ -8,19 +8,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Topic {
+// One conversation per language pair, per owner.
+//
+// Ownership is either a verified email (all three sign-in methods end there) or
+// the browser's anonymous id cookie ("an:<id>", minted by proxy.ts) for someone
+// who has not signed in. On sign-in the anonymous history is merged into the
+// account (see lib/merge-conversations.ts).
+//
+// The pair is CANONICAL — sourceLang is lexicographically smaller — so en<->es
+// is a single row whichever side the visitor writes in; writeLang records the
+// side the next message comes from and is flipped by the swap button.
+model Conversation {
   id           String        @id @default(cuid())
-  ownerKey     String // verified Google email, lowercased
-  title        String? // null until first translation, then a truncated transcript
-  sourceLang   String? // ISO 639-1 code of this conversation's A side; null only on rows created before auto-detect was removed
-  targetLang   String // ISO 639-1 code
-  writeLang    String? // ISO 639-1 code the user is writing in NOW: one of the pair above, flipped by the swap button. Kept apart from sourceLang so flipping the direction does not mirror the whole history
+  ownerKey     String // verified email or "an:<anonymous cookie value>"
+  sourceLang   String // ISO 639-1, smaller half of the pair
+  targetLang   String // ISO 639-1, larger half
+  writeLang    String // one of the pair: the side being written now
   lastUsedAt   DateTime      @default(now())
   createdAt    DateTime      @default(now())
   translations Translation[]
 
+  @@unique([ownerKey, sourceLang, targetLang])
   @@index([ownerKey])
-  @@map("topics")
+  @@map("conversations")
 }
 
 model Session {
@@ -34,52 +44,9 @@ model Session {
   @@map("sessions")
 }
 
-// Billing + credits, keyed by the verified Google email (mirrors Chat.ownerKey
-// — there is no separate User table). Created lazily on first credit check.
-model Account {
-  email                String    @id
-  plan                 String    @default("FREE") // "FREE" | "STARTER" | "PRO" | "ULTIMATE"
-  stripeCustomerId     String?   @unique
-  stripeSubscriptionId String?   @unique
-  subscriptionStatus   String    @default("INACTIVE") // "INACTIVE" | "ACTIVE" | "PAST_DUE" | "CANCELED" | "EXPIRED"
-  currentPeriodEnd     DateTime?
-  cancelAtPeriodEnd    Boolean   @default(false)
-  // Quotas (chars of text translation + seconds of STT audio + images of
-  // photo translation). Without a subscription these hold the lifetime
-  // free-trial pool (no refill); on an active plan they refill to the plan's
-  // monthly allowance at quotaResetAt. Defaults must match FREE_ACCOUNT in
-  // lib/plans.ts.
-  charsBalance         Int       @default(4000)
-  secondsBalance       Int       @default(120)
-  imagesBalance        Int       @default(10)
-  quotaResetAt         DateTime  @default(now())
-  // What was already granted for the current paid period, so one period can
-  // only ever hand out its allowance once. Without this, PRO -> STARTER -> PRO
-  // in the billing portal re-granted the full monthly quota every round trip
-  // (the downgrade is credited back, so the loop was free).
-  grantedPlan          String?
-  grantedPeriodEnd     DateTime?
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-
-  @@map("accounts")
-}
-
-// One free lifetime quota pool per browser fingerprint, for the unauthenticated
-// landing-page translate widget. Not linked to Account/email.
-model AnonymousCredit {
-  fingerprint String   @id
-  charsUsed   Int      @default(0)
-  secondsUsed Int      @default(0)
-  imagesUsed  Int      @default(0)
-  createdAt   DateTime @default(now())
-
-  @@map("anonymous_credits")
-}
-
 // Email sign-in challenges (OTP). Identity is the lowercased, verified email
-// (same key as Session/Account); the row holds the current pending challenge
-// only — hashed code, expiry and the failed-attempt counter.
+// (same key as Session/Conversation); the row holds the current pending
+// challenge only — hashed code, expiry and the failed-attempt counter.
 model OtpCode {
   email     String   @id
   otpHash   String
@@ -90,29 +57,17 @@ model OtpCode {
   @@map("otp_codes")
 }
 
-// Stripe webhook idempotency: event id checked before processing, written after.
-model StripeEvent {
-  id         String   @id
-  type       String
-  receivedAt DateTime @default(now())
-
-  @@map("stripe_events")
-}
-
 model Translation {
-  id          String   @id @default(cuid())
-  topicId     String?
-  topic       Topic?   @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  sourceLang  String // ISO 639-1 code
-  transcript  String
-  translation String
-  // Photo translation only: relative URL of the composed result image
-  // (original text erased, translation drawn in), served by
-  // /api/topics/[id]/translations/[tid]/image.
-  imageUrl    String?
-  createdAt   DateTime @default(now())
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sourceLang     String // ISO 639-1 code
+  transcript     String
+  translation    String
+  createdAt      DateTime     @default(now())
 
-  @@index([topicId])
+  @@index([conversationId])
+  @@index([createdAt])
   @@map("translations")
 }
 

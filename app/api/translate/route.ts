@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { resolveIdentity, type Identity } from "@/lib/auth";
+import { resolveIdentity } from "@/lib/auth";
 import { hasValidPass, requiresTurnstile } from "@/lib/turnstile";
 import { Language, getLanguage } from "@/lib/languages";
-import { chargeChars, refundChars } from "@/lib/credits";
 import { translateStream, type RecentTurn } from "@/lib/translate";
 import { LlmError } from "@/lib/llm";
 import { allowRequest } from "@/lib/rate-limit";
@@ -21,22 +20,21 @@ const MAX_BODY_BYTES = 256 * 1024;
 // translated, then `delta` frames carrying the translation as it is generated,
 // then `done` with the stored turn (or `error` with a code). Everything that
 // can be decided before the model is asked — identity, the bot gate, the rate
-// limit, the quota, the topic — is decided before the stream opens, so those
+// limit, the conversation — is decided before the stream opens, so those
 // failures still arrive as plain HTTP statuses the widget already handles.
 export async function POST(req: NextRequest) {
   const identity = await resolveIdentity(req);
   if (!identity) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
-  // Quotas bound how much gets translated, never how fast: without this, 500
-  // free characters could be spent one character at a time, each request
-  // re-paying the fixed prompt overhead and occupying the model's only slots.
-  if (!allowRequest("translate", identity.quotaKey)) {
+  // Everything is free, so nothing bounds how much gets translated — the rate
+  // limit is the only thing stopping one caller from occupying the engine's
+  // whole concurrency with repeated requests.
+  if (!allowRequest("translate", identity.rateKey)) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
   // Anonymous traffic must carry a valid Turnstile pass before anything
-  // reaches the model — checked ahead of credit consumption so a rejected
-  // request never burns quota.
+  // reaches the model. Signed-in visitors are never challenged.
   if (requiresTurnstile(identity) && !hasValidPass(req)) {
     return NextResponse.json({ error: "turnstile_required" }, { status: 403 });
   }
@@ -48,44 +46,31 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}));
   const text = typeof body.text === "string" ? body.text.trim() : "";
-  const topicId = typeof body.topicId === "string" ? body.topicId : "";
+  const conversationId = typeof body.conversationId === "string" ? body.conversationId : "";
   if (!text) return NextResponse.json({ error: "no text" }, { status: 400 });
-  if (!topicId) return NextResponse.json({ error: "no topicId" }, { status: 400 });
+  if (!conversationId) return NextResponse.json({ error: "no conversationId" }, { status: 400 });
 
-  const topic = await prisma.topic.findUnique({ where: { id: topicId } });
-  if (!topic || topic.ownerKey !== identity.ownerKey) {
-    return NextResponse.json({ error: "topic not found" }, { status: 404 });
+  const conversation = await prisma.conversation.findUnique({ where: { id: conversationId } });
+  if (!conversation || conversation.ownerKey !== identity.ownerKey) {
+    return NextResponse.json({ error: "conversation not found" }, { status: 404 });
   }
 
-  // The direction is always known: the pair is fixed per topic and there is no
-  // auto-detect to fall back on. `writeLang` is the half the visitor is typing
-  // in now (the swap button flips it); a topic from before that column existed
-  // falls back to its source. A topic that somehow has no source at all is
-  // answered with a code the widget turns into "pick the language" rather than
-  // guessed at.
-  const langA = topic.sourceLang ? getLanguage(topic.sourceLang) : undefined;
-  const langB = getLanguage(topic.targetLang);
-  const written = topic.writeLang ? getLanguage(topic.writeLang) : undefined;
-  if (!langA || !langB) {
+  // The direction is always known: the pair is fixed per conversation and
+  // there is no auto-detect to fall back on. `writeLang` is the half the
+  // visitor is typing in now (the swap button flips it).
+  const langA = getLanguage(conversation.sourceLang);
+  const langB = getLanguage(conversation.targetLang);
+  const written = getLanguage(conversation.writeLang);
+  if (!langA || !langB || !written) {
     return NextResponse.json({ error: "source_required" }, { status: 400 });
   }
-  const sourceLang = written ?? langA;
+  const sourceLang = written;
   const targetLang = sourceLang.code === langA.code ? langB : langA;
-
-  // One pass over the account: the per-request length cap and the charge used
-  // to be two calls, each re-reading and re-writing the same row.
-  const charge = await chargeChars(identity, text.length);
-  if (charge === "too_long") {
-    return NextResponse.json({ error: "text_too_long" }, { status: 413 });
-  }
-  if (charge === "insufficient") {
-    return NextResponse.json({ error: "insufficient_credits" }, { status: 402 });
-  }
 
   // last 6 turns, oldest first, for conversational consistency
   const recent = (
     await prisma.translation.findMany({
-      where: { topicId },
+      where: { conversationId },
       orderBy: { createdAt: "desc" },
       take: 6,
     })
@@ -98,39 +83,30 @@ export async function POST(req: NextRequest) {
     }));
 
   return sseResponse((emit) =>
-    run({ emit, identity, topicId, hasTitle: !!topic.title, sourceLang, targetLang, text, recent, signal: req.signal }),
+    run({ emit, conversationId, sourceLang, targetLang, text, recent, signal: req.signal }),
   );
 }
 
 /**
- * The streaming half of the route: translate, report, and settle the account.
+ * The streaming half of the route: translate, report, store.
  *
  * Runs after the response has already started, so every failure has to be
- * reported as an `error` frame rather than a status code — and anything that
- * produced no translation is refunded here, which is also the rule the
- * pre-stream half relies on for the turns it never charged.
+ * reported as an `error` frame rather than a status code.
  */
 async function run(params: {
   emit: Emit;
-  identity: Identity;
-  topicId: string;
-  hasTitle: boolean;
+  conversationId: string;
   sourceLang: Language;
   targetLang: Language;
   text: string;
   recent: RecentTurn[];
   signal: AbortSignal;
 }): Promise<void> {
-  const { emit, identity, topicId, hasTitle, sourceLang, targetLang, text, recent, signal } = params;
-  const chargedChars = text.length;
+  const { emit, conversationId, sourceLang, targetLang, text, recent, signal } = params;
   let translation = "";
-  // Once the turn is in the database it belongs to the visitor: a failure
-  // afterwards (drawing it on screen, updating the topic row) must not hand
-  // back quota they have already spent on a translation they now own.
-  let persisted = false;
 
   try {
-    // The transcript is the input itself now — the model is no longer asked to
+    // The transcript is the input itself — the model is no longer asked to
     // echo it — so the widget can show what is being translated immediately.
     emit("transcript", { text });
     for await (const delta of translateStream(sourceLang, targetLang, text, recent, signal)) {
@@ -139,27 +115,21 @@ async function run(params: {
     }
 
     if (!translation.trim()) {
-      // Nothing was produced, so nothing should have been paid for.
-      await refundChars(identity, chargedChars);
       emit("error", { error: "not_recognized" });
       return;
     }
 
     const row = await prisma.translation.create({
       data: {
-        topicId,
+        conversationId,
         sourceLang: sourceLang.code,
         transcript: text,
         translation,
       },
     });
-    persisted = true;
-    await prisma.topic.update({
-      where: { id: topicId },
-      data: {
-        lastUsedAt: new Date(),
-        ...(hasTitle ? {} : { title: text.slice(0, 40) }),
-      },
+    await prisma.conversation.update({
+      where: { id: conversationId },
+      data: { lastUsedAt: new Date() },
     });
 
     emit("done", {
@@ -170,8 +140,7 @@ async function run(params: {
     });
   } catch (err: unknown) {
     // Whatever arrived before the failure is discarded with it: half a
-    // translation is not a turn the visitor paid for or wants in their history.
-    if (!persisted) await refundChars(identity, chargedChars);
+    // translation is not a turn the visitor wants in their history.
     if (err instanceof LlmError && err.code === "aborted") {
       console.warn("[translate] client left mid-answer");
       return;

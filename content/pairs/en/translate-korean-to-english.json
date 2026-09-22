@@ -42,10 +42,10 @@
       "bullets": [
         {
           "title": "Both directions",
-          "sub": "One saved thread carries the whole exchange"
+          "sub": "One saved conversation carries the whole exchange"
         },
         {
-          "title": "Topics kept",
+          "title": "History kept per pair",
           "sub": "Reopen the conversation when the reply arrives"
         }
       ]
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Korean out, one thread.",
+        "us": "English in, Korean out, one conversation.",
         "them": "A second, separate translation."
       },
       {
         "title": "History",
-        "us": "Conversations saved as topics.",
+        "us": "Conversations saved per language pair.",
         "them": "Cleared on close."
       },
       {
@@ -136,11 +136,11 @@
       },
       {
         "q": "Are conversations saved?",
-        "a": "Each is stored as a topic you can reopen, delete or clear whenever you want."
+        "a": "Yes, one history per language pair. It stays saved, and you can clear it anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "Yes, there is a free allowance without an account; signing in with Google raises the monthly quota and syncs your history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

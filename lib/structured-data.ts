@@ -1,16 +1,11 @@
 // JSON-LD builders, shared by the home / feature / pricing templates so all
 // three describe the same entity instead of three slightly different ones.
-import { PLANS, PLAN_ORDER } from "./plans";
 import { SITE_URL } from "./site";
-import { localeHome, localePath } from "./locale-paths";
+import { localeHome } from "./locale-paths";
 import { OG_LOCALES } from "./og-locales";
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const APP_ID = `${SITE_URL}/#app`;
-
-// Every plan plus the free tier, so the "price: 0" the app used to advertise
-// on its own is no longer the whole (and misleading) story.
-const prices = PLAN_ORDER.map((id) => PLANS[id].priceMonthly);
 
 export function organizationLd() {
   return {
@@ -34,9 +29,9 @@ export function webSiteLd(locale: string) {
   };
 }
 
-// `offers` defaults to the whole-catalogue AggregateOffer. /pricing passes
-// per-plan Offers instead — see planOffersLd.
-export function softwareApplicationLd(description: string, offers?: object) {
+// The application, always free. `offers` is a single zero-price Offer — the
+// catalogue no longer has plans, so there is nothing to aggregate.
+export function softwareApplicationLd(description: string) {
   return {
     "@type": ["SoftwareApplication", "WebApplication"],
     "@id": APP_ID,
@@ -48,45 +43,13 @@ export function softwareApplicationLd(description: string, offers?: object) {
     url: SITE_URL,
     description,
     publisher: { "@id": ORG_ID },
-    offers: offers ?? {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      // Free tier (no sign-up) through the top plan — see lib/plans.ts.
-      lowPrice: "0",
-      highPrice: prices[prices.length - 1].toFixed(2),
-      offerCount: prices.length + 1,
-    },
-  };
-}
-
-// One Offer per plan, for /pricing only — that is the one page where the
-// three tariffs are actually on screen. Emitting them site-wide would be
-// markup describing content the visitor cannot see, which is exactly what
-// the structured-data guidelines call out.
-export function planOffersLd(locale: string) {
-  const url = `${SITE_URL}${localePath(locale, "pricing")}`;
-  return PLAN_ORDER.map((id) => {
-    const plan = PLANS[id];
-    const price = plan.priceMonthly.toFixed(2);
-    return {
+    offers: {
       "@type": "Offer",
-      name: plan.name,
-      url,
-      price,
+      price: "0",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-      // Subscriptions need the billing period spelled out, otherwise the
-      // price reads as a one-off purchase.
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price,
-        priceCurrency: "USD",
-        billingDuration: 1,
-        billingIncrement: 1,
-        unitCode: "MON",
-      },
-    };
-  });
+    },
+  };
 }
 
 // FAQPage as JSON-LD. The questions used to be marked up with microdata

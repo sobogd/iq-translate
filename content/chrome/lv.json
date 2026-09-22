@@ -65,7 +65,7 @@
     },
     {
       "title": "Reģistrācija nav nepieciešama",
-      "sub": "Izmēģini tieši šajā lapā — piesakies tikai tad, kad vēlies uzlabot plānu"
+      "sub": "Izmēģiniet uzreiz šajā lapā — piesakieties tikai vēstures saglabāšanai"
     },
     {
       "title": "Vēsture katram valodu pārim",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Notīri vai dzēs jebkurā brīdī",
-          "sub": "Iztukšo pavediena vēsturi vai dzēs to pilnībā no izvēlnes"
+          "sub": "Notīriet pāra vēsturi jebkurā brīdī ar atkritumu tvertnes pogu virs tērzēšanas"
         }
       ]
     },
     {
       "heading": "Reģistrācija sākumā nav nepieciešama",
-      "sub": "Izmēģini tieši šajā lapā — bez konta, bez paroles. Piesakies ar Google tikai tad, kad vēlies lielāku mēneša limitu un vēsturi, kas sinhronizēta starp ierīcēm.",
+      "sub": "Izmēģiniet uzreiz šajā lapā — bez konta un paroles. Piesakieties ar e-pastu, Google vai Apple tikai tad, ja vēlaties vēsturi kontā, nevis šajā pārlūkā.",
       "bullets": [
         {
           "title": "Pieteikšanās ar vienu pieskārienu — pēc izvēles",
@@ -194,12 +194,12 @@
         "a": "186 valodas. Izvēlies savu valodu vienreiz, tad sāc pārrunu pavedienu ar jebkuru citu valodu."
       },
       {
-        "q": "Vai jāizveido konts?",
-        "a": "Nē. Izmēģini tieši šajā lapā bez reģistrācijas. Piesakies ar Google tikai tad, ja vēlies lielāku mēneša limitu un vēsturi, kas sinhronizēta starp ierīcēm."
+        "q": "Vai man jāizveido konts?",
+        "a": "Nē. Izmēģiniet uzreiz šajā lapā bez reģistrācijas. Piesakieties ar e-pastu, Google vai Apple tikai tad, ja vēlaties vēsturi kontā, nevis šajā pārlūkā."
       },
       {
-        "q": "Vai mana tulkojumu vēsture tiek saglabāta?",
-        "a": "Jā, katram valodu pārim atsevišķi, tāpēc iepriekšējās sarunas paliek sakārtotas — pat nepiesakoties, tavs pārlūks tiek atcerēts. Notīri vai dzēs jebkuru pavedienu jebkurā brīdī no tā izvēlnes."
+        "q": "Vai tulkošanas vēsture tiek saglabāta?",
+        "a": "Jā, viena vēsture katram valodu pārim — arī bez pieteikšanās pārlūks tiek atcerēts. Notīriet pāra vēsturi jebkurā brīdī ar atkritumu tvertnes pogu virs tērzēšanas."
       },
       {
         "q": "Vai varu izmantot tekstu balss vietā?",
@@ -239,97 +239,16 @@
     "pairsHeading": "Vairāk valodu pāru"
   },
   "account": {
-    "title": "Konts",
-    "planLabel": "Plāns",
-    "freePlan": "Bezmaksas izmēģinājums",
-    "minutesLeft": "Atlikušās balss minūtes",
-    "charsLeft": "Atlikušās rakstzīmes",
-    "imagesLeft": "Atlikušie attēli",
-    "manageSubscription": "Pārvaldīt abonementu",
-    "upgrade": "Uzlabot"
+    "title": "Konts"
   },
   "pricing": {
     "meta": {
-      "title": "Cenas — Balss un teksta plāni | IQ Translate",
-      "description": "Trīs vienkārši ikmēneša plāni ar balss minūtēm un teksta rakstzīmēm. Izmēģini bez maksas bez reģistrācijas — karte nav nepieciešama."
+      "title": "Bezmaksas balss un teksta tulkotājs | IQ Translate",
+      "description": "Bezmaksas balss un teksta tulkošana, bez abonementa, kvotām un kartes. Piesakieties tikai tad, ja vēlaties vēsturi kontā."
     },
-    "heading": "Vienkāršas ikmēneša",
-    "headingAccent": "cenas",
-    "sub": "Katrā plānā iekļautas balss minūtes un teksta rakstzīmes. Izmēģini bez maksas tieši sākumlapā — bez reģistrācijas, bez kartes.",
-    "perMonth": "/mēn",
-    "mostPopular": "Populārākais",
-    "cta": "Sākt",
     "freeNote": {
-      "title": "Bezmaksas plāns nav vajadzīgs — bezmaksas līmenis ir pati sākumlapa.",
-      "sub": "Tulko bez reģistrācijas: katrs apmeklētājs izmēģināšanai saņem 2 balss minūtes un 4 000 rakstzīmes tieši rīkā."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 balss minūtes mēnesī",
-          "1 500 000 teksta rakstzīmes mēnesī",
-          "Līdz 30 000 rakstzīmēm vienā pieprasījumā",
-          "Visas 186 valodas",
-          "Saglabāta sarunu vēsture"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 balss minūtes mēnesī",
-          "3 000 000 teksta rakstzīmes mēnesī",
-          "Līdz 100 000 rakstzīmēm vienā pieprasījumā",
-          "Visas 186 valodas",
-          "Saglabāta sarunu vēsture",
-          "Prioritāra apstrāde"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 balss minūtes mēnesī",
-          "8 000 000 teksta rakstzīmes mēnesī",
-          "Līdz 150 000 rakstzīmēm vienā pieprasījumā",
-          "Visas 186 valodas",
-          "Saglabāta sarunu vēsture",
-          "Prioritāra apstrāde"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Jautājumi par",
-      "headingAccent": "cenām",
-      "sub": "Ko cilvēki jautā pirms abonēšanas.",
-      "items": [
-        {
-          "q": "Kā darbojas balss minūtes un rakstzīmes?",
-          "a": "Balss minūtes sedz tavas runas pārvēršanu tekstā; rakstzīmes sedz teksta tulkošanu (arī rediģētus pierakstus). Katrā plānā abi atjaunojas katru mēnesi."
-        },
-        {
-          "q": "Kas notiek, kad tie beidzas?",
-          "a": "Tulkošana apstājas, līdz atjaunojas mēneša limits vai tu uzlabo plānu norēķinu portālā."
-        },
-        {
-          "q": "Vai ir bezmaksas veids, kā izmēģināt?",
-          "a": "Jā — rīks sākumlapā darbojas bez reģistrācijas: katram apmeklētājam pieejamas 2 balss minūtes un 4 000 rakstzīmes."
-        },
-        {
-          "q": "Vai varu atcelt jebkurā brīdī?",
-          "a": "Jā. Pārvaldi vai atceļ savu abonementu jebkurā brīdī norēķinu portālā — bez ilgtermiņa saistībām."
-        },
-        {
-          "q": "Vai varu vēlāk mainīt plānu?",
-          "a": "Jā, uzlabo vai pazemini plānu jebkurā brīdī; jaunais plāns uzreiz piešķir savu pilno mēneša limitu."
-        },
-        {
-          "q": "Vai piedāvājat gada norēķinu?",
-          "a": "Vēl ne — pagaidām visi plāni tiek rēķināti ik mēnesi."
-        }
-      ]
+      "title": "Bezmaksas visiem — bez plāniem un kvotām.",
+      "sub": "Tulkojiet ar balsi vai tekstu bez maksas un bez apjoma ierobežojuma. Piesakieties ar e-pastu, Google vai Apple tikai tad, ja vēlaties vēsturi kontā."
     },
     "finalCta": {
       "heading": "Vēl neesi pārliecināts?",
@@ -339,22 +258,13 @@
     }
   },
   "translator": {
-    "topics": "Tulkojumi",
-    "newTopic": "Jauns tulkojums",
-    "noTopicsYet": "Vēl nav tulkojumu",
-    "deleteTopic": "Dzēst tēmu",
-    "deleteTopicConfirm": "Dzēst šo tēmu un visus tās tulkojumus?",
     "swapAria": "Apmainīt valodas",
-    "chooseLanguage": "Izvēlies valodu",
     "close": "Aizvērt",
     "searchPlaceholder": "Meklēt valodu…",
     "clearHistory": "Notīrīt vēsturi",
     "clearHistoryConfirm": "Notīrīt visus tulkojumus šajā tēmā?",
-    "noTranslationsYet": "Šajā tēmā vēl nav tulkojumu.",
-    "translating": "Tulko…",
     "typePlaceholder": "Raksti ziņu…",
     "translateAria": "Tulkot",
-    "micDeniedError": "Piekļuve mikrofonam liegta",
     "micBlockedTitle": "Mikrofona piekļuve ir izslēgta",
     "micBlockedDesc": "Tu esi bloķējis mikrofona piekļuvi, tāpēc balss ievade nevar darboties. Balss ievadei vajadzīgs mikrofons, lai ierakstītu tavu runu.",
     "micBlockedHow": "Lai to atkal ieslēgtu: adreses joslā noklikšķini uz atslēgas / vietnes ikonas, pārslēdz Mikrofons uz Atļaut, tad pārlādē lapu. Safari: Iestatījumi → Tīmekļa vietnes → Mikrofons → Atļaut. iPhone/iPad: Iestatījumi → Safari → Mikrofons → Atļaut.",
@@ -367,10 +277,8 @@
     "recognizing": "Atpazīst…",
     "recordAria": "Ierakstīt",
     "stopAria": "Apturēt",
-    "pricingLink": "Cenas",
     "errors": {
-      "insufficientCredits": "Limits ir izmantots — uzlabo savu plānu",
-      "textTooLong": "Teksts par garu tavam plānam",
+      "textTooLong": "Teksts ir pārāk garš, lai to tulkotu uzreiz",
       "turnstileFailed": "Pārbaude neizdevās — pārlādējiet lapu un mēģiniet vēlreiz",
       "notRecognized": "Neizdevās atpazīt — mēģini vēlreiz",
       "rateLimited": "Pārāk daudz pieprasījumu — uzgaidi brīdi",

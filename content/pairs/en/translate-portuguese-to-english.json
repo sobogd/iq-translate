@@ -45,8 +45,8 @@
           "sub": "Portuguese in, English out, English in, Portuguese out — one conversation"
         },
         {
-          "title": "Saved as a topic",
-          "sub": "Come back to the same thread when the reply arrives"
+          "title": "Saved per language pair",
+          "sub": "Come back to the same conversation when the reply arrives"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Portuguese out, same thread.",
+        "us": "English in, Portuguese out, same conversation.",
         "them": "Two separate translations."
       },
       {
         "title": "History",
-        "us": "Conversations kept as topics.",
+        "us": "Conversations kept per language pair.",
         "them": "Nothing kept."
       },
       {
@@ -132,7 +132,7 @@
       },
       {
         "q": "Can I answer in English?",
-        "a": "Yes. Your English is translated to Portuguese in the same thread and can be played aloud for the other person."
+        "a": "Yes. Your English is translated to Portuguese in the same conversation and can be played aloud for the other person."
       },
       {
         "q": "Is slang translated properly?",
@@ -140,7 +140,7 @@
       },
       {
         "q": "Is it free?",
-        "a": "Yes, there is a free allowance without an account, and signing in with Google increases the monthly quota and saves your history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

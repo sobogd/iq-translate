@@ -53,7 +53,7 @@ export function Landing({
         pricingHref={pricingHref}
         featureLinks={texts.footer.featureLinks}
         product={
-          <Translator texts={texts} initialTarget={locale} pricingHref={pricingHref} />
+          <Translator texts={texts} initialTarget={locale} />
         }
       >
         {/* Heading + subheading of the page, then the marketing sections — one

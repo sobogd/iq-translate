@@ -71,8 +71,8 @@ language codes, never a translated label. `locale` rides along per event.
 
 `meta.topicId` is the batch's active conversation: the last event carrying a
 `tid` (validated as owned by the caller via `identity.ts#resolveTopicId`),
-i.e. whatever topic is open right now. `meta.from`/`ref`/`theme` come from the
-batch's `ctx`, validated the same way the old pipeline did.
+i.e. whatever conversation is open right now. `meta.from`/`ref`/`theme` come
+from the batch's `ctx`, validated the same way the old pipeline did.
 
 Pages: `Home`, `Pair`, `Pricing`, `Legal`, `Auth` (server-side only).
 
@@ -88,7 +88,7 @@ otherwise the timeline reads like a database dump.
 | Variable | Effect |
 | --- | --- |
 | `INGEST_SHARED_SECRET` | `X-Ingest-Key` sent with every forward to iq-metrix |
-| `ANALYTICS_ADMIN_EMAILS` | No admin UI reads this anymore (deleted with the old pipeline); `isAnalyticsAdmin` and `/api/quota`'s `isAdmin` flag still use it |
+| `ANALYTICS_ADMIN_EMAILS` | No admin UI reads this any more (the local admin screens were deleted with the old quota pipeline); `isAnalyticsAdmin` still reads it from the analytics identity module |
 | `ANALYTICS_EXCLUDE_EMAILS` | Accounts whose traffic is never forwarded (default `support@iq-rest.com`) |
 | `NEXT_PUBLIC_ANALYTICS_DEV` | `1` makes the client send from `next dev` instead of logging to the console |
 

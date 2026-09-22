@@ -1,37 +1,23 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { apiFetch } from "@/lib/client";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { LOCALE_COOKIE, SIGNED_IN_COOKIE } from "@/lib/cookies";
 import { PageTracker } from "./PageTracker";
-import type { Quota } from "@/lib/types";
 
-// Client-side session/quota state for the whole page.
+// Client-side session state for the whole page.
 //
 // Every page here is prerendered at build time (no cookies() during render),
-// so the personalized bits — is this visitor signed in, how much quota is
-// left — are resolved after hydration instead of during SSR. That keeps all
-// 200+ SEO pages static and cacheable; the cost is one /api/quota round trip,
-// which the header badge used to make anyway on its 10s refresh.
-//
-// The signed-in flag paints correctly on first render (no "Sign in" flash)
-// because the auth callback also drops a non-httpOnly hint cookie next to the
-// httpOnly session cookie — see app/api/auth/google/callback/route.ts.
-
-export const QUOTA_EVENT = "iqt:quota";
-const YEAR_PLUS = 400 * 86400;
+// so "is this visitor signed in" is resolved after hydration instead of during
+// SSR. That keeps all 200+ SEO pages static and cacheable. The signed-in flag
+// paints correctly on the first render (no "Sign in" flash) because the auth
+// callbacks also drop a non-httpOnly hint cookie next to the httpOnly session
+// cookie — see lib/auth-session.ts.
 
 type SessionValue = {
-  quota: Quota | null;
   signedIn: boolean;
-  refreshQuota: () => void;
 };
 
-const SessionContext = createContext<SessionValue>({
-  quota: null,
-  signedIn: false,
-  refreshQuota: () => {},
-});
+const SessionContext = createContext<SessionValue>({ signedIn: false });
 
 export const useSession = () => useContext(SessionContext);
 
@@ -54,47 +40,14 @@ export function SessionProvider({
   page: string;
   children: React.ReactNode;
 }) {
-  const [quota, setQuota] = useState<Quota | null>(null);
   // useState initializer, not an effect: the very first paint already knows.
-  const [signedIn, setSignedIn] = useState(() => readCookie(SIGNED_IN_COOKIE) === "1");
-
-  const refreshQuota = useCallback(async () => {
-    try {
-      const res = await apiFetch("/api/quota");
-      if (!res.ok) return;
-      const next = (await res.json()) as Quota;
-      setQuota(next);
-      setSignedIn(next.kind === "account");
-    } catch {
-      /* keep the last known value */
-    }
-  }, []);
-
-  // The poll pauses with the tab. It runs on every page of the site, so a
-  // forgotten background tab used to keep a request every 10 seconds going
-  // forever — and for a signed-in visitor each one of those touched the
-  // account row. A tab coming back to the foreground refreshes immediately,
-  // so nothing is stale by the time it is looked at.
-  useEffect(() => {
-    const tick = () => {
-      if (!document.hidden) refreshQuota();
-    };
-    tick();
-    const timer = setInterval(tick, 10_000);
-    document.addEventListener("visibilitychange", tick);
-    window.addEventListener(QUOTA_EVENT, refreshQuota);
-    return () => {
-      clearInterval(timer);
-      document.removeEventListener("visibilitychange", tick);
-      window.removeEventListener(QUOTA_EVENT, refreshQuota);
-    };
-  }, [refreshQuota]);
+  const [signedIn] = useState(() => readCookie(SIGNED_IN_COOKIE) === "1");
 
   useEffect(() => {
-    document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${YEAR_PLUS}; samesite=lax`;
+    document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${400 * 86400}; samesite=lax`;
   }, [locale]);
 
-  const value = useMemo(() => ({ quota, signedIn, refreshQuota }), [quota, signedIn, refreshQuota]);
+  const value = useMemo(() => ({ signedIn }), [signedIn]);
   return (
     <SessionContext.Provider value={value}>
       <PageTracker page={page} />

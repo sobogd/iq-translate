@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "English to Portuguese Voice Translator | IQ Translate",
-    "description": "Translate English to Portuguese by voice or text, hear it spoken aloud, and reply in Portuguese in the same thread. 186 languages, free to try.",
+    "description": "Translate English to Portuguese by voice or text, hear it spoken aloud, and reply in Portuguese in the same conversation. 186 languages, free to try.",
     "ogTitle": "English to Portuguese Voice Translator",
     "ogDescription": "Speak or type English, get an instant Portuguese translation, spoken aloud or written. Works both directions, free to try.",
     "canonical": "https://iq-translate.com/translate-english-to-portuguese",
@@ -38,14 +38,14 @@
     },
     {
       "heading": "English to Portuguese conversation translator",
-      "sub": "Whoever replies in Portuguese gets translated back to English instantly, in the same thread.",
+      "sub": "Whoever replies in Portuguese gets translated back to English instantly, in the same conversation.",
       "bullets": [
         {
           "title": "Portuguese replies translated back",
           "sub": "The other person speaks Portuguese, you see and hear the English meaning"
         },
         {
-          "title": "Saved as a topic",
+          "title": "Saved per language pair",
           "sub": "Reopen the same Portuguese conversation later instead of losing it"
         }
       ]
@@ -98,7 +98,7 @@
       },
       {
         "title": "Conversation history",
-        "us": "Every Portuguese conversation is saved as its own topic.",
+        "us": "Every Portuguese conversation is saved per language pair.",
         "them": "Each translation disappears once you close the app."
       },
       {
@@ -108,7 +108,7 @@
       },
       {
         "title": "Both directions",
-        "us": "English to Portuguese and Portuguese to English in one thread.",
+        "us": "English to Portuguese and Portuguese to English in one conversation.",
         "them": "Switching direction usually means starting over."
       }
     ]
@@ -132,7 +132,7 @@
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, try it free without creating an account. Sign in with Google for more daily credits and saved history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       },
       {
         "q": "Do I need to install anything?",

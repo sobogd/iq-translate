@@ -15,12 +15,12 @@ function speak(text: string, lang: string) {
   window.speechSynthesis.speak(u);
 }
 
-// Once a topic's pair is locked, `langA` (topic.sourceLang, whoever's first
-// message established the pair) and `langB` (topic.targetLang) each belong
-// to one side of a two-person conversation — align that turn's bubble to
-// the speaker's side so a back-and-forth reads like a chat, not a stack of
-// identical cards. Before the pair locks (langA === ""), everything is from
-// the same not-yet-established side, so nothing aligns right.
+// The pair's first half (`langA`, the conversation's canonical sourceLang) and
+// second half (`langB`) each belong to one side of a two-person conversation —
+// align that turn's bubble to the speaker's side so a back-and-forth reads like
+// a chat, not a stack of identical cards. Before the pair is known
+// (langA === ""), everything is from the same not-yet-established side, so
+// nothing aligns right.
 //
 // `streaming` marks the turn that is still being generated: its buttons are
 // hidden (there is nothing final to copy or read aloud yet) and a blinking
@@ -73,44 +73,22 @@ function Turn({
           the header/taskbar background. The speaker is implied only by the
           side of the pane the block sits on. */}
       <div className="w-full max-w-[85%] rounded-lg bg-[var(--taskbar-bg)] p-2">
-        {r.imageUrl ? (
-          /* Photo translation: the reply IS the repainted image (original
-             text erased, translation drawn in). The source/translation text
-             still lives on the row for copy/speak — the icons below act on
-             it. */
-          <div>
-            {/* Plain <img>, not next/image: the URL is the authed per-topic
-                API route, which the image optimizer's own fetcher cannot
-                authenticate. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={r.imageUrl}
-              alt={r.transcript}
-              loading="lazy"
-              className="block max-h-72 w-full rounded-md object-contain"
-            />
-            <div className="mt-2 flex items-center justify-end gap-2">{actions}</div>
-          </div>
-        ) : (
-          <>
-            {/* Original (small, muted) above the translation (larger, primary) —
-                both texts, no language labels, no interaction. */}
-            <p className="mb-2 text-sm leading-snug text-hint">{r.transcript}</p>
+        {/* Original (small, muted) above the translation (larger, primary) —
+            both texts, no language labels, no interaction. */}
+        <p className="mb-2 text-sm leading-snug text-hint">{r.transcript}</p>
 
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-base leading-relaxed">
-                {r.translation}
-                {streaming && (
-                  <span
-                    aria-hidden="true"
-                    className="ml-0.5 inline-block h-4 w-1.5 animate-pulse rounded-sm bg-hint align-text-bottom"
-                  />
-                )}
-              </p>
-              {!streaming && actions}
-            </div>
-          </>
-        )}
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-base leading-relaxed">
+            {r.translation}
+            {streaming && (
+              <span
+                aria-hidden="true"
+                className="ml-0.5 inline-block h-4 w-1.5 animate-pulse rounded-sm bg-hint align-text-bottom"
+              />
+            )}
+          </p>
+          {!streaming && actions}
+        </div>
       </div>
     </div>
   );

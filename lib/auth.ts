@@ -100,29 +100,19 @@ export async function resolveOwner(req: Request): Promise<string | null> {
 }
 
 export type Identity = {
-  /** Who owns the topics and their stored translations. */
+  /** Who owns the conversations and their stored translations. */
   ownerKey: string;
-  /** Which free/plan pool the request spends from (lib/credits.ts). */
-  quotaKey: string;
+  /** Which bucket the rate limiter counts against (lib/rate-limit.ts). There
+   *  anything, so this is purely "how often", and it is the account email or
+   *  the anonymous cookie id — never derived from the request. */
+  rateKey: string;
   kind: "account" | "anonymous";
 };
 
-// Server-computed anonymous id — no client library, no localStorage, no
-// cookie round-trip. Hashes signals the browser sends on every request
-// regardless of privacy mode (IP, User-Agent, Accept-Language): unlike
-// canvas/audio/WebGL entropy, incognito doesn't randomize these, so this id
-// stays stable across incognito windows being closed and reopened, which a
-// client-side fingerprinting library (FingerprintJS) doesn't reliably do —
-// browsers deliberately add noise to that kind of signal in private mode.
-// Trade-off: an IP shared by many people (office NAT, mobile carrier CGNAT)
-// on the same browser/OS/language combo collides into one pool — acceptable
-// for a free-trial abuse guard, not meant to be a hard identity.
-//
-// Which is exactly why it is no longer what OWNS anything: it used to be the
-// topic's ownerKey too, so a collision handed two strangers behind one NAT
-// read and delete access to each other's translated texts. Ownership now
-// rides on the anonymous id cookie below; the fingerprint keeps only the job
-// it was designed for, rationing the free pool.
+// Request-derived hash. It is NOT an identity and is never stored: Turnstile
+// binds its short-lived pass cookie to it so a solved challenge cannot be
+// replayed from another IP/UA/language combination. Hashing those signals
+// instead of keeping them is what keeps the site free of a stored fingerprint.
 // Accepts both a plain Headers (Route Handlers) and Next's ReadonlyHeaders
 // (Server Components via next/headers) — same `.get()` shape, different type.
 type HeaderReader = { get(name: string): string | null };
@@ -149,24 +139,23 @@ export function anonIdFrom(headers: HeaderReader): string | null {
   return raw && ANON_ID_REGEX.test(raw) ? raw : null;
 }
 
-// Unified identity for topic/translate endpoints: a verified Google session
-// ("account", ownerKey = email) or, absent one, the browser's anonymous id
-// ("anonymous", ownerKey = "an:<id>") so the landing's embedded translator
-// works without signing in. Topic.ownerKey is a plain string either way, so
-// both kinds share the exact same topic/translation rows and code paths.
-//
-// A visitor who blocks cookies outright still gets an identity — the old
-// fingerprint one ("fp:<hash>") — rather than a broken widget; that path keeps
-// the collision caveat above, which is why it is the fallback and not the rule.
+// Unified identity for the conversation/translate endpoints: a verified session
+// email ("account", ownerKey = email) or, absent one, the browser's anonymous
+// id cookie ("anonymous", ownerKey = "an:<id>"). There is deliberately no
+// fingerprint fallback any more: a caller with no id cookie owns nothing and
+// gets a 401 (reloading the page mints one), so the only identifier is the
+// random cookie the privacy policy describes. Conversation.ownerKey is a plain
+// string either way, so both kinds share the same rows and code paths.
 export async function resolveIdentity(req: Request): Promise<Identity | null> {
   const owner = await resolveOwner(req);
   if (owner) {
     if (!isAllowed(owner)) return null;
-    return { ownerKey: owner, quotaKey: owner, kind: "account" };
+    return { ownerKey: owner, rateKey: owner, kind: "account" };
   }
-  const quotaKey = `fp:${computeFingerprint(req.headers)}`;
   const anonId = anonIdFrom(req.headers);
-  return { ownerKey: anonId ? `an:${anonId}` : quotaKey, quotaKey, kind: "anonymous" };
+  if (!anonId) return null;
+  const ownerKey = `an:${anonId}`;
+  return { ownerKey, rateKey: ownerKey, kind: "anonymous" };
 }
 
 // Server-Component-friendly variant using next/headers cookies().

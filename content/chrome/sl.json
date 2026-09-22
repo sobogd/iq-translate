@@ -65,7 +65,7 @@
     },
     {
       "title": "Registracija ni potrebna",
-      "sub": "Preizkusite kar na tej strani – prijava le, ko nadgradite paket"
+      "sub": "Preizkusite kar na tej strani — prijavite se le za shranjevanje zgodovine"
     },
     {
       "title": "Zgodovina po jezikovnem paru",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Počistite ali izbrišite kadar koli",
-          "sub": "Zgodovino niti počistite ali jo v celoti odstranite iz menija"
+          "sub": "Zgodovino para počistite kadar koli z gumbom za smeti nad klepetom"
         }
       ]
     },
     {
       "heading": "Registracija za začetek ni potrebna",
-      "sub": "Preizkusite kar na tej strani – brez računa, brez gesla. Prijavite se z Googlom le, ko želite večjo mesečno kvoto in zgodovino, sinhronizirano med napravami.",
+      "sub": "Preizkusite kar na tej strani — brez računa in gesla. Prijavite se z e-pošto, Googlom ali Applom le, če želite zgodovino v računu namesto v tem brskalniku.",
       "bullets": [
         {
           "title": "Neobvezna prijava z enim dotikom",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Ali moram ustvariti račun?",
-        "a": "Ne. Preizkusite kar na tej strani brez registracije. Prijavite se z Googlom le, če želite večjo mesečno kvoto in zgodovino, sinhronizirano med napravami."
+        "a": "Ne. Preizkusite kar na tej strani brez registracije. Prijavite se z e-pošto, Googlom ali Applom le, če želite zgodovino v računu namesto v tem brskalniku."
       },
       {
-        "q": "Ali se moja zgodovina prevodov shranjuje?",
-        "a": "Da, po jezikovnem paru, tako da pretekli pogovori ostanejo urejeni – tudi brez prijave si aplikacija zapomni vaš brskalnik. Katero koli nit lahko kadar koli počistite ali izbrišete iz njenega menija."
+        "q": "Ali se zgodovina prevodov shrani?",
+        "a": "Da, ena zgodovina za vsak jezikovni par — tudi brez prijave se brskalnik zapomni. Zgodovino para počistite kadar koli z gumbom za smeti nad klepetom."
       },
       {
         "q": "Ali lahko namesto glasu uporabim besedilo?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Več jezikovnih parov"
   },
   "account": {
-    "title": "Račun",
-    "planLabel": "Paket",
-    "freePlan": "Brezplačno preizkusno obdobje",
-    "minutesLeft": "Preostale glasovne minute",
-    "charsLeft": "Preostali znaki",
-    "imagesLeft": "Preostale slike",
-    "manageSubscription": "Upravljanje naročnine",
-    "upgrade": "Nadgradi"
+    "title": "Račun"
   },
   "pricing": {
     "meta": {
-      "title": "Cenik — Paketi za glas in besedilo | IQ Translate",
-      "description": "Trije preprosti mesečni paketi z glasovnimi minutami in znaki besedila. Preizkusite brezplačno brez registracije — kartica ni potrebna."
+      "title": "Brezplačen glasovni in besedilni prevajalnik | IQ Translate",
+      "description": "Brezplačno glasovno in besedilno prevajanje, brez naročnine, kvot in kartice. Prijavite se le, če želite zgodovino v računu."
     },
-    "heading": "Preprost mesečni",
-    "headingAccent": "cenik",
-    "sub": "Vsak paket vključuje glasovne minute in znake besedila. Preizkusite brezplačno kar na domači strani — brez registracije, brez kartice.",
-    "perMonth": "/mes",
-    "mostPopular": "Najbolj priljubljen",
-    "cta": "Začni",
     "freeNote": {
-      "title": "Brezplačen paket ni potreben — brezplačna raven je kar domača stran.",
-      "sub": "Prevajajte brez registracije: vsak obiskovalec za preizkus dobi 2 glasovni minuti in 4.000 znakov, kar v pripomočku."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 glasovnih minut na mesec",
-          "1.500.000 znakov besedila na mesec",
-          "Do 30.000 znakov na zahtevo",
-          "Vseh 186 jezikov",
-          "Shranjena zgodovina pogovorov"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 glasovnih minut na mesec",
-          "3.000.000 znakov besedila na mesec",
-          "Do 100.000 znakov na zahtevo",
-          "Vseh 186 jezikov",
-          "Shranjena zgodovina pogovorov",
-          "Prednostna obdelava"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 glasovnih minut na mesec",
-          "8.000.000 znakov besedila na mesec",
-          "Do 150.000 znakov na zahtevo",
-          "Vseh 186 jezikov",
-          "Shranjena zgodovina pogovorov",
-          "Prednostna obdelava"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Vprašanja o",
-      "headingAccent": "cenah",
-      "sub": "Kaj ljudje sprašujejo pred naročilom.",
-      "items": [
-        {
-          "q": "Kako delujejo glasovne minute in znaki?",
-          "a": "Glasovne minute pokrivajo pretvorbo govora v besedilo; znaki pokrivajo prevajanje besedila (vključno z urejenimi prepisi). Vsak paket oboje obnovi vsak mesec."
-        },
-        {
-          "q": "Kaj se zgodi, ko mi zmanjka?",
-          "a": "Prevajanje se ustavi, dokler se mesečna kvota ne obnovi ali dokler ne nadgradite paketa prek portala za obračun."
-        },
-        {
-          "q": "Ali obstaja brezplačen način preizkusa?",
-          "a": "Da — pripomoček na domači strani deluje brez registracije: vsak obiskovalec ima na voljo 2 glasovni minuti in 4.000 znakov."
-        },
-        {
-          "q": "Ali lahko kadar koli prekličem?",
-          "a": "Da. Naročnino lahko kadar koli upravljate ali prekličete prek portala za obračun — brez dolgoročne obveznosti."
-        },
-        {
-          "q": "Ali lahko kasneje spremenim paket?",
-          "a": "Da, kadar koli nadgradite ali znižate paket; novi paket takoj dobi svojo polno mesečno kvoto."
-        },
-        {
-          "q": "Ali ponujate letni obračun?",
-          "a": "Še ne — vsi paketi se trenutno obračunavajo mesečno."
-        }
-      ]
+      "title": "Brezplačno za vse — brez paketov in kvot.",
+      "sub": "Prevajajte z glasom ali besedilom brezplačno in brez omejitve obsega. Prijavite se z e-pošto, Googlom ali Applom le, če želite zgodovino v računu."
     },
     "finalCta": {
       "heading": "Še niste prepričani?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Prevodi",
-    "newTopic": "Nov prevod",
-    "noTopicsYet": "Še ni prevodov",
-    "deleteTopic": "Izbriši temo",
-    "deleteTopicConfirm": "Izbrišem to temo in vse njene prevode?",
     "swapAria": "Zamenjaj jezika",
-    "chooseLanguage": "Izberite jezik",
     "close": "Zapri",
     "searchPlaceholder": "Iščite jezik…",
     "clearHistory": "Počisti zgodovino",
     "clearHistoryConfirm": "Počistim vse prevode v tej temi?",
-    "noTranslationsYet": "V tej temi še ni prevodov.",
-    "translating": "Prevajanje…",
     "typePlaceholder": "Vnesite sporočilo…",
     "translateAria": "Prevedi",
-    "micDeniedError": "Dostop do mikrofona zavrnjen",
     "micBlockedTitle": "Dostop do mikrofona je izklopljen",
     "micBlockedDesc": "Blokirali ste dostop do mikrofona, zato glasovni vnos ne more delovati. Glasovni vnos potrebuje mikrofon za snemanje vašega govora.",
     "micBlockedHow": "Če ga želite znova vklopiti: kliknite ikono ključavnice / spletnega mesta v naslovni vrstici, spremenite Mikrofon na Dovoli in nato znova naložite stran. V Safariju: Nastavitve → Spletna mesta → Mikrofon → Dovoli. Na iPhone/iPadu: Nastavitve → Safari → Mikrofon → Dovoli.",
@@ -371,10 +281,8 @@
     "recognizing": "Prepoznavanje…",
     "recordAria": "Snemaj",
     "stopAria": "Ustavi",
-    "pricingLink": "Cenik",
     "errors": {
-      "insufficientCredits": "Kvota je porabljena – nadgradite paket",
-      "textTooLong": "Besedilo je predolgo za vaš paket",
+      "textTooLong": "Besedilo je predolgo za prevod naenkrat",
       "turnstileFailed": "Preverjanje ni uspelo — osvežite stran in poskusite znova",
       "notRecognized": "Ni bilo mogoče prepoznati — poskusi znova",
       "rateLimited": "Preveč zahtev — počakaj trenutek",

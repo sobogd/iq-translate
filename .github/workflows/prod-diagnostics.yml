@@ -25,34 +25,6 @@ jobs:
             pm2 status 2>&1 | head -40
             echo "===== translator (Next.js) last logs ====="
             pm2 logs translator --lines 200 --nostream 2>&1 | tail -n 260
-            echo "===== translator-ocr (sidecar) last logs ====="
-            pm2 logs translator-ocr --lines 200 --nostream 2>&1 | tail -n 260
-            echo "===== OCR sidecar health ====="
-            curl -s -m 5 http://127.0.0.1:8701/healthz || echo "healthz unreachable"
-            echo "===== composed images on disk ====="
-            find /home/deploy/apps/translator/var/translated -type f -printf "%T@ %p\n" 2>/dev/null | sort -rn | head -20
-            echo "===== LAST COMPOSED IMAGE PREVIEW (base64 jpeg <=900px) ====="
-            LATEST=$(find /home/deploy/apps/translator/var/translated -type f -name '*.jpg' -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)
-            echo "latest file: $LATEST"
-            if [ -n "$LATEST" ]; then
-              /home/deploy/apps/translator/services/ocr/.venv/bin/python - "$LATEST" <<'PYEOF'
-            import sys
-            from PIL import Image
-            import io, base64
-            im = Image.open(sys.argv[1])
-            w, h = im.size
-            if max(w, h) > 900:
-                scale = 900 / max(w, h)
-                im = im.resize((max(1, int(w * scale)), max(1, int(h * scale))), Image.LANCZOS)
-            buf = io.BytesIO()
-            im.save(buf, "JPEG", quality=72)
-            s = base64.b64encode(buf.getvalue()).decode()
-            for i in range(0, len(s), 150000):
-                print(s[i:i + 150000])
-            PYEOF
-            fi
-            echo "===== dejavu fonts present? ====="
-            ls /usr/share/fonts/truetype/dejavu/ 2>/dev/null || fc-list 2>/dev/null | grep -ci dejavu || echo "no dejavu fonts"
             echo "===== LAST TRANSLATIONS FROM DB ====="
             cd /home/deploy/apps/translator
             set -a
@@ -66,27 +38,21 @@ jobs:
                 const rows = await p.translation.findMany({
                   orderBy: { createdAt: "desc" },
                   take: 4,
-                  include: { topic: true },
+                  include: { conversation: true },
                 });
                 for (const r of rows) {
                   console.log("ROW", JSON.stringify({
                     id: r.id,
                     createdAt: r.createdAt,
-                    hasImage: !!r.imageUrl,
-                    imageUrl: r.imageUrl,
                     sourceLang: r.sourceLang,
-                    topicId: r.topicId,
-                    topicTitle: r.topic && r.topic.title,
-                    topicSrc: r.topic && r.topic.sourceLang,
-                    topicTgt: r.topic && r.topic.targetLang,
-                    transcriptLines: (r.transcript || "").split("\n").length,
+                    conversationId: r.conversationId,
+                    convOwner: r.conversation && r.conversation.ownerKey,
+                    convSrc: r.conversation && r.conversation.sourceLang,
+                    convTgt: r.conversation && r.conversation.targetLang,
+                    convWrite: r.conversation && r.conversation.writeLang,
                     transcript: r.transcript,
                     translation: r.translation,
                   }));
-                }
-                const acc = await p.account.findMany();
-                for (const a of acc) {
-                  console.log("ACCOUNT", a.email, "plan=" + a.plan, "imagesLeft=" + a.imagesBalance, "charsLeft=" + a.charsBalance);
                 }
                 await p.$disconnect();
               })().catch((e) => { console.error("DBERR", e && e.message); process.exit(1); });

@@ -98,7 +98,6 @@ export function FeatureLanding({
             texts={chrome}
             presetSource={presetSource}
             presetTarget={presetTarget}
-            pricingHref={pricingHref}
           />
         }
       >

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   if (!identity) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   // One solve buys a 30-minute pass, so a caller asking far more often than
   // that is grinding fresh passes, not using the product.
-  if (!allowRequest("turnstile", identity.quotaKey)) {
+  if (!allowRequest("turnstile", identity.rateKey)) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 

@@ -65,7 +65,7 @@
     },
     {
       "title": "Sense necessitat de registre",
-      "sub": "Prova-ho directament en aquesta pàgina — inicia sessió només quan vulguis millorar el pla"
+      "sub": "Prova-ho directament en aquesta pàgina — inicia sessió només per guardar l'historial"
     },
     {
       "title": "Historial per parella de llengües",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Esborra o elimina quan vulguis",
-          "sub": "Buida l'historial d'un fil o elimina'l del tot des del menú"
+          "sub": "Esborra l'historial de la parella quan vulguis amb el botó de paperera sobre el xat"
         }
       ]
     },
     {
       "heading": "No cal registrar-se per començar",
-      "sub": "Prova-ho directament en aquesta pàgina — sense compte, sense contrasenya. Inicia sessió amb Google només quan vulguis una quota mensual més gran i historial sincronitzat entre dispositius.",
+      "sub": "Prova-ho directament en aquesta pàgina — sense compte ni contrasenya. Inicia sessió amb correu, Google o Apple només si vols l'historial en un compte i no en aquest navegador.",
       "bullets": [
         {
           "title": "Inici de sessió opcional amb un toc",
@@ -194,12 +194,12 @@
         "a": "186 llengües. Tria la teva llengua una vegada i comença un fil de conversa amb qualsevol altra."
       },
       {
-        "q": "Necessito crear un compte?",
-        "a": "No. Prova-ho directament en aquesta pàgina sense registrar-te. Inicia sessió amb Google només si vols una quota mensual més gran i historial sincronitzat entre dispositius."
+        "q": "Cal crear un compte?",
+        "a": "No. Prova-ho directament en aquesta pàgina sense registrar-te. Inicia sessió amb correu, Google o Apple només si vols tenir l'historial en un compte i no en aquest navegador."
       },
       {
-        "q": "Es guarda el meu historial de traduccions?",
-        "a": "Sí, per cada parella de llengües, així les converses anteriors queden organitzades — fins i tot sense iniciar sessió, el teu navegador queda recordat. Esborra o elimina qualsevol fil quan vulguis des del seu menú."
+        "q": "Es desa l'historial de traduccions?",
+        "a": "Sí, un historial per cada parella d'idiomes — fins i tot sense iniciar sessió, el navegador es recorda. Esborra l'historial de la parella quan vulguis amb el botó de paperera sobre el xat."
       },
       {
         "q": "Puc utilitzar text en lloc de veu?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Més parells d'idiomes"
   },
   "account": {
-    "title": "Compte",
-    "planLabel": "Pla",
-    "freePlan": "Prova gratuïta",
-    "minutesLeft": "Minuts de veu restants",
-    "charsLeft": "Caràcters restants",
-    "imagesLeft": "Imatges restants",
-    "manageSubscription": "Gestiona la subscripció",
-    "upgrade": "Millora"
+    "title": "Compte"
   },
   "pricing": {
     "meta": {
-      "title": "Preus — Plans de Traducció de Veu i Text | IQ Translate",
-      "description": "Tres plans mensuals senzills amb minuts de veu i caràcters de text inclosos. Prova-ho gratis sense registrar-te — no cal targeta."
+      "title": "Traductor de veu i text gratuït | IQ Translate",
+      "description": "Traducció de veu i text gratuïta, sense subscripció, sense límits i sense targeta. Inicia sessió només si vols l'historial al teu compte."
     },
-    "heading": "Preus mensuals",
-    "headingAccent": "senzills",
-    "sub": "Cada pla inclou minuts de veu i caràcters de text. Prova-ho gratis directament a la pàgina d'inici — sense registre, sense targeta.",
-    "perMonth": "/mes",
-    "mostPopular": "El més popular",
-    "cta": "Comença",
     "freeNote": {
-      "title": "No cal cap pla gratuït — el nivell gratuït és la mateixa pàgina d'inici.",
-      "sub": "Tradueix sense registrar-te: cada visitant obté 2 minuts de veu i 4.000 caràcters per provar-ho, directament al widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minuts de veu al mes",
-          "1.500.000 caràcters de text al mes",
-          "Fins a 30.000 caràcters per petició",
-          "Les 186 llengües",
-          "Historial de converses guardat"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minuts de veu al mes",
-          "3.000.000 caràcters de text al mes",
-          "Fins a 100.000 caràcters per petició",
-          "Les 186 llengües",
-          "Historial de converses guardat",
-          "Processament prioritari"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 minuts de veu al mes",
-          "8.000.000 caràcters de text al mes",
-          "Fins a 150.000 caràcters per petició",
-          "Les 186 llengües",
-          "Historial de converses guardat",
-          "Processament prioritari"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Preguntes sobre",
-      "headingAccent": "preus",
-      "sub": "El que la gent pregunta abans de subscriure's.",
-      "items": [
-        {
-          "q": "Com funcionen els minuts de veu i els caràcters?",
-          "a": "Els minuts de veu cobreixen convertir la teva parla en text; els caràcters cobreixen la traducció de text (incloses les transcripcions editades). Cada pla renova tots dos cada mes."
-        },
-        {
-          "q": "Què passa quan se m'acaben?",
-          "a": "La traducció es pausa fins que es renovi la teva quota mensual o fins que actualitzis a un pla superior des del portal de facturació."
-        },
-        {
-          "q": "Hi ha alguna manera gratuïta de provar-ho?",
-          "a": "Sí — el widget de la pàgina d'inici funciona sense cap registre: cada visitant té 2 minuts de veu i 4.000 caràcters inclosos."
-        },
-        {
-          "q": "Puc cancel·lar quan vulgui?",
-          "a": "Sí. Gestiona o cancel·la la teva subscripció quan vulguis des del portal de facturació — sense cap compromís a llarg termini."
-        },
-        {
-          "q": "Puc canviar de pla més endavant?",
-          "a": "Sí, millora o redueix el pla quan vulguis; el nou pla t'atorga la quota mensual completa a l'instant."
-        },
-        {
-          "q": "Oferiu facturació anual?",
-          "a": "Encara no — de moment tots els plans es facturen mensualment."
-        }
-      ]
+      "title": "Gratuït per a tothom — sense plans ni límits.",
+      "sub": "Tradueix per veu o text sense pagar i sense límit de quantitat. Inicia sessió amb correu, Google o Apple només si vols que l'historial estigui al teu compte."
     },
     "finalCta": {
       "heading": "Encara no ho tens clar?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Traduccions",
-    "newTopic": "Nova traducció",
-    "noTopicsYet": "Encara no hi ha traduccions",
-    "deleteTopic": "Elimina el tema",
-    "deleteTopicConfirm": "Vols eliminar aquest tema i totes les seves traduccions?",
     "swapAria": "Canvia les llengües",
-    "chooseLanguage": "Tria una llengua",
     "close": "Tanca",
     "searchPlaceholder": "Cerca una llengua…",
     "clearHistory": "Esborra l'historial",
     "clearHistoryConfirm": "Vols esborrar totes les traduccions d'aquest tema?",
-    "noTranslationsYet": "Encara no hi ha traduccions en aquest tema.",
-    "translating": "Traduint…",
     "typePlaceholder": "Escriu un missatge…",
     "translateAria": "Tradueix",
-    "micDeniedError": "Accés al micròfon denegat",
     "micBlockedTitle": "L'accés al micròfon està desactivat",
     "micBlockedDesc": "Has bloquejat l'accés al micròfon, per tant l'entrada de veu no pot funcionar. L'entrada de veu necessita el micròfon per gravar la teva veu.",
     "micBlockedHow": "Per tornar a activar-lo: fes clic a la icona del cadenat / del lloc a la barra d'adreces, canvia Micròfon a Permetre i recarrega la pàgina. Al Safari: Preferències → Llocs web → Micròfon → Permetre. A l'iPhone/iPad: Ajustos → Safari → Micròfon → Permetre.",
@@ -371,10 +281,8 @@
     "recognizing": "Reconeixent…",
     "recordAria": "Grava",
     "stopAria": "Atura",
-    "pricingLink": "Preus",
     "errors": {
-      "insufficientCredits": "Quota esgotada — millora el teu pla",
-      "textTooLong": "Text massa llarg per al teu pla",
+      "textTooLong": "El text és massa llarg per traduir-lo d'una sola vegada",
       "turnstileFailed": "La verificació ha fallat — torna a carregar la pàgina i prova-ho de nou",
       "notRecognized": "No s'ha pogut reconèixer — torna-ho a provar",
       "rateLimited": "Massa sol·licituds — espera un moment",

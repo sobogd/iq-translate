@@ -3,8 +3,8 @@
 // asked, so a prompt change never reaches a route or the browser.
 //
 // Two things are deliberately absent here. Language detection: the direction
-// is always known before a request arrives (the topic's pair plus the current
-// writing direction — see the /api/translate route), because asking one 9B
+// is always known before a request arrives (the conversation's pair plus the
+// current writing direction — see the /api/translate route), because asking one 9B
 // model to both decide the language and translate it measurably degrades the
 // translation. And the transcript: it used to be the model's echo of the
 // input; now it is the input itself, so the model has nothing to rewrite and
@@ -12,7 +12,7 @@
 
 import { Language } from "./languages";
 import { CONTEXT_MAX_CHARS, maxOutputTokens, splitIntoChunks } from "./llm-limits";
-import { chat, chatStream, LlmMessage } from "./llm";
+import { chatStream, LlmMessage } from "./llm";
 
 /** One earlier turn of the same conversation, oldest first. */
 export type RecentTurn = { sourceLang: string; transcript: string; translation: string };
@@ -127,158 +127,4 @@ export async function* translateStream(
     const trailing = trailingSpace(chunk);
     if (trailing) yield trailing;
   }
-}
-
-// ---------------------------------------------------------------------------
-// Photo translation: OCR has already split the image into text blocks with
-// boxes (lib/image-ocr.ts -> the translator-ocr sidecar). The model only sees
-// text — numbered segments in, an aligned array of translations out. No image
-// tokens, no coordinate guessing: geometry stays with the OCR layer.
-// ---------------------------------------------------------------------------
-
-/** How many segments go into one engine call. Small batches keep a weak model
- *  from losing track of ids, and a dropped segment is retried in the next
- *  round instead of failing the photo. */
-const IMAGE_BLOCK_CHUNK = 15;
-
-/** Rounds of retrying whatever the model skipped. One extra round recovers a
- *  single dropped segment; a third has never been needed and would only add
- *  latency to every photo. */
-const IMAGE_BLOCK_ROUNDS = 2;
-
-/** JSON Schema of the answer: blocks keyed by the id they were sent with, so
- *  the mapping back onto the image never depends on the model's ordering. */
-function imageBlocksSchema() {
-  return {
-    type: "object",
-    properties: {
-      blocks: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            id: { type: "integer" },
-            translation: { type: "string" },
-          },
-          required: ["id", "translation"],
-          additionalProperties: false,
-        },
-      },
-    },
-    required: ["blocks"],
-    additionalProperties: false,
-  };
-}
-
-/** Prompt of one batch: a numbered list in, a JSON object out. */
-function imageBatchMessages(
-  source: Language | null,
-  target: Language,
-  segments: { id: number; text: string }[],
-): LlmMessage[] {
-  const numbered = segments.map((s) => `[${s.id}] ${s.text}`).join("\n");
-  // The source is named only when it is known: unnamed it is one less thing
-  // for the model to get wrong, and translating implies reading the language
-  // anyway.
-  const from = source ? ` from ${langLabel(source)}` : "";
-  return [
-    {
-      role: "system",
-      content:
-        `You are a professional translator. You translate text found on a photo${from} ` +
-        `into ${langLabel(target)}.\n\n` +
-        "Below is a numbered list of text segments, one per line in the form [id] text, all found in one photo.\n" +
-        "Answer with a JSON object holding a single \"blocks\" array: one entry per segment, " +
-        '{"id": <the segment\'s id>, "translation": "<the translation>"}.\n' +
-        "Rules:\n" +
-        "- Translate every segment; never merge two segments and never split one.\n" +
-        "- Use only the ids from the list — never invent an id.\n" +
-        "- Translate meaning, not words; keep it natural and idiomatic.\n" +
-        "- Do not echo the source text and do not add notes.",
-    },
-    { role: "user", content: `SEGMENTS:\n${numbered}` },
-  ];
-}
-
-/** One batch of segments -> map of id to translation, skipped ids absent. */
-async function translateSegmentBatch(
-  source: Language | null,
-  target: Language,
-  segments: { id: number; text: string }[],
-  signal?: AbortSignal,
-): Promise<Map<number, string>> {
-  const chars = segments.reduce((n, s) => n + s.text.length, 0);
-  const raw = await chat({
-    messages: imageBatchMessages(source, target, segments),
-    maxTokens: maxOutputTokens(chars),
-    jsonSchema: { name: "blocks", schema: imageBlocksSchema() },
-    signal,
-  });
-  const out = new Map<number, string>();
-  if (!raw) return out;
-  let parsed: { blocks?: { id?: unknown; translation?: unknown }[] };
-  try {
-    parsed = JSON.parse(raw) as typeof parsed;
-  } catch {
-    // A truncated or malformed answer costs this batch, not the photo: the
-    // caller retries the missing ids in the next round.
-    console.warn("[translate-image] model answered with unparseable JSON");
-    return out;
-  }
-  for (const block of Array.isArray(parsed.blocks) ? parsed.blocks : []) {
-    if (typeof block.id === "number" && Number.isInteger(block.id)) {
-      const translation = typeof block.translation === "string" ? block.translation.trim() : "";
-      if (translation) out.set(block.id, translation);
-    }
-  }
-  return out;
-}
-
-/**
- * Translates every block text of one photo. Resolves with exactly as many
- * entries as `texts`, index-aligned — a missing translation is an empty
- * string, never a shifted one: segments travel in small id-keyed batches and
- * whatever the model skipped is asked for again, so one dropped entry does
- * not spoil the photo.
- */
-export async function translateImageBlocks(
-  target: Language,
-  texts: string[],
-  source: Language | null,
-  signal?: AbortSignal,
-): Promise<string[]> {
-  const clean: string[] = [];
-  for (const text of texts) {
-    const trimmed = text.trim();
-    if (trimmed) clean.push(trimmed);
-  }
-  if (clean.length === 0) return [];
-
-  const result: string[] = new Array(clean.length).fill("");
-  const missing = new Set<number>(clean.map((_, i) => i + 1)); // 1-based ids
-
-  for (let round = 0; round < IMAGE_BLOCK_ROUNDS && missing.size > 0; round++) {
-    const ids = [...missing];
-    for (let from = 0; from < ids.length; from += IMAGE_BLOCK_CHUNK) {
-      const chunk = ids.slice(from, from + IMAGE_BLOCK_CHUNK);
-      const got = await translateSegmentBatch(
-        source,
-        target,
-        chunk.map((id) => ({ id, text: clean[id - 1] })),
-        signal,
-      );
-      for (const id of chunk) {
-        const translation = got.get(id);
-        if (translation !== undefined) {
-          result[id - 1] = translation;
-          missing.delete(id);
-        }
-      }
-    }
-  }
-
-  if (missing.size > 0) {
-    console.warn(`[translate-image] ${missing.size} block(s) left untranslated: ${[...missing].join(",")}`);
-  }
-  return result;
 }

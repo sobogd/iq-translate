@@ -65,7 +65,7 @@
     },
     {
       "title": "Ingen registrering nødvendig",
-      "sub": "Prøv direkte på denne side — log kun ind for en større månedlig kvote"
+      "sub": "Prøv det direkte på denne side — log kun ind for at gemme din historik"
     },
     {
       "title": "Historik pr. sprogpar",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Ryd eller slet når som helst",
-          "sub": "Ryd en tråds historik eller fjern den helt fra menuen"
+          "sub": "Ryd et sprogpars historik når som helst med skraldespanden over chatten"
         }
       ]
     },
     {
       "heading": "Ingen registrering nødvendig for at starte",
-      "sub": "Prøv direkte på denne side — ingen konto, intet kodeord. Log kun ind med Google, når du vil have en større månedlig kvote og historik synkroniseret på tværs af enheder.",
+      "sub": "Prøv det direkte på denne side — ingen konto, intet kodeord. Log kun ind med e-mail, Google eller Apple, hvis du vil have historikken på en konto i stedet for i denne browser.",
       "bullets": [
         {
           "title": "Valgfri login med ét tryk",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Skal jeg oprette en konto?",
-        "a": "Nej. Prøv det direkte på denne side uden registrering. Log kun ind med Google, hvis du vil have en større månedlig kvote og historik synkroniseret på tværs af enheder."
+        "a": "Nej. Prøv det direkte på denne side uden tilmelding. Log kun ind med e-mail, Google eller Apple, hvis du vil have historikken på en konto i stedet for i denne browser."
       },
       {
         "q": "Gemmes min oversættelseshistorik?",
-        "a": "Ja, pr. sprogpar, så tidligere samtaler holdes organiseret — selv uden login genkendes din browser. Ryd eller slet en tråd når som helst fra dens menu."
+        "a": "Ja, én historik pr. sprogpar — selv uden login huskes din browser. Ryd et sprogpars historik når som helst med skraldespanden over chatten."
       },
       {
         "q": "Kan jeg bruge tekst i stedet for stemme?",
@@ -251,97 +251,16 @@
     "pairsHeading": "Flere sprogpar"
   },
   "account": {
-    "title": "Konto",
-    "planLabel": "Plan",
-    "freePlan": "Gratis prøveperiode",
-    "minutesLeft": "Taleminutter tilbage",
-    "charsLeft": "Tegn tilbage",
-    "imagesLeft": "Billeder tilbage",
-    "manageSubscription": "Administrer abonnement",
-    "upgrade": "Opgrader"
+    "title": "Konto"
   },
   "pricing": {
     "meta": {
-      "title": "Priser – Planer for Stemme & Tekst | IQ Translate",
-      "description": "Tre enkle månedlige planer med stemmeminutter og tegn inkluderet, til alle 186 sprog. Prøv gratis direkte uden registrering — intet kort krævet."
+      "title": "Gratis tale- og tekstoversætter | IQ Translate",
+      "description": "Gratis tale- og tekstoversættelse, uden abonnement, uden kvoter og uden kort. Log kun ind, hvis du vil have historikken på en konto."
     },
-    "heading": "Enkle månedlige",
-    "headingAccent": "priser",
-    "sub": "Hver plan inkluderer stemmeminutter og tekst-tegn. Prøv gratis direkte på forsiden — ingen registrering, intet kort.",
-    "perMonth": "/md.",
-    "mostPopular": "Mest populær",
-    "cta": "Kom i gang",
     "freeNote": {
-      "title": "Ingen gratis plan nødvendig — forsiden er selv det gratis niveau.",
-      "sub": "Oversæt uden registrering: hver besøgende får 2 stemmeminutter og 4.000 tegn at prøve, direkte i widgeten."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 stemmeminutter om måneden",
-          "1.500.000 tekst-tegn om måneden",
-          "Op til 30.000 tegn pr. forespørgsel",
-          "Alle 186 sprog",
-          "Gemt samtalehistorik"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 stemmeminutter om måneden",
-          "3.000.000 tekst-tegn om måneden",
-          "Op til 100.000 tegn pr. forespørgsel",
-          "Alle 186 sprog",
-          "Gemt samtalehistorik",
-          "Prioriteret behandling"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 stemmeminutter om måneden",
-          "8.000.000 tekst-tegn om måneden",
-          "Op til 150.000 tegn pr. forespørgsel",
-          "Alle 186 sprog",
-          "Gemt samtalehistorik",
-          "Prioriteret behandling"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Spørgsmål om",
-      "headingAccent": "priser",
-      "sub": "Det folk spørger om, før de abonnerer.",
-      "items": [
-        {
-          "q": "Hvordan fungerer stemmeminutter og tegn?",
-          "a": "Stemmeminutter dækker omdannelse af din tale til tekst; tegn dækker oversættelse af tekst (inklusive redigerede transskriptioner). Hver plan genopfylder begge hver måned."
-        },
-        {
-          "q": "Hvad sker der, når jeg løber tør?",
-          "a": "Oversættelse sættes på pause, indtil din månedlige kvote genopfyldes, eller du opgraderer til en højere plan fra faktureringsportalen."
-        },
-        {
-          "q": "Er der en gratis måde at prøve det på?",
-          "a": "Ja — widgeten på forsiden fungerer uden registrering: 2 stemmeminutter og 4.000 tegn er inkluderet for hver besøgende."
-        },
-        {
-          "q": "Kan jeg opsige når som helst?",
-          "a": "Ja. Administrer eller opsig dit abonnement når som helst fra faktureringsportalen — ingen langsigtet binding."
-        },
-        {
-          "q": "Kan jeg skifte plan senere?",
-          "a": "Ja, opgrader eller nedgrader når som helst; en ny plan giver straks sin fulde månedlige kvote."
-        },
-        {
-          "q": "Tilbyder I årlig fakturering?",
-          "a": "Ikke endnu — alle planer faktureres månedligt indtil videre."
-        }
-      ]
+      "title": "Gratis for alle — ingen planer, ingen kvoter.",
+      "sub": "Oversæt med tale eller tekst uden at betale og uden loft. Log ind med e-mail, Google eller Apple, hvis du vil have historikken på en konto."
     },
     "finalCta": {
       "heading": "Stadig i tvivl?",
@@ -351,22 +270,13 @@
     }
   },
   "translator": {
-    "topics": "Oversættelser",
-    "newTopic": "Ny oversættelse",
-    "noTopicsYet": "Ingen oversættelser endnu",
-    "deleteTopic": "Slet emne",
-    "deleteTopicConfirm": "Slet dette emne og alle dets oversættelser?",
     "swapAria": "Byt sprog",
-    "chooseLanguage": "Vælg et sprog",
     "close": "Luk",
     "searchPlaceholder": "Søg efter et sprog…",
     "clearHistory": "Ryd historik",
     "clearHistoryConfirm": "Ryd alle oversættelser i dette emne?",
-    "noTranslationsYet": "Ingen oversættelser endnu i dette emne.",
-    "translating": "Oversætter…",
     "typePlaceholder": "Skriv en besked…",
     "translateAria": "Oversæt",
-    "micDeniedError": "Adgang til mikrofon nægtet",
     "micBlockedTitle": "Mikrofonadgang er slået fra",
     "micBlockedDesc": "Du har blokeret mikrofonadgang, så stemmeinput kan ikke virke. Stemmeinput har brug for mikrofonen til at optage din tale.",
     "micBlockedHow": "Sådan slår du det til igen: klik på lås-/site-ikonet i adresselinjen, skift Mikrofon til Tillad, og genindlæs siden. Safari: Indstillinger → Websteder → Mikrofon → Tillad. iPhone/iPad: Indstillinger → Safari → Mikrofon → Tillad.",
@@ -379,10 +289,8 @@
     "recognizing": "Genkender…",
     "recordAria": "Optag",
     "stopAria": "Stop",
-    "pricingLink": "Priser",
     "errors": {
-      "insufficientCredits": "Kvote opbrugt — opgrader din plan",
-      "textTooLong": "Teksten er for lang til din plan",
+      "textTooLong": "Teksten er for lang til at oversætte på én gang",
       "turnstileFailed": "Verificeringen mislykkedes — genindlæs siden, og prøv igen",
       "notRecognized": "Kunne ikke genkendes — prøv igen",
       "rateLimited": "For mange forespørgsler — vent et øjeblik",

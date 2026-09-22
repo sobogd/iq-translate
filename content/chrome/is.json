@@ -65,7 +65,7 @@
     },
     {
       "title": "Engin skráning nauðsynleg",
-      "sub": "Prófaðu beint á þessari síðu — skráðu þig aðeins inn þegar þú uppfærir áskriftina"
+      "sub": "Prófaðu beint á þessari síðu — skráðu þig inn aðeins til að vista ferilinn"
     },
     {
       "title": "Saga eftir tungumálapari",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Hreinsaðu eða eyddu hvenær sem er",
-          "sub": "Hreinsaðu sögu samtals eða eyddu því alveg úr valmyndinni"
+          "sub": "Hreinsaðu feril parsins hvenær sem er með ruslatunnunni yfir spjallinu"
         }
       ]
     },
     {
       "heading": "Engin skráning nauðsynleg til að byrja",
-      "sub": "Prófaðu beint á þessari síðu — enginn reikningur, ekkert lykilorð. Skráðu þig inn með Google aðeins þegar þú vilt stærri mánaðarlega kvóta og samstillta sögu milli tækja.",
+      "sub": "Prófaðu beint á þessari síðu — enginn reikningur, ekkert lykilorð. Skráðu þig inn með tölvupósti, Google eða Apple aðeins ef þú vilt ferilinn á reikning frekar en í þessum vafra.",
       "bullets": [
         {
           "title": "Valfrjáls innskráning með einni snertingu",
@@ -194,12 +194,12 @@
         "a": "186 tungumál. Veldu þitt eigið tungumál einu sinni og byrjaðu svo samtal við hvern sem er á öðru tungumáli."
       },
       {
-        "q": "Þarf ég að stofna reikning?",
-        "a": "Nei. Prófaðu beint á þessari síðu án skráningar. Skráðu þig inn með Google aðeins ef þú vilt stærri mánaðarlega kvóta og samstillta sögu milli tækja."
+        "q": "Þarf ég að búa til reikning?",
+        "a": "Nei. Prófaðu beint á þessari síðu án skráningar. Skráðu þig inn með tölvupósti, Google eða Apple aðeins ef þú vilt ferilinn á reikning frekar en í þessum vafra."
       },
       {
-        "q": "Er þýðingarsagan mín vistuð?",
-        "a": "Já, eftir tungumálapari, svo fyrri samtöl haldast skipulögð — jafnvel án innskráningar man vafrinn þinn eftir þér. Hreinsaðu eða eyddu hvaða samtali sem er hvenær sem er úr valmyndinni."
+        "q": "Er þýðingarferillinn minn vistaður?",
+        "a": "Já, einn ferill fyrir hvert tungumálapar — jafnvel án innskráningar er vafrinn þinn minnkaður. Hreinsaðu feril parsins hvenær sem er með ruslatunnunni yfir spjallinu."
       },
       {
         "q": "Get ég notað texta í stað raddar?",
@@ -235,97 +235,16 @@
     "pairsHeading": "Fleiri tungumálapör"
   },
   "account": {
-    "title": "Aðgangur",
-    "planLabel": "Pakki",
-    "freePlan": "Ókeypis prufa",
-    "minutesLeft": "Raddmínútur eftir",
-    "charsLeft": "Stafir eftir",
-    "imagesLeft": "Myndir eftir",
-    "manageSubscription": "Stjórna áskrift",
-    "upgrade": "Uppfæra"
+    "title": "Aðgangur"
   },
   "pricing": {
     "meta": {
-      "title": "Verð — Áskriftarleiðir fyrir Rödd og Texta | IQ Translate",
-      "description": "Þrjár einfaldar mánaðarlegar áskriftir með rödd-mínútum og texta-stöfum innifalið. Prófaðu frítt án skráningar — ekkert kort þarf."
+      "title": "Ókeypis tal- og textaþýðandi | IQ Translate",
+      "description": "Ókeypis tal- og textaþýðing, án áskriftar, án kvóta og án korts. Skráðu þig inn aðeins ef þú vilt ferilinn á reikning."
     },
-    "heading": "Einfalt mánaðarlegt",
-    "headingAccent": "verð",
-    "sub": "Hver áskrift inniheldur raddmínútur og textastafi. Prófaðu frítt beint á forsíðunni — engin skráning, ekkert kort.",
-    "perMonth": "/mán.",
-    "mostPopular": "Vinsælast",
-    "cta": "Byrja",
     "freeNote": {
-      "title": "Engin þörf á fríri áskrift — fría stigið er sjálf forsíðan.",
-      "sub": "Þýddu án skráningar: hver gestur fær 2 raddmínútur og 4.000 stafi til að prófa, beint í tólinu."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 raddmínútur á mánuði",
-          "1.500.000 textastafir á mánuði",
-          "Allt að 30.000 stafir í hverri beiðni",
-          "Öll 186 tungumál",
-          "Vistuð samtalasaga"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 raddmínútur á mánuði",
-          "3.000.000 textastafir á mánuði",
-          "Allt að 100.000 stafir í hverri beiðni",
-          "Öll 186 tungumál",
-          "Vistuð samtalasaga",
-          "Forgangsvinnsla"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 raddmínútur á mánuði",
-          "8.000.000 textastafir á mánuði",
-          "Allt að 150.000 stafir í hverri beiðni",
-          "Öll 186 tungumál",
-          "Vistuð samtalasaga",
-          "Forgangsvinnsla"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Spurningar um",
-      "headingAccent": "verð",
-      "sub": "Það sem fólk spyr áður en það gerist áskrifandi.",
-      "items": [
-        {
-          "q": "Hvernig virka raddmínútur og stafir?",
-          "a": "Raddmínútur ná yfir að breyta tali þínu í texta; stafir ná yfir að þýða texta (þar með talið breyttar afritanir). Hver áskrift endurnýjar bæði hvern mánuð."
-        },
-        {
-          "q": "Hvað gerist þegar það klárast?",
-          "a": "Þýðing stöðvast þar til mánaðarlegi kvótinn endurnýjast eða þar til þú uppfærir í hærri áskrift í gegnum reikningagáttina."
-        },
-        {
-          "q": "Er hægt að prófa frítt?",
-          "a": "Já — tólið á forsíðunni virkar án nokkurrar skráningar: hver gestur fær 2 raddmínútur og 4.000 stafi innifalið."
-        },
-        {
-          "q": "Get ég sagt upp hvenær sem er?",
-          "a": "Já. Stjórnaðu eða segðu upp áskriftinni hvenær sem er í gegnum reikningagáttina — engin langtímaskuldbinding."
-        },
-        {
-          "q": "Get ég skipt um áskrift síðar?",
-          "a": "Já, uppfærðu eða lækkaðu áskrift hvenær sem er; ný áskrift veitir fullan mánaðarlegan kvóta samstundis."
-        },
-        {
-          "q": "Bjóðið þið upp á árlega greiðslu?",
-          "a": "Ekki ennþá — allar áskriftir eru greiddar mánaðarlega í bili."
-        }
-      ]
+      "title": "Ókeypis fyrir alla — engar áskriftir, engar kvótur.",
+      "sub": "Þýððu með tali eða texta án greiðslu og án takmarkana. Skráðu þig inn með tölvupósti, Google eða Apple aðeins ef þú vilt ferilinn á reikning."
     },
     "finalCta": {
       "heading": "Ekki alveg viss enn?",
@@ -335,22 +254,13 @@
     }
   },
   "translator": {
-    "topics": "Þýðingar",
-    "newTopic": "Ný þýðing",
-    "noTopicsYet": "Engar þýðingar enn",
-    "deleteTopic": "Eyða umræðu",
-    "deleteTopicConfirm": "Eyða þessari umræðu og öllum þýðingum í henni?",
     "swapAria": "Skipta um tungumál",
-    "chooseLanguage": "Veldu tungumál",
     "close": "Loka",
     "searchPlaceholder": "Leita að tungumáli…",
     "clearHistory": "Hreinsa sögu",
     "clearHistoryConfirm": "Hreinsa allar þýðingar í þessari umræðu?",
-    "noTranslationsYet": "Engar þýðingar enn í þessari umræðu.",
-    "translating": "Þýði…",
     "typePlaceholder": "Skrifaðu skilaboð…",
     "translateAria": "Þýða",
-    "micDeniedError": "Aðgangi að hljóðnema hafnað",
     "micBlockedTitle": "Aðgangur að hljóðnema er slökktur",
     "micBlockedDesc": "Þú hefur lokað á aðgang að hljóðnema, svo raddinnsláttur getur ekki virkað. Raddinnsláttur þarf hljóðneman til að taka upp tal þinn.",
     "micBlockedHow": "Til að kveikja á honum aftur: smelltu á lás-/vefsíðutáknið í veffangastikunni, breyttu Hljóðnemi í Leyfa, og endurlesaðu síðuna. Safari: Stillingar → Vefsvæði → Hljóðnemi → Leyfa. iPhone/iPad: Stillingar → Safari → Hljóðnemi → Leyfa.",
@@ -363,10 +273,8 @@
     "recognizing": "Greini…",
     "recordAria": "Taka upp",
     "stopAria": "Stöðva",
-    "pricingLink": "Verð",
     "errors": {
-      "insufficientCredits": "Kvótinn búinn — uppfærðu áskriftina þína",
-      "textTooLong": "Textinn er of langur fyrir áskriftina þína",
+      "textTooLong": "Textinn er of langur til að þýða í einu",
       "turnstileFailed": "Staðfesting mistókst — endurhlaðið síðuna og reynið aftur",
       "notRecognized": "Tókst ekki að greina — reyndu aftur",
       "rateLimited": "Of margar beiðnir — bíddu augnablik",

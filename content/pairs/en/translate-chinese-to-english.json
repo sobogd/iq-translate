@@ -45,8 +45,8 @@
           "sub": "One conversation instead of two separate translations"
         },
         {
-          "title": "Saved as topics",
-          "sub": "Reopen the thread when the next message comes in"
+          "title": "Saved per language pair",
+          "sub": "Reopen the conversation when the next message comes in"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "English in, Chinese out, same thread.",
+        "us": "English in, Chinese out, same conversation.",
         "them": "A second lookup the other way."
       },
       {
         "title": "History",
-        "us": "Conversations kept as topics.",
+        "us": "Conversations kept per language pair.",
         "them": "Lost when you close it."
       },
       {
@@ -132,15 +132,15 @@
       },
       {
         "q": "Can I reply in English?",
-        "a": "Yes, the reply is translated into Chinese in the same thread and can be read aloud so tones are audible."
+        "a": "Yes, the reply is translated into Chinese in the same conversation and can be read aloud so tones are audible."
       },
       {
         "q": "Are conversations saved?",
-        "a": "Each is kept as a topic you can reopen, delete or clear entirely at any time."
+        "a": "Yes, one history per language pair. It stays saved, and you can clear it anytime with the trash button above the chat."
       },
       {
         "q": "Is it free?",
-        "a": "Yes, with a free allowance you can use without an account; signing in with Google increases the monthly quota and syncs history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

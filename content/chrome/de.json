@@ -65,7 +65,7 @@
     },
     {
       "title": "Keine Anmeldung nötig",
-      "sub": "Direkt auf dieser Seite ausprobieren – anmelden nur zum Upgrade deines Plans"
+      "sub": "Direkt auf dieser Seite ausprobieren — melde dich nur an, um deinen Verlauf zu speichern"
     },
     {
       "title": "Verlauf pro Sprachpaar",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Jederzeit löschen oder leeren",
-          "sub": "Lösche den Verlauf eines Themas oder entferne es komplett über das Menü"
+          "sub": "Lösche den Verlauf eines Sprachpaares jederzeit über das Papierkorb-Symbol über dem Chat"
         }
       ]
     },
     {
       "heading": "Keine Anmeldung zum Start nötig",
-      "sub": "Direkt auf dieser Seite ausprobieren – kein Konto, kein Passwort. Melde dich mit Google an, wenn du ein größeres monatliches Kontingent und geräteübergreifenden Verlauf möchtest.",
+      "sub": "Direkt auf dieser Seite ausprobieren — kein Konto, kein Passwort. Melde dich nur mit E-Mail, Google oder Apple an, wenn dein Verlauf am Konto statt in diesem Browser liegen soll.",
       "bullets": [
         {
           "title": "Optionale Anmeldung mit einem Tipp",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Muss ich ein Konto erstellen?",
-        "a": "Nein. Probiere es direkt auf dieser Seite ohne Anmeldung. Melde dich mit Google an, wenn du ein größeres monatliches Kontingent und geräteübergreifenden Verlauf möchtest."
+        "a": "Nein. Probiere es direkt auf dieser Seite ohne Anmeldung. Melde dich nur mit E-Mail, Google oder Apple an, wenn dein Verlauf am Konto statt in diesem Browser liegen soll."
       },
       {
         "q": "Wird mein Übersetzungsverlauf gespeichert?",
-        "a": "Ja, pro Sprachpaar, damit frühere Gespräche übersichtlich bleiben – selbst ohne Anmeldung merkt sich dein Browser den Verlauf. Lösche oder leere jedes Thema jederzeit über sein Menü."
+        "a": "Ja, ein Verlauf pro Sprachpaar — auch ohne Anmeldung wird dein Browser erkannt. Lösche den Verlauf eines Paares jederzeit über das Papierkorb-Symbol über dem Chat."
       },
       {
         "q": "Kann ich Text statt Sprache verwenden?",
@@ -271,97 +271,16 @@
     "pairsHeading": "Weitere Sprachpaare"
   },
   "account": {
-    "title": "Konto",
-    "planLabel": "Plan",
-    "freePlan": "Kostenlose Testversion",
-    "minutesLeft": "Verbleibende Sprachminuten",
-    "charsLeft": "Verbleibende Zeichen",
-    "imagesLeft": "Verbleibende Bilder",
-    "manageSubscription": "Abo verwalten",
-    "upgrade": "Upgrade"
+    "title": "Konto"
   },
   "pricing": {
     "meta": {
-      "title": "Preise für Sprach- und Textübersetzung | IQ Translate",
-      "description": "Drei einfache Monatstarife, jeweils mit Sprachminuten und Textzeichen inklusive. Teste es kostenlos ohne Anmeldung — es ist keine Kreditkarte nötig."
+      "title": "Kostenloser Sprach- und Textübersetzer | IQ Translate",
+      "description": "Kostenlose Sprach- und Textübersetzung, ohne Abo, ohne Kontingente und ohne Karte. Melde dich nur an, wenn dein Verlauf am Konto hängen soll."
     },
-    "heading": "Einfache monatliche",
-    "headingAccent": "Preise",
-    "sub": "Jeder Tarif enthält Sprachminuten und Textzeichen. Teste es kostenlos direkt auf der Startseite — ohne Anmeldung, ohne Kreditkarte.",
-    "perMonth": "/Monat",
-    "mostPopular": "Am beliebtesten",
-    "cta": "Loslegen",
     "freeNote": {
-      "title": "Kein Gratistarif nötig — die Startseite selbst ist die kostenlose Stufe.",
-      "sub": "Übersetze ohne Anmeldung: Jeder Besucher erhält 2 Sprachminuten und 4.000 Zeichen zum Ausprobieren, direkt im Widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 Sprachminuten pro Monat",
-          "1.500.000 Textzeichen pro Monat",
-          "Bis zu 30.000 Zeichen pro Anfrage",
-          "Alle 186 Sprachen",
-          "Gespeicherter Gesprächsverlauf"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 Sprachminuten pro Monat",
-          "3.000.000 Textzeichen pro Monat",
-          "Bis zu 100.000 Zeichen pro Anfrage",
-          "Alle 186 Sprachen",
-          "Gespeicherter Gesprächsverlauf",
-          "Bevorzugte Verarbeitung"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 Sprachminuten pro Monat",
-          "8.000.000 Textzeichen pro Monat",
-          "Bis zu 150.000 Zeichen pro Anfrage",
-          "Alle 186 Sprachen",
-          "Gespeicherter Gesprächsverlauf",
-          "Bevorzugte Verarbeitung"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Fragen zu den",
-      "headingAccent": "Preisen",
-      "sub": "Was Nutzer vor dem Abschluss fragen.",
-      "items": [
-        {
-          "q": "Wie funktionieren Sprachminuten und Zeichen?",
-          "a": "Sprachminuten decken die Umwandlung deiner Sprache in Text ab; Zeichen decken die Textübersetzung ab (auch bearbeitete Transkripte). Beide werden bei jedem Tarif monatlich aufgefüllt."
-        },
-        {
-          "q": "Was passiert, wenn mein Kontingent aufgebraucht ist?",
-          "a": "Die Übersetzung pausiert, bis dein monatliches Kontingent sich auffüllt oder du im Rechnungsportal auf einen höheren Tarif wechselst."
-        },
-        {
-          "q": "Kann ich es kostenlos ausprobieren?",
-          "a": "Ja — das Widget auf der Startseite funktioniert ohne Anmeldung: Jeder Besucher erhält 2 Sprachminuten und 4.000 Zeichen inklusive."
-        },
-        {
-          "q": "Kann ich jederzeit kündigen?",
-          "a": "Ja. Verwalte oder kündige dein Abo jederzeit im Rechnungsportal — ohne langfristige Bindung."
-        },
-        {
-          "q": "Kann ich später den Tarif wechseln?",
-          "a": "Ja, wechsle jederzeit auf einen höheren oder niedrigeren Tarif; der neue Tarif gewährt sofort sein volles Monatskontingent."
-        },
-        {
-          "q": "Bietet ihr eine jährliche Abrechnung an?",
-          "a": "Noch nicht — aktuell werden alle Tarife monatlich abgerechnet."
-        }
-      ]
+      "title": "Für alle kostenlos — keine Tarife, keine Kontingente.",
+      "sub": "Übersetze per Sprache oder Text kostenlos und ohne Mengenbegrenzung. Melde dich nur mit E-Mail, Google oder Apple an, wenn dein Verlauf am Konto hängen soll."
     },
     "finalCta": {
       "heading": "Noch unsicher?",
@@ -371,22 +290,13 @@
     }
   },
   "translator": {
-    "topics": "Übersetzungen",
-    "newTopic": "Neue Übersetzung",
-    "noTopicsYet": "Noch keine Übersetzungen",
-    "deleteTopic": "Thema löschen",
-    "deleteTopicConfirm": "Dieses Thema und alle Übersetzungen löschen?",
     "swapAria": "Sprachen tauschen",
-    "chooseLanguage": "Sprache wählen",
     "close": "Schließen",
     "searchPlaceholder": "Sprache suchen…",
     "clearHistory": "Verlauf löschen",
     "clearHistoryConfirm": "Alle Übersetzungen in diesem Thema löschen?",
-    "noTranslationsYet": "Noch keine Übersetzungen in diesem Thema.",
-    "translating": "Übersetzt…",
     "typePlaceholder": "Nachricht eingeben…",
     "translateAria": "Übersetzen",
-    "micDeniedError": "Mikrofonzugriff verweigert",
     "micBlockedTitle": "Mikrofonzugriff ist deaktiviert",
     "micBlockedDesc": "Du hast den Mikrofonzugriff blockiert, daher kann die Spracheingabe nicht funktionieren. Die Spracheingabe braucht das Mikrofon, um deine Stimme aufzunehmen.",
     "micBlockedHow": "So schaltest du es wieder ein: Klicke in der Adressleiste auf das Schloss- bzw. Website-Symbol, stelle Mikrofon auf Erlauben und lade die Seite neu. Bei Safari: Einstellungen → Websites → Mikrofon → Erlauben. Auf iPhone/iPad: Einstellungen → Safari → Mikrofon → Erlauben.",
@@ -399,10 +309,8 @@
     "recognizing": "Erkennung läuft…",
     "recordAria": "Aufnehmen",
     "stopAria": "Stopp",
-    "pricingLink": "Preise",
     "errors": {
-      "insufficientCredits": "Kontingent aufgebraucht – Plan upgraden",
-      "textTooLong": "Text zu lang für deinen Plan",
+      "textTooLong": "Der Text ist zu lang, um ihn auf einmal zu übersetzen",
       "turnstileFailed": "Überprüfung fehlgeschlagen — Seite neu laden und erneut versuchen",
       "notRecognized": "Konnte nicht erkannt werden — bitte erneut versuchen",
       "rateLimited": "Zu viele Anfragen — warte einen Moment",

@@ -65,7 +65,7 @@
     },
     {
       "title": "Bez rejestracji",
-      "sub": "Wypróbuj od razu na tej stronie — logowanie tylko po większy miesięczny limit"
+      "sub": "Wypróbuj od razu na tej stronie — zaloguj się tylko, aby zachować historię"
     },
     {
       "title": "Historia dla każdej pary języków",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Czyść lub usuwaj w dowolnym momencie",
-          "sub": "Wyczyść historię wątku albo usuń go całkowicie z menu"
+          "sub": "Wyczyść historię pary w każdej chwili przyciskiem kosza nad czatem"
         }
       ]
     },
     {
       "heading": "Bez rejestracji na start",
-      "sub": "Wypróbuj od razu na tej stronie — bez konta, bez hasła. Zaloguj się przez Google tylko wtedy, gdy chcesz większy miesięczny limit i historii zsynchronizowanej między urządzeniami.",
+      "sub": "Wypróbuj od razu na tej stronie — bez konta i hasła. Zaloguj się e-mailem, przez Google lub Apple tylko jeśli chcesz historię na koncie, a nie w tej przeglądarce.",
       "bullets": [
         {
           "title": "Opcjonalne logowanie jednym dotknięciem",
@@ -194,12 +194,12 @@
         "a": "186 języków. Wybierz swój język raz, a potem rozpocznij wątek rozmowy z dowolnym innym."
       },
       {
-        "q": "Czy muszę zakładać konto?",
-        "a": "Nie. Wypróbuj od razu na tej stronie, bez rejestracji. Zaloguj się przez Google tylko wtedy, gdy chcesz większy miesięczny limit i historii zsynchronizowanej między urządzeniami."
+        "q": "Czy muszę tworzyć konto?",
+        "a": "Nie. Wypróbuj od razu na tej stronie, bez rejestracji. Zaloguj się e-mailem, przez Google lub Apple tylko jeśli chcesz mieć historię na koncie, a nie w tej przeglądarce."
       },
       {
-        "q": "Czy moja historia tłumaczeń jest zapisywana?",
-        "a": "Tak, dla każdej pary języków osobno, dzięki czemu wcześniejsze rozmowy pozostają uporządkowane — nawet bez logowania Twoja przeglądarka jest zapamiętywana. Wyczyść lub usuń dowolny wątek z jego menu w dowolnym momencie."
+        "q": "Czy historia tłumaczeń jest zapisywana?",
+        "a": "Tak, jedna historia na każdą parę językową — nawet bez logowania przeglądarka jest pamiętana. Wyczyść historię pary w każdej chwili przyciskiem kosza nad czatem."
       },
       {
         "q": "Czy mogę używać tekstu zamiast głosu?",
@@ -263,97 +263,16 @@
     "pairsHeading": "Więcej par językowych"
   },
   "account": {
-    "title": "Konto",
-    "planLabel": "Plan",
-    "freePlan": "Darmowy okres próbny",
-    "minutesLeft": "Pozostałe minuty głosowe",
-    "charsLeft": "Pozostałe znaki",
-    "imagesLeft": "Pozostałe obrazy",
-    "manageSubscription": "Zarządzaj subskrypcją",
-    "upgrade": "Ulepsz plan"
+    "title": "Konto"
   },
   "pricing": {
     "meta": {
-      "title": "Cennik – minuty głosowe i znaki tekstowe | IQ Translate",
-      "description": "Trzy proste miesięczne plany z minutami głosowymi i znakami tekstowymi w cenie, dla 186 języków. Wypróbuj za darmo bez rejestracji — karta niepotrzebna."
+      "title": "Darmowy tłumacz głosowy i tekstowy | IQ Translate",
+      "description": "Darmowe tłumaczenie głosowe i tekstowe, bez subskrypcji, limitów i karty. Zaloguj się tylko jeśli chcesz historię na koncie."
     },
-    "heading": "Proste miesięczne",
-    "headingAccent": "ceny",
-    "sub": "Każdy plan zawiera minuty głosowe i znaki tekstowe. Wypróbuj za darmo od razu na stronie głównej — bez rejestracji, bez karty.",
-    "perMonth": "/mies.",
-    "mostPopular": "Najpopularniejszy",
-    "cta": "Zacznij teraz",
     "freeNote": {
-      "title": "Darmowy plan niepotrzebny — sama strona główna to darmowa warstwa.",
-      "sub": "Tłumacz bez rejestracji: każdy odwiedzający otrzymuje 2 minuty głosowe i 4000 znaków do wypróbowania, prosto w widżecie."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minut głosowych miesięcznie",
-          "1 500 000 znaków tekstowych miesięcznie",
-          "Do 30 000 znaków na zapytanie",
-          "Wszystkie 186 języków",
-          "Zapisana historia rozmów"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minut głosowych miesięcznie",
-          "3 000 000 znaków tekstowych miesięcznie",
-          "Do 100 000 znaków na zapytanie",
-          "Wszystkie 186 języków",
-          "Zapisana historia rozmów",
-          "Priorytetowe przetwarzanie"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1500 minut głosowych miesięcznie",
-          "8 000 000 znaków tekstowych miesięcznie",
-          "Do 150 000 znaków na zapytanie",
-          "Wszystkie 186 języków",
-          "Zapisana historia rozmów",
-          "Priorytetowe przetwarzanie"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Pytania o",
-      "headingAccent": "cennik",
-      "sub": "O co pytają ludzie przed subskrypcją.",
-      "items": [
-        {
-          "q": "Jak działają minuty głosowe i znaki?",
-          "a": "Minuty głosowe obejmują zamianę mowy na tekst; znaki obejmują tłumaczenie tekstu (w tym edytowanych transkrypcji). Każdy plan odnawia oba limity co miesiąc."
-        },
-        {
-          "q": "Co się dzieje, gdy wyczerpię limit?",
-          "a": "Tłumaczenie zostaje wstrzymane do odnowienia miesięcznego limitu lub przejścia na wyższy plan w portalu rozliczeniowym."
-        },
-        {
-          "q": "Czy jest darmowy sposób, by to wypróbować?",
-          "a": "Tak — widżet na stronie głównej działa bez rejestracji: każdy odwiedzający otrzymuje 2 minuty głosowe i 4000 znaków."
-        },
-        {
-          "q": "Czy mogę zrezygnować w dowolnym momencie?",
-          "a": "Tak. Zarządzaj lub anuluj subskrypcję w dowolnym momencie w portalu rozliczeniowym — bez długoterminowego zobowiązania."
-        },
-        {
-          "q": "Czy mogę później zmienić plan?",
-          "a": "Tak, uaktualnij lub obniż plan w dowolnym momencie; nowy plan od razu przyznaje pełny miesięczny limit."
-        },
-        {
-          "q": "Czy oferujecie rozliczenia roczne?",
-          "a": "Jeszcze nie — na razie wszystkie plany są rozliczane miesięcznie."
-        }
-      ]
+      "title": "Bezpłatnie dla wszystkich — bez planów i limitów.",
+      "sub": "Tłumacz głosem lub tekstem bez opłat i bez limitu ilości. Zaloguj się e-mailem, przez Google lub Apple tylko jeśli chcesz mieć historię na koncie."
     },
     "finalCta": {
       "heading": "Jeszcze się wahasz?",
@@ -363,22 +282,13 @@
     }
   },
   "translator": {
-    "topics": "Tłumaczenia",
-    "newTopic": "Nowe tłumaczenie",
-    "noTopicsYet": "Brak tłumaczeń",
-    "deleteTopic": "Usuń wątek",
-    "deleteTopicConfirm": "Usunąć ten wątek i wszystkie jego tłumaczenia?",
     "swapAria": "Zamień języki",
-    "chooseLanguage": "Wybierz język",
     "close": "Zamknij",
     "searchPlaceholder": "Szukaj języka…",
     "clearHistory": "Wyczyść historię",
     "clearHistoryConfirm": "Wyczyścić wszystkie tłumaczenia w tym wątku?",
-    "noTranslationsYet": "Brak tłumaczeń w tym wątku.",
-    "translating": "Tłumaczenie…",
     "typePlaceholder": "Wpisz wiadomość…",
     "translateAria": "Tłumacz",
-    "micDeniedError": "Odmówiono dostępu do mikrofonu",
     "micBlockedTitle": "Dostęp do mikrofonu jest wyłączony",
     "micBlockedDesc": "Zablokowałeś dostęp do mikrofonu, więc głosowe wprowadzanie nie może działać. Wprowadzanie głosowe potrzebuje mikrofonu, aby nagrać Twoją mowę.",
     "micBlockedHow": "Aby je włączyć ponownie: kliknij ikonę kłódki / witryny na pasku adresu, zmień Mikrofon na Zezwalaj, a następnie przeładuj stronę. W Safari: Ustawienia → Witryny → Mikrofon → Zezwalaj. Na iPhonie/iPadzie: Ustawienia → Safari → Mikrofon → Zezwalaj.",
@@ -391,10 +301,8 @@
     "recognizing": "Rozpoznawanie…",
     "recordAria": "Nagraj",
     "stopAria": "Zatrzymaj",
-    "pricingLink": "Cennik",
     "errors": {
-      "insufficientCredits": "Limit wyczerpany — ulepsz plan",
-      "textTooLong": "Tekst zbyt długi dla Twojego planu",
+      "textTooLong": "Tekst jest za długi, aby przetłumaczyć go za jednym razem",
       "turnstileFailed": "Weryfikacja nie powiodła się — odśwież stronę i spróbuj ponownie",
       "notRecognized": "Nie udało się rozpoznać — spróbuj ponownie",
       "rateLimited": "Zbyt wiele żądań — poczekaj chwilę",

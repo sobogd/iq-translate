@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "English to Spanish Voice Translator | IQ Translate",
-    "description": "Translate English to Spanish by voice or text, hear it spoken aloud, and reply in Spanish in the same thread. 186 languages, free to try, no sign-up.",
+    "description": "Translate English to Spanish by voice or text, hear it spoken aloud, and reply in Spanish in the same conversation. 186 languages, free to try, no sign-up.",
     "ogTitle": "English to Spanish Voice Translator",
     "ogDescription": "Speak or type English, get an instant Spanish translation, spoken aloud or written. Works both directions, free to try.",
     "canonical": "https://iq-translate.com/translate-english-to-spanish",
@@ -38,15 +38,15 @@
     },
     {
       "heading": "Spanish translation for live conversation",
-      "sub": "Keep talking back and forth without starting over — every exchange stays in the same topic.",
+      "sub": "Keep talking back and forth without starting over — every exchange stays in the same conversation.",
       "bullets": [
         {
           "title": "Reply in Spanish, translated to English",
           "sub": "Whoever you're talking to can speak Spanish and you'll see and hear it in English"
         },
         {
-          "title": "Conversations saved as topics",
-          "sub": "Come back to the same Spanish chat later instead of losing the thread"
+          "title": "Conversations saved per language pair",
+          "sub": "Come back to the same Spanish chat later instead of losing the conversation"
         }
       ]
     },
@@ -93,7 +93,7 @@
       },
       {
         "title": "Conversation history",
-        "us": "Every Spanish conversation is saved as its own topic you can reopen.",
+        "us": "Every Spanish conversation is saved per language pair you can reopen.",
         "them": "Each translation disappears once you close the app."
       },
       {
@@ -103,7 +103,7 @@
       },
       {
         "title": "Both directions",
-        "us": "English to Spanish and Spanish to English live in the same thread.",
+        "us": "English to Spanish and Spanish to English live in the same conversation.",
         "them": "Switching direction usually means starting a new translation."
       },
       {
@@ -128,11 +128,11 @@
       },
       {
         "q": "Can I translate from Spanish back to English?",
-        "a": "Yes, the same conversation works both ways — speak or type in Spanish and get the English translation in the same thread."
+        "a": "Yes, the same conversation works both ways — speak or type in Spanish and get the English translation in the same conversation."
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, you can try it free without creating an account. Sign in with Google for more daily credits and saved history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       },
       {
         "q": "Do I need to install anything?",
@@ -140,7 +140,7 @@
       },
       {
         "q": "Can I keep a running conversation instead of one-off translations?",
-        "a": "Yes, translations are grouped into topics, so a Spanish conversation stays in one place instead of scattering across separate lookups."
+        "a": "Yes, each language pair keeps its own history, so a conversation stays together instead of scattering across separate translations."
       }
     ]
   },

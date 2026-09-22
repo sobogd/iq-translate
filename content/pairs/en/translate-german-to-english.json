@@ -13,7 +13,7 @@
     "badgeLanguages": "186 languages",
     "title": "German to English translator",
     "titleAccent": "that untangles long sentences",
-    "description": "German saves its verb for the end and glues nouns into one word — record it or paste it and read the English in order. Answer in English and it goes back in German, in the same thread.",
+    "description": "German saves its verb for the end and glues nouns into one word — record it or paste it and read the English in order. Answer in English and it goes back in German, in the same conversation.",
     "mockFromLabel": "🇩🇪 German",
     "mockFromPhrase": "Können Sie mir sagen, wo die Anmeldung ist?",
     "mockToLabel": "🇬🇧 English",
@@ -46,7 +46,7 @@
         },
         {
           "title": "Saved for the next round",
-          "sub": "Each conversation stays as a topic you can reopen when the reply arrives"
+          "sub": "Each conversation stays per language pair you can reopen when the reply arrives"
         }
       ]
     },
@@ -98,12 +98,12 @@
       },
       {
         "title": "Replying",
-        "us": "Answer in English and send it in German, same thread.",
+        "us": "Answer in English and send it in German, same conversation.",
         "them": "Run a second translation manually."
       },
       {
         "title": "History",
-        "us": "Kept as topics you can reopen.",
+        "us": "Kept per language pair you can reopen.",
         "them": "Lost when the tab closes."
       },
       {
@@ -140,7 +140,7 @@
       },
       {
         "q": "Is it free?",
-        "a": "There is a free allowance available immediately without an account, and signing in with Google raises the monthly quota and keeps your history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       }
     ]
   },

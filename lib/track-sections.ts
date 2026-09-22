@@ -11,7 +11,6 @@ const SECTION_LABEL: Record<string, string> = {
   features: "Features",
   comparison: "Comparison",
   faq: "FAQ",
-  plans: "Plans",
   final_cta: "Final CTA",
   legal: "Legal text",
   footer: "Footer",

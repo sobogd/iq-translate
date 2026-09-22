@@ -38,14 +38,14 @@
     },
     {
       "heading": "English and Russian conversation translator",
-      "sub": "Whoever replies in Russian gets translated back to English instantly, in the same thread.",
+      "sub": "Whoever replies in Russian gets translated back to English instantly, in the same conversation.",
       "bullets": [
         {
           "title": "Russian replies translated back",
           "sub": "The other person speaks Russian, you see and hear the English meaning"
         },
         {
-          "title": "Saved as a topic",
+          "title": "Saved per language pair",
           "sub": "Reopen the same Russian conversation later instead of losing it"
         }
       ]
@@ -98,7 +98,7 @@
       },
       {
         "title": "Conversation history",
-        "us": "Every Russian conversation is saved as its own topic.",
+        "us": "Every Russian conversation is saved per language pair.",
         "them": "Each translation disappears once you close the app."
       },
       {
@@ -108,7 +108,7 @@
       },
       {
         "title": "Both directions",
-        "us": "English to Russian and Russian to English in one thread.",
+        "us": "English to Russian and Russian to English in one conversation.",
         "them": "Switching direction usually means starting over."
       }
     ]
@@ -132,7 +132,7 @@
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, try it free without creating an account. Sign in with Google for more daily credits and saved history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       },
       {
         "q": "Do I need a Russian keyboard installed?",

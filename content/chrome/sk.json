@@ -65,7 +65,7 @@
     },
     {
       "title": "Bez registrácie",
-      "sub": "Vyskúšajte priamo na tejto stránke — prihláste sa len vtedy, keď budete chcieť vylepšiť plán"
+      "sub": "Vyskúšajte to priamo na tejto stránke — prihláste sa len pre uloženie histórie"
     },
     {
       "title": "História pre každú jazykovú dvojicu",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Kedykoľvek vymažte alebo zmažte",
-          "sub": "Vymažte históriu vlákna alebo ho z ponuky úplne odstráňte"
+          "sub": "Vymažte históriu dvojice kedykoľvek tlačidlom koša nad chatom"
         }
       ]
     },
     {
       "heading": "Bez registrácie na začiatok",
-      "sub": "Vyskúšajte priamo na tejto stránke — bez účtu, bez hesla. Prihláste sa cez Google len vtedy, keď chcete väčšiu mesačnú kvótu a históriu synchronizovanú medzi zariadeniami.",
+      "sub": "Vyskúšajte to priamo na tejto stránke — bez účtu a hesla. Prihláste sa e-mailom, cez Google alebo Apple len ak chcete históriu pri účte, nie v tomto prehliadači.",
       "bullets": [
         {
           "title": "Voliteľné prihlásenie jedným klepnutím",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Musím si vytvoriť účet?",
-        "a": "Nie. Vyskúšajte priamo na tejto stránke bez registrácie. Prihláste sa cez Google len vtedy, keď chcete väčšiu mesačnú kvótu a históriu synchronizovanú medzi zariadeniami."
+        "a": "Nie. Vyskúšajte to priamo na tejto stránke bez registrácie. Prihláste sa e-mailom, cez Google alebo Apple len ak chcete históriu pri účte, nie v tomto prehliadači."
       },
       {
-        "q": "Ukladá sa moja história prekladov?",
-        "a": "Áno, pre každú jazykovú dvojicu zvlášť, takže minulé rozhovory zostávajú prehľadné — aj bez prihlásenia si aplikácia pamätá váš prehliadač. Kedykoľvek môžete vlákno vymazať alebo úplne odstrániť z jeho ponuky."
+        "q": "Ukladá sa história prekladov?",
+        "a": "Áno, jedna história pre každú jazykovú dvojicu — aj bez prihlásenia sa prehliadač pamätá. Vymažte históriu dvojice kedykoľvek tlačidlom koša nad chatom."
       },
       {
         "q": "Môžem namiesto hlasu použiť text?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Ďalšie jazykové páry"
   },
   "account": {
-    "title": "Účet",
-    "planLabel": "Plán",
-    "freePlan": "Bezplatná skúšobná verzia",
-    "minutesLeft": "Zostávajúce hlasové minúty",
-    "charsLeft": "Zostávajúce znaky",
-    "imagesLeft": "Zostávajúce obrázky",
-    "manageSubscription": "Spravovať predplatné",
-    "upgrade": "Upgradovať"
+    "title": "Účet"
   },
   "pricing": {
     "meta": {
-      "title": "Cenník — Plány pre hlas a text | IQ Translate",
-      "description": "Tri jednoduché mesačné plány s hlasovými minútami a textovými znakmi. Vyskúšajte zadarmo bez registrácie — karta nie je potrebná."
+      "title": "Bezplatný hlasový a textový prekladač | IQ Translate",
+      "description": "Bezplatný hlasový a textový preklad, bez predplatného, limitov a karty. Prihláste sa len ak chcete históriu pri účte."
     },
-    "heading": "Jednoduchý mesačný",
-    "headingAccent": "cenník",
-    "sub": "Každý plán zahŕňa hlasové minúty a textové znaky. Vyskúšajte zadarmo priamo na domovskej stránke — bez registrácie, bez karty.",
-    "perMonth": "/mes",
-    "mostPopular": "Najobľúbenejší",
-    "cta": "Začať",
     "freeNote": {
-      "title": "Bezplatný plán nie je potrebný — bezplatná úroveň je samotná domovská stránka.",
-      "sub": "Prekladajte bez registrácie: každý návštevník dostane na vyskúšanie 2 hlasové minúty a 4.000 znakov priamo vo widgete."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 hlasových minút mesačne",
-          "1.500.000 textových znakov mesačne",
-          "Až 30.000 znakov na požiadavku",
-          "Všetkých 186 jazykov",
-          "Uložená história rozhovorov"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 hlasových minút mesačne",
-          "3.000.000 textových znakov mesačne",
-          "Až 100.000 znakov na požiadavku",
-          "Všetkých 186 jazykov",
-          "Uložená história rozhovorov",
-          "Prioritné spracovanie"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 hlasových minút mesačne",
-          "8.000.000 textových znakov mesačne",
-          "Až 150.000 znakov na požiadavku",
-          "Všetkých 186 jazykov",
-          "Uložená história rozhovorov",
-          "Prioritné spracovanie"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Otázky o",
-      "headingAccent": "cenách",
-      "sub": "Na čo sa ľudia pýtajú pred predplatením.",
-      "items": [
-        {
-          "q": "Ako fungujú hlasové minúty a znaky?",
-          "a": "Hlasové minúty pokrývajú prevod vašej reči na text; znaky pokrývajú preklad textu (vrátane upravených prepisov). Každý plán dopĺňa oboje každý mesiac."
-        },
-        {
-          "q": "Čo sa stane, keď mi dôjdu?",
-          "a": "Preklad sa pozastaví, kým sa vaša mesačná kvóta nedoplní alebo kým neprejdete na vyšší plán cez portál fakturácie."
-        },
-        {
-          "q": "Existuje bezplatný spôsob vyskúšania?",
-          "a": "Áno — widget na domovskej stránke funguje bez akejkoľvek registrácie: 2 hlasové minúty a 4.000 znakov sú zahrnuté pre každého návštevníka."
-        },
-        {
-          "q": "Môžem kedykoľvek zrušiť?",
-          "a": "Áno. Spravujte alebo zrušte svoje predplatné kedykoľvek cez portál fakturácie — bez dlhodobého záväzku."
-        },
-        {
-          "q": "Môžem neskôr zmeniť plán?",
-          "a": "Áno, kedykoľvek prejdite na vyšší alebo nižší plán; nový plán okamžite získa svoju plnú mesačnú kvótu."
-        },
-        {
-          "q": "Ponúkate ročnú fakturáciu?",
-          "a": "Zatiaľ nie — všetky plány sa momentálne fakturujú mesačne."
-        }
-      ]
+      "title": "Zadarmo pre všetkých — bez taríf a bez limitov.",
+      "sub": "Prekladajte hlasom alebo textom zadarmo a bez obmedzenia objemu. Prihláste sa e-mailom, cez Google alebo Apple len ak chcete históriu pri účte."
     },
     "finalCta": {
       "heading": "Ešte si nie ste istí?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Preklady",
-    "newTopic": "Nový preklad",
-    "noTopicsYet": "Zatiaľ žiadne preklady",
-    "deleteTopic": "Zmazať vlákno",
-    "deleteTopicConfirm": "Zmazať toto vlákno a všetky jeho preklady?",
     "swapAria": "Prehodiť jazyky",
-    "chooseLanguage": "Vyberte jazyk",
     "close": "Zavrieť",
     "searchPlaceholder": "Hľadať jazyk…",
     "clearHistory": "Vymazať históriu",
     "clearHistoryConfirm": "Vymazať všetky preklady v tomto vlákne?",
-    "noTranslationsYet": "V tomto vlákne zatiaľ nie sú žiadne preklady.",
-    "translating": "Prekladanie…",
     "typePlaceholder": "Napíšte správu…",
     "translateAria": "Preložiť",
-    "micDeniedError": "Prístup k mikrofónu bol zamietnutý",
     "micBlockedTitle": "Prístup k mikrofónu je vypnutý",
     "micBlockedDesc": "Zablokovali ste prístup k mikrofónu, takže hlasový vstup nemôže fungovať. Hlasový vstup potrebuje mikrofón na nahrávanie vašej reči.",
     "micBlockedHow": "Ak ho chcete znova zapnúť: kliknite na ikonu zámku / stránky v adresnom riadku, prepnite Mikrofón na Povoliť a potom obnovte stránku. V Safari: Predvoľby → Webové stránky → Mikrofón → Povoliť. Na iPhone/iPade: Nastavenia → Safari → Mikrofón → Povoliť.",
@@ -371,10 +281,8 @@
     "recognizing": "Rozpoznávanie…",
     "recordAria": "Nahrať",
     "stopAria": "Zastaviť",
-    "pricingLink": "Cenník",
     "errors": {
-      "insufficientCredits": "Kvóta je vyčerpaná — vylepšite svoj plán",
-      "textTooLong": "Text je pre váš plán príliš dlhý",
+      "textTooLong": "Text je príliš dlhý na preklad naraz",
       "turnstileFailed": "Overenie zlyhalo — obnovte stránku a skúste to znova",
       "notRecognized": "Nepodarilo sa rozpoznať — skúste to znova",
       "rateLimited": "Príliš veľa požiadaviek — chvíľu počkajte",

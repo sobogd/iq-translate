@@ -15,7 +15,6 @@ auth layer: both ends bind to loopback and the tunnel joins them.
 | --- | --- | --- |
 | `1234` | `18812` | `llama-server` — translation (Qwen3.5-9B, Q6_K) |
 | `1238` | `18818` | `whisper-server` — speech recognition (large-v3-turbo) |
-| `8701` | `8701` | OCR sidecar, on the server itself (`services/ocr`) |
 
 The tunnel is the same resilient reverse-SSH wrapper the CloudlyRu chat uses:
 `~/work/jevel.ai/agents/run-dsh-tunnel.sh`, kept alive by launchd
@@ -111,7 +110,7 @@ What the widget says when something is wrong:
 | `model_unavailable` | nothing is listening on `LLM_BASE_URL` (engine down, Mac asleep, tunnel dropped) |
 | `model_timeout` | the engine accepted the request and stopped answering |
 | `stt_unavailable` / `stt_timeout` | same for `whisper-server` |
-| `source_required` | the topic has no source language — a thread from before auto-detect was removed; picking a language in the widget fixes it |
+| `source_required` | the conversation row has no usable pair — a legacy row whose languages cannot be resolved; picking a language in the widget fixes it |
 
 The route logs carry the engine's own complaint (`[translate] model failed http:
 model answered 400: ...`), which is where a context-window problem or an
@@ -120,9 +119,9 @@ unparseable schema shows up.
 ## What this costs
 
 Nothing per request, and that is the point: the translation engine is the
-owner's hardware. The plan quotas (`lib/plans.ts`) survived the move because
-they no longer price a bill — they are what keeps one visitor from occupying
-four slots that the whole site shares.
+owner's hardware. The service is free and unmetered — there is no plan and no
+quota any more; the rate limiter is what keeps one visitor from occupying four
+slots that the whole site shares.
 
 Two consequences worth knowing: a long text is slower than a hosted API by an
 order of magnitude (a 2000-character message is ~25 seconds, and the widget

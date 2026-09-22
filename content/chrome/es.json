@@ -65,7 +65,7 @@
     },
     {
       "title": "Sin necesidad de registro",
-      "sub": "Pruébalo directamente en esta página — inicia sesión solo para mejorar tu plan"
+      "sub": "Pruébalo directamente en esta página — inicia sesión solo para guardar tu historial"
     },
     {
       "title": "Historial por par de idiomas",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Borra o elimina cuando quieras",
-          "sub": "Vacía el historial de un hilo o elimínalo por completo desde el menú"
+          "sub": "Borra el historial de un par cuando quieras con el botón de papelera sobre el chat"
         }
       ]
     },
     {
       "heading": "No hace falta registrarse para empezar",
-      "sub": "Pruébalo directamente en esta página — sin cuenta, sin contraseña. Inicia sesión con Google solo si quieres una cuota mensual más grande e historial sincronizado entre dispositivos.",
+      "sub": "Pruébalo directamente en esta página — sin cuenta ni contraseña. Inicia sesión con correo, Google o Apple solo si quieres tu historial en una cuenta en lugar de este navegador.",
       "bullets": [
         {
           "title": "Inicio de sesión opcional con un toque",
@@ -195,11 +195,11 @@
       },
       {
         "q": "¿Necesito crear una cuenta?",
-        "a": "No. Pruébalo directamente en esta página sin registrarte. Inicia sesión con Google solo si quieres una cuota mensual más grande e historial sincronizado entre dispositivos."
+        "a": "No. Pruébalo directamente en esta página sin registrarte. Inicia sesión con correo, Google o Apple solo si quieres tu historial en una cuenta en lugar de este navegador."
       },
       {
         "q": "¿Se guarda mi historial de traducciones?",
-        "a": "Sí, por cada par de idiomas, así las conversaciones anteriores quedan organizadas — incluso sin iniciar sesión, tu navegador queda recordado. Borra o elimina cualquier hilo cuando quieras desde su menú."
+        "a": "Sí, un historial por cada par de idiomas — incluso sin iniciar sesión se recuerda tu navegador. Borra el historial de un par cuando quieras con el botón de papelera sobre el chat."
       },
       {
         "q": "¿Puedo usar texto en lugar de voz?",
@@ -263,97 +263,16 @@
     "pairsHeading": "Más pares de idiomas"
   },
   "account": {
-    "title": "Cuenta",
-    "planLabel": "Plan",
-    "freePlan": "Prueba gratuita",
-    "minutesLeft": "Minutos de voz restantes",
-    "charsLeft": "Caracteres restantes",
-    "imagesLeft": "Imágenes restantes",
-    "manageSubscription": "Gestionar suscripción",
-    "upgrade": "Mejorar plan"
+    "title": "Cuenta"
   },
   "pricing": {
     "meta": {
-      "title": "Precios — Planes de traducción de voz y texto | IQ Translate",
-      "description": "Tres planes mensuales sencillos, cada uno con minutos de voz y caracteres de texto incluidos. Pruébalo gratis sin registrarte — no hace falta tarjeta."
+      "title": "Traductor de voz y texto gratis | IQ Translate",
+      "description": "Traducción de voz y texto gratis, sin suscripción, sin límites y sin tarjeta. Inicia sesión solo si quieres tu historial en una cuenta."
     },
-    "heading": "Precios mensuales",
-    "headingAccent": "sencillos",
-    "sub": "Cada plan incluye minutos de voz y caracteres de texto. Pruébalo gratis en la propia página de inicio — sin registro, sin tarjeta.",
-    "perMonth": "/mes",
-    "mostPopular": "Más popular",
-    "cta": "Empezar",
     "freeNote": {
-      "title": "No hace falta un plan gratis — el nivel gratuito ya está en la página de inicio.",
-      "sub": "Traduce sin registrarte: cada visitante tiene 2 minutos de voz y 4.000 caracteres para probar, directamente en el widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minutos de voz al mes",
-          "1.500.000 caracteres de texto al mes",
-          "Hasta 30.000 caracteres por solicitud",
-          "Los 186 idiomas",
-          "Historial de conversaciones guardado"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minutos de voz al mes",
-          "3.000.000 caracteres de texto al mes",
-          "Hasta 100.000 caracteres por solicitud",
-          "Los 186 idiomas",
-          "Historial de conversaciones guardado",
-          "Procesamiento prioritario"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 minutos de voz al mes",
-          "8.000.000 caracteres de texto al mes",
-          "Hasta 150.000 caracteres por solicitud",
-          "Los 186 idiomas",
-          "Historial de conversaciones guardado",
-          "Procesamiento prioritario"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Preguntas sobre",
-      "headingAccent": "los precios",
-      "sub": "Lo que la gente pregunta antes de suscribirse.",
-      "items": [
-        {
-          "q": "¿Cómo funcionan los minutos de voz y los caracteres?",
-          "a": "Los minutos de voz cubren la conversión de tu voz en texto; los caracteres cubren la traducción de texto (incluidas las transcripciones editadas). Cada plan renueva ambos cada mes."
-        },
-        {
-          "q": "¿Qué pasa si se me agotan?",
-          "a": "La traducción se pausa hasta que se renueve tu cuota mensual o pases a un plan superior desde el portal de facturación."
-        },
-        {
-          "q": "¿Hay alguna forma gratuita de probarlo?",
-          "a": "Sí — el widget de la página de inicio funciona sin registrarte: cada visitante tiene 2 minutos de voz y 4.000 caracteres incluidos."
-        },
-        {
-          "q": "¿Puedo cancelar en cualquier momento?",
-          "a": "Sí. Gestiona o cancela tu suscripción cuando quieras desde el portal de facturación — sin permanencia."
-        },
-        {
-          "q": "¿Puedo cambiar de plan más adelante?",
-          "a": "Sí, sube o baja de plan cuando quieras; el nuevo plan te da su cuota mensual completa al momento."
-        },
-        {
-          "q": "¿Ofrecéis facturación anual?",
-          "a": "Todavía no — por ahora todos los planes se facturan mensualmente."
-        }
-      ]
+      "title": "Gratis para todos — sin planes ni límites.",
+      "sub": "Traduce por voz o texto sin pagar y sin límite. Inicia sesión con correo, Google o Apple solo si quieres que tu historial esté en una cuenta."
     },
     "finalCta": {
       "heading": "¿Aún no lo tienes claro?",
@@ -363,22 +282,13 @@
     }
   },
   "translator": {
-    "topics": "Temas",
-    "newTopic": "Nuevo tema",
-    "noTopicsYet": "Aún no hay temas",
-    "deleteTopic": "Eliminar tema",
-    "deleteTopicConfirm": "¿Eliminar este tema y todas sus traducciones?",
     "swapAria": "Intercambiar idiomas",
-    "chooseLanguage": "Elige un idioma",
     "close": "Cerrar",
     "searchPlaceholder": "Busca un idioma…",
     "clearHistory": "Borrar historial",
     "clearHistoryConfirm": "¿Borrar todas las traducciones de este tema?",
-    "noTranslationsYet": "Aún no hay traducciones en este tema.",
-    "translating": "Traduciendo…",
     "typePlaceholder": "Escribe un mensaje…",
     "translateAria": "Traducir",
-    "micDeniedError": "Acceso al micrófono denegado",
     "micBlockedTitle": "El acceso al micrófono está desactivado",
     "micBlockedDesc": "Has bloqueado el acceso al micrófono, por lo que la entrada de voz no puede funcionar. La entrada de voz necesita el micrófono para grabar tu voz.",
     "micBlockedHow": "Para volver a activarlo: haz clic en el icono de candado / del sitio en la barra de direcciones, cambia Micrófono a Permitir y recarga la página. En Safari: Preferencias → Sitios web → Micrófono → Permitir. En iPhone/iPad: Ajustes → Safari → Micrófono → Permitir.",
@@ -391,10 +301,8 @@
     "recognizing": "Reconociendo…",
     "recordAria": "Grabar",
     "stopAria": "Detener",
-    "pricingLink": "Precios",
     "errors": {
-      "insufficientCredits": "Cuota agotada — mejora tu plan",
-      "textTooLong": "Texto demasiado largo para tu plan",
+      "textTooLong": "El texto es demasiado largo para traducirlo de una vez",
       "turnstileFailed": "La verificación ha fallado — recarga la página e inténtalo de nuevo",
       "notRecognized": "No se ha podido reconocer — inténtalo de nuevo",
       "rateLimited": "Demasiadas solicitudes — espera un momento",

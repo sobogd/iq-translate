@@ -41,7 +41,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: deployer
           key: ${{ secrets.SSH_KEY }}
-          source: ".next/,package.json,package-lock.json,public/,prisma/,services/ocr/,ecosystem-ocr.config.js"
+          source: ".next/,package.json,package-lock.json,public/,prisma/"
           target: "/home/deploy/apps/translator"
           overwrite: true
 
@@ -77,8 +77,6 @@ jobs:
             APPLE_KEY_ID="${{ secrets.APPLE_KEY_ID }}"
             APPLE_SERVICES_ID="${{ secrets.APPLE_SERVICES_ID }}"
             APPLE_PRIVATE_KEY="${{ secrets.APPLE_PRIVATE_KEY }}"
-            STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}"
-            STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
             TS_SITE="${{ secrets.TS_SITE }}"
             TS_SECRET="${{ secrets.TS_SECRET }}"
             # Cookieless analytics. Events are relayed to iq-metrix
@@ -89,7 +87,6 @@ jobs:
             INGEST_SHARED_SECRET="${{ secrets.INGEST_SHARED_SECRET }}"
             ANALYTICS_ADMIN_EMAILS="${{ secrets.ANALYTICS_ADMIN_EMAILS }}"
             ANALYTICS_EXCLUDE_EMAILS="${{ secrets.ANALYTICS_EXCLUDE_EMAILS }}"
-            OCR_SIDECAR_URL="http://127.0.0.1:8701"
             # Translation engine and speech recognition: both live on the
             # owner's Mac and reach this VPS through the reverse-SSH tunnel
             # (docs/local-llm.md). LLM_CTX has to match the model server's
@@ -110,56 +107,6 @@ jobs:
             # PORT must be a real env var — next start ignores PORT from .env file
             PORT=8200 pm2 restart translator --update-env || PORT=8200 pm2 start npm --name "translator" -- start
             pm2 save
-
-            # --- OCR sidecar: its OWN PM2 process, resource-capped (see
-            # ecosystem-ocr.config.js). A missing python3 or a failed model
-            # warmup must never take the translator deploy down with it —
-            # the sidecar is only needed for the image-translate feature.
-            # appleboy/ssh-action runs with `set -e`, so every fallible step
-            # below is guarded: provisioning problems degrade to a log line.
-            if command -v python3 >/dev/null 2>&1; then
-              cd /home/deploy/apps/translator/services/ocr
-
-              # Some boxes lack python3-venv (ensurepip missing). Strategy:
-              #   1) plain `venv`; 2) `venv --without-pip` + get-pip.py;
-              #   3) system pip `--user` (launcher ocr.sh then uses python3).
-              if [ ! -x .venv/bin/python ]; then
-                rm -rf .venv
-                python3 -m venv .venv 2>/dev/null || { rm -rf .venv; python3 -m venv --without-pip .venv 2>/dev/null || true; }
-              fi
-              if [ -x .venv/bin/python ] && [ ! -x .venv/bin/pip ]; then
-                curl -fsSL https://bootstrap.pypa.io/get-pip.py -o /tmp/translator-get-pip.py \
-                  && .venv/bin/python /tmp/translator-get-pip.py --quiet \
-                  || echo "get-pip bootstrap failed — will fall back to system pip"
-              fi
-              if [ -x .venv/bin/pip ]; then
-                ./.venv/bin/pip install --quiet --upgrade pip || true
-                ./.venv/bin/pip install --quiet -r requirements.txt || true
-              else
-                python3 -m pip install --quiet --user --break-system-packages -r requirements.txt || \
-                  echo "system pip --user install failed — sidecar deps missing"
-              fi
-
-              # Pre-download the rec models so the first real request never
-              # stalls behind a download. Output is ALWAYS printed so the
-              # deploy log shows why a run failed.
-              ./ocr.sh warmup.py > /tmp/translator-ocr-warmup.log 2>&1 || true
-              echo "--- translator-ocr warmup log (tail) ---"
-              tail -30 /tmp/translator-ocr-warmup.log || true
-              echo "--- end warmup log ---"
-
-              cd /home/deploy/apps/translator
-              pm2 restart translator-ocr --update-env || pm2 start ecosystem-ocr.config.js
-              pm2 save
-              # Give uvicorn a moment, then show what the box actually runs.
-              sleep 4
-              echo "--- translator-ocr health ---"
-              curl -s -m 5 http://127.0.0.1:8701/healthz || echo "healthz unreachable yet"
-              pm2 logs translator-ocr --lines 25 --nostream || true
-              echo "--- end translator-ocr health ---"
-            else
-              echo "python3 not found — OCR sidecar (translator-ocr) not installed"
-            fi
 
       # IndexNow: tell Bing (and Yandex/Seznam/Naver, one endpoint fans out)
       # what this deploy changed, instead of waiting for the next crawl.

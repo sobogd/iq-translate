@@ -65,7 +65,7 @@
     },
     {
       "title": "Aucune inscription requise",
-      "sub": "Essayez directement sur cette page — connectez-vous seulement pour passer à un forfait supérieur"
+      "sub": "Essayez directement sur cette page — connectez-vous seulement pour garder votre historique"
     },
     {
       "title": "Historique par paire de langues",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Effacez ou supprimez à tout moment",
-          "sub": "Videz l'historique d'un fil ou supprimez-le entièrement depuis le menu"
+          "sub": "Effacez l'historique d'une paire à tout moment avec le bouton corbeille au-dessus du chat"
         }
       ]
     },
     {
       "heading": "Aucune inscription requise pour démarrer",
-      "sub": "Essayez directement sur cette page — sans compte, sans mot de passe. Connectez-vous avec Google seulement pour un quota mensuel plus élevé et un historique synchronisé entre vos appareils.",
+      "sub": "Essayez directement sur cette page — sans compte ni mot de passe. Connectez-vous par e-mail, Google ou Apple seulement si vous voulez votre historique sur un compte plutôt que dans ce navigateur.",
       "bullets": [
         {
           "title": "Connexion facultative en un appui",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Dois-je créer un compte ?",
-        "a": "Non. Essayez directement sur cette page sans inscription. Connectez-vous avec Google seulement si vous voulez un quota mensuel plus élevé et un historique synchronisé entre vos appareils."
+        "a": "Non. Essayez directement sur cette page, sans inscription. Connectez-vous par e-mail, Google ou Apple seulement si vous voulez votre historique sur un compte plutôt que dans ce navigateur."
       },
       {
-        "q": "Mon historique de traduction est-il enregistré ?",
-        "a": "Oui, par paire de langues, pour que vos conversations passées restent organisées — même sans connexion, votre navigateur est mémorisé. Videz ou supprimez n'importe quel fil à tout moment depuis son menu."
+        "q": "Mon historique de traduction est-il conservé ?",
+        "a": "Oui, un historique par paire de langues — même sans connexion, votre navigateur est reconnu. Effacez l'historique d'une paire à tout moment avec le bouton corbeille au-dessus du chat."
       },
       {
         "q": "Puis-je utiliser le texte au lieu de la voix ?",
@@ -263,97 +263,16 @@
     "pairsHeading": "Autres paires de langues"
   },
   "account": {
-    "title": "Compte",
-    "planLabel": "Forfait",
-    "freePlan": "Essai gratuit",
-    "minutesLeft": "Minutes vocales restantes",
-    "charsLeft": "Caractères restants",
-    "imagesLeft": "Images restantes",
-    "manageSubscription": "Gérer l'abonnement",
-    "upgrade": "Améliorer"
+    "title": "Compte"
   },
   "pricing": {
     "meta": {
-      "title": "Tarifs de traduction vocale et écrite | IQ Translate",
-      "description": "Trois formules mensuelles simples avec minutes vocales et caractères de texte inclus. Essayez gratuitement sans inscription — sans carte bancaire."
+      "title": "Traducteur vocal et texte gratuit | IQ Translate",
+      "description": "Traduction vocale et texte gratuite, sans abonnement, sans quotas et sans carte. Connectez-vous seulement si vous voulez votre historique sur un compte."
     },
-    "heading": "Des tarifs mensuels",
-    "headingAccent": "simples",
-    "sub": "Chaque formule inclut des minutes vocales et des caractères de texte. Essayez gratuitement directement sur la page d'accueil — sans inscription, sans carte.",
-    "perMonth": "/mois",
-    "mostPopular": "Le plus populaire",
-    "cta": "Commencer",
     "freeNote": {
-      "title": "Pas besoin de formule gratuite — la page d'accueil est déjà le niveau gratuit.",
-      "sub": "Traduisez sans inscription : chaque visiteur dispose de 2 minutes vocales et 4 000 caractères à l'essai, directement dans le widget."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 minutes vocales par mois",
-          "1 500 000 caractères de texte par mois",
-          "Jusqu'à 30 000 caractères par requête",
-          "Les 186 langues",
-          "Historique des conversations sauvegardé"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 minutes vocales par mois",
-          "3 000 000 caractères de texte par mois",
-          "Jusqu'à 100 000 caractères par requête",
-          "Les 186 langues",
-          "Historique des conversations sauvegardé",
-          "Traitement prioritaire"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 minutes vocales par mois",
-          "8 000 000 caractères de texte par mois",
-          "Jusqu'à 150 000 caractères par requête",
-          "Les 186 langues",
-          "Historique des conversations sauvegardé",
-          "Traitement prioritaire"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Questions sur",
-      "headingAccent": "les tarifs",
-      "sub": "Ce que les gens demandent avant de s'abonner.",
-      "items": [
-        {
-          "q": "Comment fonctionnent les minutes vocales et les caractères ?",
-          "a": "Les minutes vocales couvrent la conversion de votre voix en texte ; les caractères couvrent la traduction de texte (y compris les transcriptions modifiées). Chaque formule renouvelle les deux tous les mois."
-        },
-        {
-          "q": "Que se passe-t-il quand j'atteins la limite ?",
-          "a": "La traduction se met en pause jusqu'au renouvellement de votre quota mensuel ou jusqu'à ce que vous passiez à une formule supérieure depuis le portail de facturation."
-        },
-        {
-          "q": "Puis-je l'essayer gratuitement ?",
-          "a": "Oui — le widget de la page d'accueil fonctionne sans inscription : chaque visiteur dispose de 2 minutes vocales et 4 000 caractères inclus."
-        },
-        {
-          "q": "Puis-je annuler à tout moment ?",
-          "a": "Oui. Gérez ou annulez votre abonnement à tout moment depuis le portail de facturation — sans engagement."
-        },
-        {
-          "q": "Puis-je changer de formule plus tard ?",
-          "a": "Oui, passez à une formule supérieure ou inférieure quand vous le souhaitez ; la nouvelle formule accorde immédiatement son quota mensuel complet."
-        },
-        {
-          "q": "Proposez-vous une facturation annuelle ?",
-          "a": "Pas encore — pour l'instant, toutes les formules sont facturées mensuellement."
-        }
-      ]
+      "title": "Gratuit pour tous — sans forfaits ni quotas.",
+      "sub": "Traduisez à la voix ou par écrit sans payer et sans limite de volume. Connectez-vous par e-mail, Google ou Apple seulement si vous voulez votre historique sur un compte."
     },
     "finalCta": {
       "heading": "Pas encore sûr ?",
@@ -363,22 +282,13 @@
     }
   },
   "translator": {
-    "topics": "Traductions",
-    "newTopic": "Nouvelle traduction",
-    "noTopicsYet": "Aucune traduction pour l'instant",
-    "deleteTopic": "Supprimer le sujet",
-    "deleteTopicConfirm": "Supprimer ce sujet et toutes ses traductions ?",
     "swapAria": "Inverser les langues",
-    "chooseLanguage": "Choisir une langue",
     "close": "Fermer",
     "searchPlaceholder": "Rechercher une langue…",
     "clearHistory": "Effacer l'historique",
     "clearHistoryConfirm": "Effacer toutes les traductions de ce sujet ?",
-    "noTranslationsYet": "Aucune traduction pour l'instant dans ce sujet.",
-    "translating": "Traduction en cours…",
     "typePlaceholder": "Tapez un message…",
     "translateAria": "Traduire",
-    "micDeniedError": "Accès au microphone refusé",
     "micBlockedTitle": "L'accès au microphone est désactivé",
     "micBlockedDesc": "Vous avez bloqué l'accès au microphone, donc la saisie vocale ne peut pas fonctionner. La saisie vocale a besoin du microphone pour enregistrer votre voix.",
     "micBlockedHow": "Pour le réactiver : cliquez sur l'icône cadenas / du site dans la barre d'adresse, passez Microphone à Autoriser, puis rechargez la page. Sur Safari : Préférences → Sites web → Microphone → Autoriser. Sur iPhone/iPad : Réglages → Safari → Microphone → Autoriser.",
@@ -391,10 +301,8 @@
     "recognizing": "Reconnaissance…",
     "recordAria": "Enregistrer",
     "stopAria": "Arrêter",
-    "pricingLink": "Tarifs",
     "errors": {
-      "insufficientCredits": "Quota épuisé — passez à un forfait supérieur",
-      "textTooLong": "Texte trop long pour votre forfait",
+      "textTooLong": "Le texte est trop long pour être traduit d'un coup",
       "turnstileFailed": "Échec de la vérification — rechargez la page et réessayez",
       "notRecognized": "Impossible de reconnaître — réessaie",
       "rateLimited": "Trop de requêtes — patiente un instant",

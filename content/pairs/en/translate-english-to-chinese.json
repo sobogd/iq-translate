@@ -38,14 +38,14 @@
     },
     {
       "heading": "English to Chinese translator for conversation",
-      "sub": "Whoever you're talking to can reply in Chinese and you'll understand it in English, in the same thread.",
+      "sub": "Whoever you're talking to can reply in Chinese and you'll understand it in English, in the same conversation.",
       "bullets": [
         {
           "title": "Chinese replies translated back",
           "sub": "The other person speaks Chinese, you see and hear the English meaning"
         },
         {
-          "title": "History kept as a topic",
+          "title": "History kept per language pair",
           "sub": "Reopen the same Chinese conversation later instead of starting fresh"
         }
       ]
@@ -98,7 +98,7 @@
       },
       {
         "title": "Conversation history",
-        "us": "Every Chinese conversation is saved as its own topic.",
+        "us": "Every Chinese conversation is saved per language pair.",
         "them": "Each translation vanishes once you close the app."
       },
       {
@@ -108,7 +108,7 @@
       },
       {
         "title": "Both directions",
-        "us": "English to Chinese and Chinese to English in one thread.",
+        "us": "English to Chinese and Chinese to English in one conversation.",
         "them": "Switching direction usually means starting a new translation."
       }
     ]
@@ -132,7 +132,7 @@
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, try it free without creating an account. Sign in with Google for more daily credits and saved history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       },
       {
         "q": "Do I need a Chinese keyboard or input method?",
@@ -140,7 +140,7 @@
       },
       {
         "q": "Can I keep a running conversation instead of separate lookups?",
-        "a": "Yes, translations are grouped into topics, so a Chinese conversation stays together instead of scattering across separate searches."
+        "a": "Yes, each language pair keeps its own history, so a conversation stays together instead of scattering across separate translations."
       }
     ]
   },

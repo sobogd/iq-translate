@@ -65,7 +65,7 @@
     },
     {
       "title": "Regisztráció nem szükséges",
-      "sub": "Próbáld ki rögtön ezen az oldalon – bejelentkezés csak a nagyobb havi kerethez"
+      "sub": "Próbálja ki közvetlenül ezen az oldalon — csak az előzmények mentéséhez jelentkezzen be"
     },
     {
       "title": "Előzmények nyelvpáronként",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Töröld bármikor",
-          "sub": "Töröld egy szál előzményeit, vagy magát a szálat is a menüből"
+          "sub": "A pár előzményét bármikor törölheti a csevegés fölötti kuka gombbal"
         }
       ]
     },
     {
       "heading": "Regisztráció nélkül indulhatsz",
-      "sub": "Próbáld ki rögtön ezen az oldalon – fiók és jelszó nélkül. Jelentkezz be Google-lel, ha nagyobb havi keretet és eszközök közötti szinkronizált előzményeket szeretnél.",
+      "sub": "Próbálja ki közvetlenül ezen az oldalon — fiók és jelszó nélkül. Csak akkor jelentkezzen be e-maillel, Google-lal vagy Apple-lel, ha az előzményeket fiókhoz, ne ehhez a böngészőhöz szeretné.",
       "bullets": [
         {
           "title": "Opcionális, egykattintásos bejelentkezés",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Kell fiókot létrehoznom?",
-        "a": "Nem. Próbáld ki rögtön ezen az oldalon regisztráció nélkül. Jelentkezz be Google-lel csak akkor, ha nagyobb havi keretet és eszközök közötti szinkronizált előzményeket szeretnél."
+        "a": "Nem. Próbálja ki közvetlenül ezen az oldalon regisztráció nélkül. Csak akkor jelentkezzen be e-maillel, Google-lal vagy Apple-lel, ha az előzményeket fiókhoz, ne ehhez a böngészőhöz szeretné."
       },
       {
-        "q": "Mentésre kerülnek a fordítási előzményeim?",
-        "a": "Igen, nyelvpáronként, így a korábbi beszélgetések rendezettek maradnak – bejelentkezés nélkül is megjegyzi a böngésződet. Bármelyik szál előzményeit törölheted, vagy a szálat is eltávolíthatod a menüből."
+        "q": "Mentődik a fordítási előzmény?",
+        "a": "Igen, minden nyelvpárhoz egy előzmény — bejelentkezés nélkül is megjegyzi a böngészőjét. A pár előzményét bármikor törölheti a csevegés fölötti kuka gombbal."
       },
       {
         "q": "Használhatok szöveget hang helyett?",
@@ -239,97 +239,16 @@
     "pairsHeading": "További nyelvpárok"
   },
   "account": {
-    "title": "Fiók",
-    "planLabel": "Csomag",
-    "freePlan": "Ingyenes próba",
-    "minutesLeft": "Hátralévő hangperc",
-    "charsLeft": "Hátralévő karakter",
-    "imagesLeft": "Hátralévő képek",
-    "manageSubscription": "Előfizetés kezelése",
-    "upgrade": "Frissítés"
+    "title": "Fiók"
   },
   "pricing": {
     "meta": {
-      "title": "Árak – Hangos és Szöveges Fordítási Csomagok | IQ Translate",
-      "description": "Három egyszerű havi csomag hangperccel és szöveges karakterekkel. Próbáld ki ingyen regisztráció nélkül — bankkártya nem szükséges."
+      "title": "Ingyenes hang- és szövegfordító | IQ Translate",
+      "description": "Ingyenes hang- és szövegfordítás, előfizetés, kvóták és kártya nélkül. Csak akkor jelentkezzen be, ha az előzményeket fiókhoz szeretné."
     },
-    "heading": "Egyszerű havi",
-    "headingAccent": "árazás",
-    "sub": "Minden csomag tartalmaz hangperceket és szöveges karaktereket. Próbáld ki ingyen a főoldalon – regisztráció és kártya nélkül.",
-    "perMonth": "/hó",
-    "mostPopular": "Legnépszerűbb",
-    "cta": "Kezdés",
     "freeNote": {
-      "title": "Nincs szükség ingyenes csomagra – az ingyenes szint maga a főoldal.",
-      "sub": "Fordíts regisztráció nélkül: minden látogató 2 hangpercet és 4 000 karaktert kap kipróbálásra, rögtön a widgetben."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 hangperc havonta",
-          "1 500 000 szöveges karakter havonta",
-          "Kérésenként legfeljebb 30 000 karakter",
-          "Mind a 186 nyelv",
-          "Mentett beszélgetési előzmények"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 hangperc havonta",
-          "3 000 000 szöveges karakter havonta",
-          "Kérésenként legfeljebb 100 000 karakter",
-          "Mind a 186 nyelv",
-          "Mentett beszélgetési előzmények",
-          "Elsőbbségi feldolgozás"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 hangperc havonta",
-          "8 000 000 szöveges karakter havonta",
-          "Kérésenként legfeljebb 150 000 karakter",
-          "Mind a 186 nyelv",
-          "Mentett beszélgetési előzmények",
-          "Elsőbbségi feldolgozás"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Gyakori kérdések",
-      "headingAccent": "az árakról",
-      "sub": "Amit az emberek előfizetés előtt kérdeznek.",
-      "items": [
-        {
-          "q": "Hogyan működnek a hangpercek és karakterek?",
-          "a": "A hangpercek a beszéd szöveggé alakítását fedezik; a karakterek a szöveg fordítását (beleértve a szerkesztett átiratokat is). Mindkettő havonta megújul."
-        },
-        {
-          "q": "Mi történik, ha elfogy?",
-          "a": "A fordítás szünetel, amíg a havi kereted meg nem újul, vagy amíg magasabb csomagra nem váltasz a számlázási portálon."
-        },
-        {
-          "q": "Van ingyenes kipróbálási lehetőség?",
-          "a": "Igen — a főoldali widget regisztráció nélkül működik: minden látogató 2 hangpercet és 4 000 karaktert kap."
-        },
-        {
-          "q": "Bármikor lemondhatom?",
-          "a": "Igen. Kezeld vagy mondd le előfizetésed bármikor a számlázási portálon – hosszú távú kötelezettség nélkül."
-        },
-        {
-          "q": "Később válthatok csomagot?",
-          "a": "Igen, bármikor válthatsz magasabb vagy alacsonyabb csomagra; az új csomag azonnal megkapja a teljes havi keretet."
-        },
-        {
-          "q": "Van éves számlázás?",
-          "a": "Még nincs – jelenleg minden csomag havonta kerül számlázásra."
-        }
-      ]
+      "title": "Mindenkinek ingyenes — csomagok és kvóták nélkül.",
+      "sub": "Fordítson hanggal vagy szöveggel ingyen, mennyiségi korlát nélkül. Csak akkor jelentkezzen be e-maillel, Google-lal vagy Apple-lel, ha az előzményeket fiókhoz szeretné."
     },
     "finalCta": {
       "heading": "Még nem vagy biztos benne?",
@@ -339,22 +258,13 @@
     }
   },
   "translator": {
-    "topics": "Fordítások",
-    "newTopic": "Új fordítás",
-    "noTopicsYet": "Még nincsenek fordítások",
-    "deleteTopic": "Téma törlése",
-    "deleteTopicConfirm": "Törlöd ezt a témát az összes fordításával együtt?",
     "swapAria": "Nyelvek felcserélése",
-    "chooseLanguage": "Válassz nyelvet",
     "close": "Bezárás",
     "searchPlaceholder": "Nyelv keresése…",
     "clearHistory": "Előzmények törlése",
     "clearHistoryConfirm": "Törlöd az összes fordítást ebben a témában?",
-    "noTranslationsYet": "Még nincs fordítás ebben a témában.",
-    "translating": "Fordítás…",
     "typePlaceholder": "Írj egy üzenetet…",
     "translateAria": "Fordítás",
-    "micDeniedError": "A mikrofon-hozzáférés megtagadva",
     "micBlockedTitle": "A mikrofon hozzáférése ki van kapcsolva",
     "micBlockedDesc": "Letiltotta a mikrofon hozzáférését, így a hangbemenet nem működik. A hangbemenethez mikrofonra van szükség a beszéd rögzítéséhez.",
     "micBlockedHow": "Újra bekapcsolásához: kattintson a lakat / webhely ikonra a címsorban, állítsa a Mikrofont Engedélyezésre, majd töltse újra az oldalt. Safariban: Beállítások → Webhelyek → Mikrofon → Engedélyezés. iPhone/iPad esetén: Beállítások → Safari → Mikrofon → Engedélyezés.",
@@ -367,10 +277,8 @@
     "recognizing": "Felismerés…",
     "recordAria": "Felvétel",
     "stopAria": "Leállítás",
-    "pricingLink": "Árak",
     "errors": {
-      "insufficientCredits": "Elfogyott a kereted – válts csomagot",
-      "textTooLong": "A szöveg túl hosszú a csomagodhoz",
+      "textTooLong": "A szöveg túl hosszú az egyben történő fordításhoz",
       "turnstileFailed": "Az ellenőrzés sikertelen — töltse újra az oldalt, és próbálja újra",
       "notRecognized": "Nem sikerült felismerni — próbáld újra",
       "rateLimited": "Túl sok kérés — várj egy kicsit",

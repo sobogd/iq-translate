@@ -65,7 +65,7 @@
     },
     {
       "title": "Registracija nije potrebna",
-      "sub": "Isprobajte odmah na ovoj stranici – prijava samo kada nadogradite"
+      "sub": "Isprobajte odmah na ovoj stranici — prijavite se samo da sačuvate povijest"
     },
     {
       "title": "Povijest po jezičnom paru",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Obrišite ili izbrišite u bilo kojem trenutku",
-          "sub": "Očistite povijest teme ili je potpuno uklonite iz izbornika"
+          "sub": "Obrišite povijest para bilo kada gumbom kante iznad razgovora"
         }
       ]
     },
     {
       "heading": "Registracija nije potrebna za početak",
-      "sub": "Isprobajte odmah na ovoj stranici – bez računa, bez lozinke. Prijavite se putem Googlea samo kada želite veću mjesečnu kvotu i povijest sinkroniziranu na svim uređajima.",
+      "sub": "Isprobajte odmah na ovoj stranici — bez računa i lozinke. Prijavite se e-poštom, Googleom ili Appleom samo ako želite povijest na računu, a ne u ovom pregledniku.",
       "bullets": [
         {
           "title": "Neobavezna prijava jednim dodirom",
@@ -194,12 +194,12 @@
         "a": "186 jezika. Odaberite svoj jezik jednom, a zatim započnite nit razgovora s bilo kojim drugim."
       },
       {
-        "q": "Trebam li otvoriti račun?",
-        "a": "Ne. Isprobajte odmah na ovoj stranici bez registracije. Prijavite se putem Googlea samo ako želite veću mjesečnu kvotu i povijest sinkroniziranu na svim uređajima."
+        "q": "Trebam li stvoriti račun?",
+        "a": "Ne. Isprobajte odmah na ovoj stranici bez registracije. Prijavite se e-poštom, Googleom ili Appleom samo ako želite povijest na računu, a ne u ovom pregledniku."
       },
       {
-        "q": "Sprema li se moja povijest prijevoda?",
-        "a": "Da, po jezičnom paru, tako da prošli razgovori ostaju uredni – čak i bez prijave, vaš preglednik se pamti. Obrišite ili izbrišite bilo koju nit u bilo kojem trenutku iz njezina izbornika."
+        "q": "Sprema li se povijest prijevoda?",
+        "a": "Da, jedna povijest za svaki jezični par — čak i bez prijave preglednik se pamti. Obrišite povijest para bilo kada gumbom kante iznad razgovora."
       },
       {
         "q": "Mogu li koristiti tekst umjesto glasa?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Više jezičnih parova"
   },
   "account": {
-    "title": "Račun",
-    "planLabel": "Plan",
-    "freePlan": "Besplatno probno razdoblje",
-    "minutesLeft": "Preostale glasovne minute",
-    "charsLeft": "Preostali znakovi",
-    "imagesLeft": "Preostale slike",
-    "manageSubscription": "Upravljanje pretplatom",
-    "upgrade": "Nadogradi"
+    "title": "Račun"
   },
   "pricing": {
     "meta": {
-      "title": "Cijene — Planovi za glas i tekst | IQ Translate",
-      "description": "Tri jednostavna mjesečna plana s glasovnim minutama i tekstualnim znakovima. Isprobajte besplatno izravno na početnoj stranici — bez registracije, bez kartice."
+      "title": "Besplatan glasovni i tekstualni prevoditelj | IQ Translate",
+      "description": "Besplatan glasovni i tekstualni prijevod, bez pretplate, bez kvota i bez kartice. Prijavite se samo ako želite povijest na računu."
     },
-    "heading": "Jednostavne mjesečne",
-    "headingAccent": "cijene",
-    "sub": "Svaki plan uključuje glasovne minute i tekstualne znakove. Isprobajte besplatno izravno na početnoj stranici — bez registracije, bez kartice.",
-    "perMonth": "/mj",
-    "mostPopular": "Najpopularniji",
-    "cta": "Započni",
     "freeNote": {
-      "title": "Besplatni plan nije potreban — besplatna razina je sama početna stranica.",
-      "sub": "Prevodite bez registracije: svaki posjetitelj dobiva 2 glasovne minute i 4.000 znakova za isprobavanje, izravno u widgetu."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 glasovnih minuta mjesečno",
-          "1.500.000 tekstualnih znakova mjesečno",
-          "Do 30.000 znakova po zahtjevu",
-          "Svih 186 jezika",
-          "Spremljena povijest razgovora"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 glasovnih minuta mjesečno",
-          "3.000.000 tekstualnih znakova mjesečno",
-          "Do 100.000 znakova po zahtjevu",
-          "Svih 186 jezika",
-          "Spremljena povijest razgovora",
-          "Prioritetna obrada"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1.500 glasovnih minuta mjesečno",
-          "8.000.000 tekstualnih znakova mjesečno",
-          "Do 150.000 znakova po zahtjevu",
-          "Svih 186 jezika",
-          "Spremljena povijest razgovora",
-          "Prioritetna obrada"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Pitanja o",
-      "headingAccent": "cijenama",
-      "sub": "Ono što ljudi pitaju prije pretplate.",
-      "items": [
-        {
-          "q": "Kako funkcioniraju glasovne minute i znakovi?",
-          "a": "Glasovne minute pokrivaju pretvaranje govora u tekst; znakovi pokrivaju prevođenje teksta (uključujući uređene transkripte). Svaki plan obnavlja oboje svaki mjesec."
-        },
-        {
-          "q": "Što se dogodi kada mi ponestane?",
-          "a": "Prevođenje se zaustavlja dok se mjesečna kvota ne obnovi ili dok ne nadogradite plan putem portala za naplatu."
-        },
-        {
-          "q": "Postoji li besplatan način isprobavanja?",
-          "a": "Da — widget na početnoj stranici radi bez registracije: 2 glasovne minute i 4.000 znakova uključeni su za svakog posjetitelja."
-        },
-        {
-          "q": "Mogu li otkazati u bilo kojem trenutku?",
-          "a": "Da. Upravljajte ili otkažite pretplatu u bilo kojem trenutku putem portala za naplatu — bez dugoročne obveze."
-        },
-        {
-          "q": "Mogu li kasnije promijeniti plan?",
-          "a": "Da, nadogradite ili degradirajte u bilo kojem trenutku; novi plan odmah dobiva svoju punu mjesečnu kvotu."
-        },
-        {
-          "q": "Nudite li godišnju naplatu?",
-          "a": "Još ne — svi planovi trenutačno se naplaćuju mjesečno."
-        }
-      ]
+      "title": "Besplatno za sve — bez paketa i bez kvota.",
+      "sub": "Prevodite glasom ili tekstom bez plaćanja i bez ograničenja. Prijavite se e-poštom, Googleom ili Appleom samo ako želite povijest na računu."
     },
     "finalCta": {
       "heading": "Još niste sigurni?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Prijevodi",
-    "newTopic": "Novi prijevod",
-    "noTopicsYet": "Još nema prijevoda",
-    "deleteTopic": "Izbriši temu",
-    "deleteTopicConfirm": "Izbrisati ovu temu i sve njezine prijevode?",
     "swapAria": "Zamijeni jezike",
-    "chooseLanguage": "Odaberite jezik",
     "close": "Zatvori",
     "searchPlaceholder": "Pretražite jezik…",
     "clearHistory": "Očisti povijest",
     "clearHistoryConfirm": "Očistiti sve prijevode u ovoj temi?",
-    "noTranslationsYet": "Još nema prijevoda u ovoj temi.",
-    "translating": "Prevođenje…",
     "typePlaceholder": "Upišite poruku…",
     "translateAria": "Prevedi",
-    "micDeniedError": "Pristup mikrofonu odbijen",
     "micBlockedTitle": "Pristup mikrofonu je isključen",
     "micBlockedDesc": "Blokirali ste pristup mikrofonu, pa glasovni unos ne može raditi. Glasovni unos treba mikrofon za snimanje vašeg govora.",
     "micBlockedHow": "Da biste ga ponovno uključili: kliknite ikonu lokota / web-mjesta u adresnoj traci, promijenite Mikrofon na Dopusti, a zatim ponovno učitajte stranicu. U Safariju: Postavke → Web-mjesta → Mikrofon → Dopusti. Na iPhone/iPadu: Postavke → Safari → Mikrofon → Dopusti.",
@@ -371,10 +281,8 @@
     "recognizing": "Prepoznavanje…",
     "recordAria": "Snimi",
     "stopAria": "Zaustavi",
-    "pricingLink": "Cijene",
     "errors": {
-      "insufficientCredits": "Kvota je iskorištena – nadogradite plan",
-      "textTooLong": "Tekst je predugačak za vaš plan",
+      "textTooLong": "Tekst je predugačak za prijevod odjednom",
       "turnstileFailed": "Provjera nije uspjela — ponovno učitajte stranicu i pokušajte opet",
       "notRecognized": "Nije bilo moguće prepoznati — pokušaj ponovno",
       "rateLimited": "Previše zahtjeva — pričekaj trenutak",

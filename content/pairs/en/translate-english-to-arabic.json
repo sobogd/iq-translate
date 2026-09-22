@@ -45,7 +45,7 @@
           "sub": "Whoever's talking to you can speak Arabic and you'll get the English meaning right away"
         },
         {
-          "title": "Saved as a topic",
+          "title": "Saved per language pair",
           "sub": "The whole exchange stays in one history you can reopen later"
         }
       ]
@@ -98,7 +98,7 @@
       },
       {
         "title": "Conversation history",
-        "us": "Every Arabic conversation is saved as its own topic.",
+        "us": "Every Arabic conversation is saved per language pair.",
         "them": "Each translation is gone once you close the app."
       },
       {
@@ -108,7 +108,7 @@
       },
       {
         "title": "Both directions",
-        "us": "English to Arabic and Arabic to English in one thread.",
+        "us": "English to Arabic and Arabic to English in one conversation.",
         "them": "Switching direction usually means starting over."
       }
     ]
@@ -136,7 +136,7 @@
       },
       {
         "q": "Is it free to use?",
-        "a": "Yes, try it free without an account. Sign in with Google for more daily credits and saved history."
+        "a": "Yes. The service is free for everyone — no subscription and no quota. Sign in with email, Google or Apple only if you want your history attached to an account instead of this browser."
       },
       {
         "q": "Do I need to install an app or keyboard?",

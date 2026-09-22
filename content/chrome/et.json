@@ -65,7 +65,7 @@
     },
     {
       "title": "Registreerimist ei vaja",
-      "sub": "Proovi otse sellel lehel – logi sisse ainult siis, kui soovid paketti uuendada"
+      "sub": "Proovi otse sellel lehel — logi sisse ainult ajaloo salvestamiseks"
     },
     {
       "title": "Ajalugu keelepaari kaupa",
@@ -127,13 +127,13 @@
         },
         {
           "title": "Tühjenda või kustuta igal ajal",
-          "sub": "Kustuta teema ajalugu või eemalda see menüüst täielikult"
+          "sub": "Kustuta keelepaari ajalugu igal ajal prügikasti nupuga vestluse kohal"
         }
       ]
     },
     {
       "heading": "Alustamiseks pole registreerimist vaja",
-      "sub": "Proovi otse sellel lehel – ei kontot, ei parooli. Logi sisse Google'iga ainult siis, kui soovid suuremat kuulimiiti ja seadmete vahel sünkroonitud ajalugu.",
+      "sub": "Proovi otse sellel lehel — ilma kontota ja paroolita. Logi sisse e-posti, Google'i või Appleiga ainult siis, kui soovid ajalugu kontole, mitte sellesse brauserisse.",
       "bullets": [
         {
           "title": "Valikuline sisselogimine ühe puudutusega",
@@ -195,11 +195,11 @@
       },
       {
         "q": "Kas pean looma konto?",
-        "a": "Ei. Proovi otse sellel lehel ilma registreerimiseta. Logi sisse Google'iga ainult siis, kui soovid suuremat kuulimiiti ja seadmete vahel sünkroonitud ajalugu."
+        "a": "Ei. Proovi otse sellel lehel ilma registreerimiseta. Logi sisse e-posti, Google'i või Appleiga ainult siis, kui soovid ajalugu kontole, mitte sellesse brauserisse."
       },
       {
-        "q": "Kas mu tõlkeajalugu salvestatakse?",
-        "a": "Jah, keelepaari kaupa, nii et varasemad vestlused püsivad korras – isegi ilma sisse logimata mäletab brauser sind. Kustuta või eemalda mis tahes teema selle menüüst igal ajal."
+        "q": "Kas tõlkeajalugu salvestatakse?",
+        "a": "Jah, üks ajalugu iga keelepaari kohta — ka ilma sisselogimiseta brauserit mäletatakse. Kustuta keelepaari ajalugu igal ajal prügikasti nupuga vestluse kohal."
       },
       {
         "q": "Kas saan kasutada teksti hääle asemel?",
@@ -243,97 +243,16 @@
     "pairsHeading": "Rohkem keelepaare"
   },
   "account": {
-    "title": "Konto",
-    "planLabel": "Pakett",
-    "freePlan": "Tasuta prooviperiood",
-    "minutesLeft": "Jäänud hääleminutid",
-    "charsLeft": "Jäänud tähemärgid",
-    "imagesLeft": "Jäänud pildid",
-    "manageSubscription": "Halda tellimust",
-    "upgrade": "Uuenda"
+    "title": "Konto"
   },
   "pricing": {
     "meta": {
-      "title": "Hinnad — Hääle ja teksti paketid | IQ Translate",
-      "description": "Kolm lihtsat kuupaketti häälminutite ja tekstimärkidega. Proovi tasuta ilma registreerimiseta — krediitkaarti pole vaja."
+      "title": "Tasuta hääl- ja tekstiaja tõlkija | IQ Translate",
+      "description": "Tasuta hääl- ja tekstiaja tõlge, ilma tellimuseta, piiranguteta ja kaardita. Logi sisse ainult siis, kui soovid ajalugu kontole."
     },
-    "heading": "Lihtsad kuu",
-    "headingAccent": "hinnad",
-    "sub": "Iga pakett sisaldab häälminuteid ja tekstimärke. Proovi tasuta otse avalehel — registreerimist ega kaarti pole vaja.",
-    "perMonth": "/kuus",
-    "mostPopular": "Populaareim",
-    "cta": "Alusta",
     "freeNote": {
-      "title": "Tasuta paketti pole vaja — tasuta tase ongi avaleht ise.",
-      "sub": "Tõlgi ilma registreerimiseta: iga külastaja saab proovimiseks 2 häälminutit ja 4 000 tähemärki otse vidinas."
-    },
-    "plans": [
-      {
-        "id": "STARTER",
-        "name": "Starter",
-        "features": [
-          "250 häälminutit kuus",
-          "1 500 000 tekstimärki kuus",
-          "Kuni 30 000 tähemärki päringu kohta",
-          "Kõik 186 keelt",
-          "Salvestatud vestluste ajalugu"
-        ]
-      },
-      {
-        "id": "PRO",
-        "name": "Pro",
-        "features": [
-          "600 häälminutit kuus",
-          "3 000 000 tekstimärki kuus",
-          "Kuni 100 000 tähemärki päringu kohta",
-          "Kõik 186 keelt",
-          "Salvestatud vestluste ajalugu",
-          "Prioriteetne töötlus"
-        ]
-      },
-      {
-        "id": "ULTIMATE",
-        "name": "Ultimate",
-        "features": [
-          "1 500 häälminutit kuus",
-          "8 000 000 tekstimärki kuus",
-          "Kuni 150 000 tähemärki päringu kohta",
-          "Kõik 186 keelt",
-          "Salvestatud vestluste ajalugu",
-          "Prioriteetne töötlus"
-        ]
-      }
-    ],
-    "faq": {
-      "heading": "Korduma kippuvad",
-      "headingAccent": "hinnaküsimused",
-      "sub": "Mida küsitakse enne tellimist.",
-      "items": [
-        {
-          "q": "Kuidas häälminutid ja tähemärgid töötavad?",
-          "a": "Häälminutid katavad kõne teisendamise tekstiks; tähemärgid katavad teksti tõlkimise (sh muudetud transkriptid). Iga pakett täidab mõlemad igal kuul uuesti."
-        },
-        {
-          "q": "Mis juhtub, kui need otsa saavad?",
-          "a": "Tõlkimine peatub, kuni kuine limiit täitub uuesti või uuendad paketti arveldusportaalis kõrgemale."
-        },
-        {
-          "q": "Kas on tasuta viis proovimiseks?",
-          "a": "Jah — avalehe vidin töötab ilma registreerimiseta: igal külastajal on kasutada 2 häälminutit ja 4 000 tähemärki."
-        },
-        {
-          "q": "Kas saan igal ajal tühistada?",
-          "a": "Jah. Halda või tühista oma tellimust igal ajal arveldusportaalis – ilma pikaajalise kohustuseta."
-        },
-        {
-          "q": "Kas saan hiljem paketti vahetada?",
-          "a": "Jah, uuenda või vaheta paketti madalamale igal ajal; uus pakett annab kohe oma täieliku kuulimiidi."
-        },
-        {
-          "q": "Kas pakute aastamaksmist?",
-          "a": "Veel mitte — kõiki pakette arveldatakse praegu igakuiselt."
-        }
-      ]
+      "title": "Tasuta kõigile — ilma plaanide ja piiranguteta.",
+      "sub": "Tõlgi hääle või tekstiga tasuta ja ilma mahupiiranguta. Logi sisse e-posti, Google'i või Appleiga ainult siis, kui soovid ajalugu kontole."
     },
     "finalCta": {
       "heading": "Pole veel kindel?",
@@ -343,22 +262,13 @@
     }
   },
   "translator": {
-    "topics": "Tõlked",
-    "newTopic": "Uus tõlge",
-    "noTopicsYet": "Tõlkeid pole veel",
-    "deleteTopic": "Kustuta teema",
-    "deleteTopicConfirm": "Kustutada see teema ja kõik selle tõlked?",
     "swapAria": "Vaheta keeled",
-    "chooseLanguage": "Vali keel",
     "close": "Sulge",
     "searchPlaceholder": "Otsi keelt…",
     "clearHistory": "Tühjenda ajalugu",
     "clearHistoryConfirm": "Tühjendada kõik selle teema tõlked?",
-    "noTranslationsYet": "Selles teemas pole veel tõlkeid.",
-    "translating": "Tõlgin…",
     "typePlaceholder": "Kirjuta sõnum…",
     "translateAria": "Tõlgi",
-    "micDeniedError": "Mikrofoni juurdepääs keelatud",
     "micBlockedTitle": "Mikrofoni juurdepääs on välja lülitatud",
     "micBlockedDesc": "Oled mikrofoni juurdepääsu blokeerinud, seetõttu häälsisend ei tööta. Häälsisend vajab sinu kõne salvestamiseks mikrofoni.",
     "micBlockedHow": "Selle taas sisselülitamiseks: klõpsa aadressiribal luku / saidi ikoonil, vali Mikrofon jaoks Luba, seejärel laadi leht uuesti. Safari: Eelistused → Veebisaidid → Mikrofon → Luba. iPhone/iPad: Seaded → Safari → Mikrofon → Luba.",
@@ -371,10 +281,8 @@
     "recognizing": "Tuvastan…",
     "recordAria": "Salvesta",
     "stopAria": "Peata",
-    "pricingLink": "Hinnad",
     "errors": {
-      "insufficientCredits": "Limiit on täis – uuenda oma paketti",
-      "textTooLong": "Tekst on sinu paketi jaoks liiga pikk",
+      "textTooLong": "Tekst on liiga pikk, et seda korraga tõlkida",
       "turnstileFailed": "Kontroll ebaõnnestus — laadi leht uuesti ja proovi veel kord",
       "notRecognized": "Ei õnnestunud tuvastada — proovi uuesti",
       "rateLimited": "Liiga palju päringuid — oota hetk",
