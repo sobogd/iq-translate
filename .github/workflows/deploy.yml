@@ -93,13 +93,12 @@ jobs:
             # `-c` — lib/llm-limits.ts derives every request budget from it.
             LLM_BASE_URL="${{ secrets.LLM_BASE_URL || 'http://127.0.0.1:18812' }}"
             LLM_MODEL="${{ secrets.LLM_MODEL || 'qwen/qwen3.5-9b' }}"
-            # 32768, matching the Mac's run-llm.sh: the context there went back up
-            # from 16384, because that model is hybrid (only a quarter of its layers
-            # keep a KV cache), so 32K of context costs ~570 MB and the machine has
-            # room. The two numbers are one setting in two files: a mismatch here
-            # means the app sizes requests for a window the server does not have, and
-            # llama.cpp answers 400.
-            LLM_CTX="${{ secrets.LLM_CTX || '32768' }}"
+            # 65536, matching the Mac's run-llm.sh. That model is hybrid (only a
+            # quarter of its layers keep a KV cache), so the full window costs about
+            # 1.1 GB of wired memory rather than several. The two numbers are one
+            # setting in two files: a mismatch here means the app sizes requests for
+            # a window the server does not have, and llama.cpp answers 400.
+            LLM_CTX="${{ secrets.LLM_CTX || '65536' }}"
             LLM_REASONING="none"
             LLM_TEMPLATE_KWARGS={"enable_thinking":false}
             # Second engine: TranslateGemma-4B on the same Mac, its own tunnel

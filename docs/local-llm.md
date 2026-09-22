@@ -34,13 +34,13 @@ looks exactly like a broken model.
 
 ## The engines
 
-**General** — `llama-server` with one model, four slots, 32768 tokens of
+**General** — `llama-server` with one model, four slots, 65536 tokens of
 context per slot. It answers chat and search, and it is also what translates
 every pair the translation model does not cover:
 
 ```bash
 llama-server -m ~/models/Qwen3.5-4B-UD-Q4_K_XL.gguf --alias qwen/qwen3.5-9b \
-  --host 127.0.0.1 --port 1234 --jinja -ngl 999 -c 32768 --flash-attn on \
+  --host 127.0.0.1 --port 1234 --jinja -ngl 999 -c 65536 --flash-attn on \
   --cache-type-k q8_0 --cache-type-v q8_0 \
   --chat-template-kwargs '{"enable_thinking":false}'
 ```
@@ -132,7 +132,7 @@ defaults for everything else.
 | --- | --- | --- | --- |
 | `LLM_BASE_URL` | `http://127.0.0.1:1234` | `http://127.0.0.1:18812` | general engine: chat, search, uncovered pairs |
 | `LLM_MODEL` | `qwen/qwen3.5-9b` | same | model id as the engine reports it (the id stayed after the 9B left) |
-| `LLM_CTX` | `32768` | `32768` | must equal the general server's `-c` |
+| `LLM_CTX` | `65536` | `65536` | must equal the general server's `-c` |
 | `MT_BASE_URL` | `http://127.0.0.1:1235` | `http://127.0.0.1:18822` | translation engine; empty disables the routing |
 | `MT_MODEL` | `translategemma-4b` | same | model id of the translation engine |
 | `MT_CTX` | `4096` | `4096` | must equal the translation server's `-c` |
