@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { lockScroll } from "@/lib/scroll-lock";
@@ -19,9 +19,28 @@ import { lockScroll } from "@/lib/scroll-lock";
 // shrunken height and how far Safari pushed the page (offsetTop/offsetLeft).
 // Null until measured, and on browsers without the API — the dvh classes
 // underneath stay the fallback.
-type ViewportBox = { height: number; top: number; left: number };
+export type ViewportBox = { height: number; top: number; left: number };
 
-function useVisualViewport(): ViewportBox | null {
+// Never-changing subscribe for the client-only flag below — the snapshot itself
+// is what differs between the server and the browser.
+const subscribeNothing = () => () => {};
+
+/** False on the server and through hydration, true once the browser owns the
+ *  tree. Portals have no DOM to target on the server, and reading the flag
+ *  this way avoids the extra render a setState-in-effect would cost — which
+ *  is also the only reason this hook exists (both full-screen overlays in
+ *  _landing need it: the modal shell and the Turnstile gate). */
+export function useMounted(): boolean {
+  return useSyncExternalStore(
+    subscribeNothing,
+    () => true,
+    () => false,
+  );
+}
+
+// Shared with the Turnstile gate, which is another full-screen overlay that has
+// to sit inside the slice the keyboard leaves free (see Turnstile.tsx).
+export function useVisualViewport(): ViewportBox | null {
   const [box, setBox] = useState<ViewportBox | null>(null);
   useEffect(() => {
     const vv = window.visualViewport;
@@ -62,11 +81,10 @@ export function Modal({
   footer?: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [visible, setVisible] = useState(false);
   const box = useVisualViewport();
   useEffect(() => {
-    setMounted(true);
     // enter on the next frame so the initial (hidden) styles actually paint
     const raf = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(raf);

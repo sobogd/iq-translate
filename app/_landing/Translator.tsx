@@ -12,7 +12,7 @@ import { LAYOUT_GAP } from "./desktop/layout";
 import { useSession } from "./session";
 import { PAIR_COOKIE, formatPairCookie, parsePairCookie, readCookieValue } from "@/lib/cookies";
 import { analytics } from "@/lib/analytics";
-import { useTurnstileGate } from "./Turnstile";
+import { useTurnstileGate, TurnstileOverlay } from "./Turnstile";
 import type { TranslatorTexts } from "./types";
 
 // Pre-cookie storage of the target half. Only read now, as a one-time
@@ -278,11 +278,11 @@ export function Translator({
 
   // Bot gate in front of the endpoints that occupy the engine. Anonymous
   // only: an account's requests are never challenged server-side, so the
-  // widget script isn't even loaded for them.
-  const { containerRef: turnstileRef, ensurePass, invalidatePass } = useTurnstileGate(
-    TURNSTILE_SITE_KEY,
-    !signedIn,
-  );
+  // widget script isn't even loaded for them. The challenge itself is drawn
+  // by <TurnstileOverlay> at the bottom of this component, over the whole
+  // screen — not in the composer row, where it would squeeze the text field.
+  const turnstile = useTurnstileGate(TURNSTILE_SITE_KEY, !signedIn);
+  const { ensurePass, invalidatePass } = turnstile;
 
   const recRef = useRef<WavRecorder | null>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
@@ -774,9 +774,6 @@ export function Translator({
 
   const composerRow = (
     <div className="flex min-w-0 w-full items-center gap-2">
-      {/* Turnstile render target. Empty (zero-height) unless Cloudflare
-          decides this visitor has to interact with the challenge. */}
-      <div ref={turnstileRef} className="empty:hidden" />
       {status !== "idle" ? (
         <div className="flex min-w-0 flex-1 items-center self-center gap-2 px-2 text-sm text-hint">
           {status === "recording" ? (
@@ -1031,6 +1028,10 @@ export function Translator({
           </div>
         </Modal>
       )}
+
+      {/* The bot challenge, centred over a blurred page. Always mounted so the
+          widget survives between solves — see TurnstileOverlay. */}
+      <TurnstileOverlay gate={turnstile} />
     </div>
   );
 }
