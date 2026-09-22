@@ -7,18 +7,34 @@
 // is framed.
 //
 // Configuration (all optional except the address, see docs/local-llm.md):
-//   LLM_BASE_URL         engine address; on the Mac it is http://127.0.0.1:1234,
-//                        on the VPS the same engine arrives over the owner's
-//                        reverse-SSH tunnel as http://127.0.0.1:18812
+//   LLM_BASE_URL         the GENERAL engine: chat, search, and the language
+//                        pairs the translation model does not cover. On the Mac
+//                        it is http://127.0.0.1:1234, on the VPS the same
+//                        engine arrives over the owner's reverse-SSH tunnel as
+//                        http://127.0.0.1:18812
 //   LLM_MODEL            model id as the engine reports it
+//   MT_BASE_URL          the TRANSLATION engine (TranslateGemma), same tunnel
+//                        idea: http://127.0.0.1:1235 locally, .1:18822 on the
+//                        VPS. Empty or unset turns the whole routing off and
+//                        every call goes to the general engine — so a deploy
+//                        that has not been given this address keeps working
+//   MT_MODEL             model id of the translation engine
 //   LLM_API_KEY          only for engines that require one; usually empty
 //   LLM_REASONING        `reasoning_effort` sent when set; `none` keeps a
 //                        reasoning model from spending the whole answer on
-//                        thinking and returning no text at all
+//                        thinking and returning no text at all. Only the
+//                        general engine gets it: the translation model is not
+//                        a reasoning model and has nothing to switch off
 //   LLM_TEMPLATE_KWARGS  extra chat-template fields as a JSON object, e.g.
-//                        {"enable_thinking": false} for Qwen on llama.cpp
+//                        {"enable_thinking": false} for Qwen on llama.cpp;
+//                        MT_TEMPLATE_KWARGS is the same for the translation
+//                        engine, whose template takes no such switch
 //   LLM_TIMEOUT_MS       ceiling for one whole answer
 //   LLM_IDLE_TIMEOUT_MS  ceiling for the gap between two stream chunks
+
+/** Which of the two configured engines a call goes to. Translation picks by
+ *  language pair (see lib/translate.ts); everything else uses the default. */
+export type LlmEngine = "default" | "mt";
 
 /** Message of a chat request, in the shape the protocol uses. */
 export type LlmMessage = { role: "system" | "user"; content: string };
@@ -44,6 +60,9 @@ export type ChatOptions = {
   /** Output ceiling in tokens; callers derive it from lib/llm-limits.ts. */
   maxTokens: number;
   temperature?: number;
+  /** Engine to ask. Defaults to the general one; translation passes "mt" for
+   *  the pairs its own model covers. */
+  engine?: LlmEngine;
   /** Constrains the answer to this JSON Schema (llama.cpp compiles it into a
    *  grammar). Used by the photo flow, where every segment must come back
    *  keyed by its own id. */
@@ -52,9 +71,22 @@ export type ChatOptions = {
   signal?: AbortSignal;
 };
 
-/** Address of the engine, without a trailing slash so paths can be appended. */
-function baseUrl(): string {
+/** Address of one engine, without a trailing slash so paths can be appended. */
+function baseUrl(engine: LlmEngine): string {
+  if (engine === "mt") return (process.env.MT_BASE_URL ?? "").trim().replace(/\/+$/, "");
   return (process.env.LLM_BASE_URL ?? "http://127.0.0.1:1234").trim().replace(/\/+$/, "");
+}
+
+/**
+ * Whether the translation engine is configured at all.
+ *
+ * The routing in lib/translate.ts asks this before sending anything to `mt`: a
+ * deployment whose environment has no MT_BASE_URL has no translation model to
+ * reach, and the honest fallback is the general engine rather than a request
+ * to an empty address.
+ */
+export function mtEngineConfigured(): boolean {
+  return baseUrl("mt").length > 0;
 }
 
 /** Headers of every request; the key is sent only when one is configured. */
@@ -67,7 +99,8 @@ function headers(): Record<string, string> {
 
 /** Model id to ask for. A single local engine serves one loaded model; when
  *  the id does not match, llama.cpp answers with whatever is loaded. */
-function llmModelName(): string {
+function llmModelName(engine: LlmEngine): string {
+  if (engine === "mt") return (process.env.MT_MODEL ?? "translategemma-4b").trim();
   return (process.env.LLM_MODEL ?? "qwen/qwen3.5-9b").trim();
 }
 
@@ -90,18 +123,19 @@ function idleTimeoutMs(): number {
  * callers never see a raw TypeError from fetch.
  */
 export async function chat(opts: ChatOptions): Promise<string> {
+  const engine = opts.engine ?? "default";
   const body = buildBody(opts, false);
   const signal = withTimeout(opts.signal, fullTimeoutMs());
   let res: Response;
   try {
-    res = await fetch(`${baseUrl()}/v1/chat/completions`, {
+    res = await fetch(`${baseUrl(engine)}/v1/chat/completions`, {
       method: "POST",
       headers: headers(),
       body: JSON.stringify(body),
       signal,
     });
   } catch (err) {
-    throw wrapNetworkError(err, opts.signal);
+    throw wrapNetworkError(err, engine, opts.signal);
   }
   if (!res.ok) throw await httpError(res);
   const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
@@ -117,6 +151,7 @@ export async function chat(opts: ChatOptions): Promise<string> {
  * longer than the idle timeout throws instead of hanging on to the slot.
  */
 export async function* chatStream(opts: ChatOptions): AsyncGenerator<string> {
+  const engine = opts.engine ?? "default";
   const body = buildBody(opts, true);
   // Two independent ceilings on one request: the full timeout for the whole
   // answer (inside withTimeout) and the idle one for the gap between chunks,
@@ -130,14 +165,14 @@ export async function* chatStream(opts: ChatOptions): AsyncGenerator<string> {
 
   let res: Response;
   try {
-    res = await fetch(`${baseUrl()}/v1/chat/completions`, {
+    res = await fetch(`${baseUrl(engine)}/v1/chat/completions`, {
       method: "POST",
       headers: headers(),
       body: JSON.stringify(body),
       signal,
     });
   } catch (err) {
-    throw wrapNetworkError(err, opts.signal);
+    throw wrapNetworkError(err, engine, opts.signal);
   }
   if (!res.ok || !res.body) throw await httpError(res);
 
@@ -168,7 +203,7 @@ export async function* chatStream(opts: ChatOptions): AsyncGenerator<string> {
     if (idle.signal.aborted && !opts.signal?.aborted) {
       throw new LlmError(`model stalled for more than ${idleTimeoutMs()} ms`, "timeout");
     }
-    throw wrapNetworkError(err, opts.signal);
+    throw wrapNetworkError(err, engine, opts.signal);
   } finally {
     clearTimeout(timer);
   }
@@ -179,16 +214,19 @@ export async function* chatStream(opts: ChatOptions): AsyncGenerator<string> {
  *  an unknown field is ignored by llama.cpp, but a malformed one is not
  *  worth risking on every call. */
 function buildBody(opts: ChatOptions, stream: boolean): Record<string, unknown> {
+  const engine = opts.engine ?? "default";
   const body: Record<string, unknown> = {
-    model: llmModelName(),
+    model: llmModelName(engine),
     messages: opts.messages,
     stream,
     temperature: opts.temperature ?? 0.2,
     max_tokens: opts.maxTokens,
   };
-  const reasoning = (process.env.LLM_REASONING ?? "none").trim();
+  // Reasoning is a general-engine concern only: the translation model has no
+  // such switch, and sending an unknown field to it buys nothing.
+  const reasoning = engine === "mt" ? "" : (process.env.LLM_REASONING ?? "none").trim();
   if (reasoning) body.reasoning_effort = reasoning;
-  const kwargs = templateKwargs();
+  const kwargs = templateKwargs(engine);
   if (kwargs) body.chat_template_kwargs = kwargs;
   if (opts.jsonSchema) {
     body.response_format = {
@@ -199,16 +237,18 @@ function buildBody(opts: ChatOptions, stream: boolean): Record<string, unknown> 
   return body;
 }
 
-/** `LLM_TEMPLATE_KWARGS` parsed once per call. A broken value is logged and
- *  ignored: a typo in the environment must not take the whole feature down. */
-function templateKwargs(): Record<string, unknown> | null {
-  const raw = (process.env.LLM_TEMPLATE_KWARGS ?? "").trim();
+/** `LLM_TEMPLATE_KWARGS` (or `MT_TEMPLATE_KWARGS`) parsed once per call. A
+ *  broken value is logged and ignored: a typo in the environment must not take
+ *  the whole feature down. */
+function templateKwargs(engine: LlmEngine): Record<string, unknown> | null {
+  const name = engine === "mt" ? "MT_TEMPLATE_KWARGS" : "LLM_TEMPLATE_KWARGS";
+  const raw = (process.env[name] ?? "").trim();
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as unknown;
     return parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : null;
   } catch {
-    console.warn("[llm] LLM_TEMPLATE_KWARGS is not valid JSON — sending the request without it");
+    console.warn(`[llm] ${name} is not valid JSON — sending the request without it`);
     return null;
   }
 }
@@ -244,14 +284,14 @@ async function httpError(res: Response): Promise<LlmError> {
 /** fetch failure turn into an LlmError. The caller's own abort means the
  *  visitor left; everything else (refused connection, stalled socket) is the
  *  engine being unreachable. */
-function wrapNetworkError(err: unknown, callerSignal?: AbortSignal): LlmError {
+function wrapNetworkError(err: unknown, engine: LlmEngine, callerSignal?: AbortSignal): LlmError {
   if (err instanceof LlmError) return err;
   if (callerSignal?.aborted) return new LlmError("request cancelled by the caller", "aborted");
   if (err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError")) {
     return new LlmError("model did not answer in time", "timeout");
   }
   const reason = err instanceof Error ? err.message : String(err);
-  return new LlmError(`model unreachable at ${baseUrl()} (${reason})`, "unavailable");
+  return new LlmError(`model unreachable at ${baseUrl(engine)} (${reason})`, "unavailable");
 }
 
 /** The caller's signal plus our own ceiling, as one signal. A call with no

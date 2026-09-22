@@ -1,10 +1,11 @@
-// Token accounting for the local model's context window.
+// Token accounting for the local models' context windows.
 //
-// The engine is llama.cpp on the owner's Mac (see docs/local-llm.md), and its
-// window — not the plan's character quota — is the hard limit on one engine
-// call. Every number below is derived from that window instead of being
-// hand-tuned against a hosted API, so raising `-c`/`LLM_CTX` moves the whole
-// budget with it.
+// Two engines are configured at once (see docs/local-llm.md): the general one
+// for chat, search and the language pairs the translation model does not
+// cover, and the translation one for the rest. Their windows differ by an
+// order of magnitude — 32K against 2K of usable input — so every number below
+// is derived per engine instead of being shared: raising `-c`/`LLM_CTX` moves
+// one budget and `MT_CTX` the other.
 //
 // Why estimate tokens from characters instead of counting them: the app has no
 // tokenizer for the served model, and a real one would have to be kept in sync
@@ -13,46 +14,94 @@
 // characters per token and Latin ~4 — so the estimate is never smaller than
 // the truth and the window is never overrun.
 
-/** Context window of ONE llama.cpp slot, in tokens. Must match the server's
- *  `-c`/`--ctx-size`: llama.cpp splits its total window between its `-np`
- *  slots, and one request occupies one slot, so this is the per-slot value. */
-const LLM_CTX = positiveInt(process.env.LLM_CTX, 32768);
+/** One engine's budget: what fits in a single call, and how much conversation
+ *  context may ride along with it. */
+export type EngineLimits = {
+  /** Characters of the RECENT TURNS block resent with every request. It is not
+   *  charged to anyone's quota, but it does occupy the window and the prefill
+   *  time, so it is capped and the newest turns are the ones kept. On the
+   *  translation engine the window is small enough that the block has to stay
+   *  a fraction of it. */
+  readonly contextChars: number;
+  /** Source text of one engine call, split at paragraph/sentence/word
+   *  boundaries — never longer than this engine's window allows. */
+  splitIntoChunks(text: string): string[];
+  /** Output budget for one engine call, in tokens. */
+  maxOutputTokens(inputChars: number): number;
+};
 
 /** Characters per token, rounded down — see the header comment. */
 const CHARS_PER_TOKEN = 2;
-
-/** Tokens held back for the system prompt, the pair instruction and the
- *  RECENT TURNS block (~1200 tokens ≈ 2400 characters of context). */
-const PROMPT_RESERVE_TOKENS = 1200;
 
 /** Slack for the model adding a sentence of its own: the prompt forbids it,
  *  but a window overrun is a 400 from llama.cpp and a lost request, so a
  *  little room is cheaper than trust. */
 const SLACK_TOKENS = 256;
 
-/** How much longer the answer may get than the input, in tokens. Translating
- *  English into Russian grows the token count by ~1.6 (Latin packs ~4
- *  characters per token, Cyrillic ~2.5), and the model occasionally expands a
- *  terse phrase into a full sentence; 2.2 covers both. */
-const OUTPUT_GROWTH = 2.2;
+/** Numbers one engine falls back to when the environment says nothing. */
+type Defaults = {
+  /** Context window of ONE llama.cpp slot, in tokens. Must match the server's
+   *  `-c`/`--ctx-size`: llama.cpp splits its total window between its `-np`
+   *  slots, and one request occupies one slot, so this is the per-slot value. */
+  ctx: number;
+  /** Tokens held back for the prompt itself — instructions, the pair and the
+   *  RECENT TURNS block. The general engine's prompt is a page of rules; the
+   *  translation engine's is one paragraph, and its window is small enough
+   *  that the reserve has to shrink with it. */
+  reserveTokens: number;
+  /** How much longer the answer may get than the input, in tokens. Translating
+   *  English into Russian grows the token count by ~1.6 (Latin packs ~4
+   *  characters per token, Cyrillic ~2.5), and the model occasionally expands
+   *  a terse phrase into a full sentence; 2.2 covers both. */
+  growth: number;
+  /** Size of one engine call when a longer text is split, in characters. */
+  chunkChars: number;
+  contextChars: number;
+};
 
-/** Characters of the RECENT TURNS block resent with every request. It is not
- *  charged to anyone's quota, but it does occupy the window and the prefill
- *  time, so it is capped and the newest turns are the ones kept. */
-export const CONTEXT_MAX_CHARS = 2000;
+/**
+ * Budget of one engine, read from `<prefix>CTX`, `<prefix>CHUNK_CHARS`,
+ * `<prefix>CONTEXT_CHARS`, `<prefix>PROMPT_RESERVE_TOKENS` and
+ * `<prefix>OUTPUT_GROWTH`.
+ *
+ * The prefix is how the same arithmetic serves both engines without a second
+ * copy of it: `LLM_` for the general model, `MT_` for the translation one.
+ */
+function buildLimits(prefix: string, defaults: Defaults): EngineLimits {
+  const ctx = positiveInt(process.env[`${prefix}CTX`], defaults.ctx);
+  const reserve = positiveInt(process.env[`${prefix}PROMPT_RESERVE_TOKENS`], defaults.reserveTokens);
+  const growth = positiveNumber(process.env[`${prefix}OUTPUT_GROWTH`], defaults.growth);
 
-/** Longest single engine call, in characters of source text. Input plus its
- *  worst-case output plus the prompt must fit the window:
- *  (32768 − 1200 − 256) / 3.2 ≈ 9785 tokens ≈ 19570 characters. */
-const MAX_INPUT_CHARS = Math.floor(
-  ((LLM_CTX - PROMPT_RESERVE_TOKENS - SLACK_TOKENS) / (1 + OUTPUT_GROWTH)) * CHARS_PER_TOKEN,
-);
+  // Longest single call, in characters of source text: input plus its
+  // worst-case output plus the prompt must fit the window.
+  const maxInputChars = Math.floor(
+    ((ctx - reserve - SLACK_TOKENS) / (1 + growth)) * CHARS_PER_TOKEN,
+  );
+  const chunkChars = Math.min(
+    positiveInt(process.env[`${prefix}CHUNK_CHARS`], defaults.chunkChars),
+    Math.max(maxInputChars, 1),
+  );
 
-/** Size of one engine call when a longer text is split, in characters. Half
- *  the window-derived maximum: a smaller call finishes (and starts streaming)
- *  sooner, and the prefill of a full-window call would take a minute on its
- *  own. Overridable with LLM_CHUNK_CHARS, never above MAX_INPUT_CHARS. */
-export const CHUNK_CHARS = Math.min(positiveInt(process.env.LLM_CHUNK_CHARS, 8000), MAX_INPUT_CHARS);
+  /**
+   * Output budget for one call, in tokens.
+   *
+   * Takes the larger of "enough for a translation this long" and the room the
+   * window has left after the prompt and the input — the one value that must
+   * never exceed the slot, since llama.cpp answers a too-large request with a
+   * 400 rather than truncating.
+   */
+  const maxOutputTokens = (inputChars: number): number => {
+    const wanted = Math.ceil(estimateTokens(inputChars) * growth) + SLACK_TOKENS;
+    const available = ctx - reserve - estimateTokens(inputChars) - SLACK_TOKENS;
+    return Math.max(64, Math.min(wanted, available));
+  };
+
+  return {
+    contextChars: positiveInt(process.env[`${prefix}CONTEXT_CHARS`], defaults.contextChars),
+    splitIntoChunks: (text: string) => splitIntoChunks(text, chunkChars),
+    maxOutputTokens,
+  };
+}
 
 /**
  * Tokens the given amount of text is expected to occupy, rounded up.
@@ -65,19 +114,28 @@ function estimateTokens(chars: number): number {
   return Math.ceil(Math.max(0, chars) / CHARS_PER_TOKEN);
 }
 
-/**
- * Output budget for one engine call, in tokens.
- *
- * Takes the larger of "enough for a translation this long" and the room the
- * window has left after the prompt and the input — the one value that must
- * never exceed the slot, since llama.cpp answers a too-large request with a
- * 400 rather than truncating.
- */
-export function maxOutputTokens(inputChars: number): number {
-  const wanted = Math.ceil(estimateTokens(inputChars) * OUTPUT_GROWTH) + SLACK_TOKENS;
-  const available = LLM_CTX - PROMPT_RESERVE_TOKENS - estimateTokens(inputChars) - SLACK_TOKENS;
-  return Math.max(64, Math.min(wanted, available));
-}
+/** General engine: the model that answers chat, search and the pairs outside
+ *  the translation model's languages. */
+export const DEFAULT_LIMITS: EngineLimits = buildLimits("LLM_", {
+  ctx: 32768,
+  reserveTokens: 1200,
+  growth: 2.2,
+  chunkChars: 8000,
+  contextChars: 2000,
+});
+
+/** Translation engine: TranslateGemma-4B, whose card promises 2K tokens of
+ *  input, so the call has to stay small and the conversation context small
+ *  with it. `MT_CTX` still has to match its server's `-c` (4096): the window
+ *  covers the answer as well as the input, and the input cap comes from how
+ *  much of it is held back for the prompt. */
+export const MT_LIMITS: EngineLimits = buildLimits("MT_", {
+  ctx: 4096,
+  reserveTokens: 600,
+  growth: 1.8,
+  chunkChars: 2000,
+  contextChars: 300,
+});
 
 /**
  * Splits `text` into pieces no longer than `limit` characters, cutting at
@@ -88,7 +146,7 @@ export function maxOutputTokens(inputChars: number): number {
  * the answers with "" reproduces the source layout — the caller only has to
  * put back the whitespace the model stripped at the end of an answer.
  */
-export function splitIntoChunks(text: string, limit: number = CHUNK_CHARS): string[] {
+function splitIntoChunks(text: string, limit: number): string[] {
   if (text.length <= limit) return text.length > 0 ? [text] : [];
 
   const chunks: string[] = [];
@@ -157,4 +215,10 @@ function hardSplit(text: string, limit: number): string[] {
 function positiveInt(raw: string | undefined, fallback: number): number {
   const value = Number(raw);
   return Number.isFinite(value) && value > 0 ? Math.floor(value) : fallback;
+}
+
+/** Same, for the one setting that is a fraction rather than a count. */
+function positiveNumber(raw: string | undefined, fallback: number): number {
+  const value = Number(raw);
+  return Number.isFinite(value) && value > 0 ? value : fallback;
 }

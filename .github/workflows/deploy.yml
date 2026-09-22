@@ -96,6 +96,21 @@ jobs:
             LLM_CTX="${{ secrets.LLM_CTX || '32768' }}"
             LLM_REASONING="none"
             LLM_TEMPLATE_KWARGS={"enable_thinking":false}
+            # Second engine: TranslateGemma-4B on the same Mac, its own tunnel
+            # port, serving the language pairs it covers. Both languages of a
+            # pair must be in its set for a request to go there; everything
+            # else stays on the general engine above. MT_CTX matches that
+            # server's `-c`, and its request budget is ten times smaller.
+            #
+            # MT_BASE_URL is deliberately empty here: the code treats an empty
+            # address as "no translation engine" and sends every pair to the
+            # general one, so this deploy changes nothing a visitor can see.
+            # Turning the routing on is one line below — the address, not a
+            # secret: it is a loopback tunnel port, exactly like LLM_BASE_URL
+            # above — and that is done as a separate deploy.
+            MT_BASE_URL="${{ secrets.MT_BASE_URL || '' }}"
+            MT_MODEL="${{ secrets.MT_MODEL || 'translategemma-4b' }}"
+            MT_CTX="${{ secrets.MT_CTX || '4096' }}"
             STT_BASE_URL="${{ secrets.STT_BASE_URL || 'http://127.0.0.1:18818' }}"
             STT_TIMEOUT_MS="240000"
             PORT="8200"
