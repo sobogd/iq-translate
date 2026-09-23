@@ -24,3 +24,21 @@ Applies in every project and every agent session (this repo included). Full poli
 
 Personal token store: `~/work/.env` (mode 600, outside git) — keys `GH_SOBOGD`,
 `GH_BSOKOLOV_TANGEM`. Global copies of this rule: `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`.
+
+## Git Token — Universal Helper
+
+**Всегда используйте скрипт `/Users/sobogd/work/.git-token.sh`** перед операциями с GitHub.
+
+```bash
+source /Users/sobogd/work/.git-token.sh
+gh workflow run deploy.yml
+```
+
+Скрипт автоматически определяет проект и подставляет правильный токен:
+- **Тангем проекты** (`/tangem/`, `/tangem-checkout-web/`) → `GH_BSOKOLOV_TANGEM`
+- **Все остальные** → `GH_SOBOGD`
+
+**Никогда не используйте `gh auth login` без токена** — это активирует дефолтную учётку
+(`sobogd`), у которой токен невалиден для Tangem.
+
+If you see authentication errors with `gh`, run the script first!
