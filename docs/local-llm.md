@@ -20,7 +20,7 @@ auth layer: both ends bind to loopback and the tunnel joins them.
 | `1238` | `18818` | `whisper-server` — speech recognition (large-v3-turbo) |
 
 The tunnel is the same resilient reverse-SSH wrapper the CloudlyRu chat uses:
-`~/work/jevel.ai/agents/run-tunnel.sh`, kept alive by launchd
+`~/work/cloudlyru/agents/mac/run-tunnel.sh`, kept alive by launchd
 (`com.agent.mac-tunnel`). Every forwarded port must be listed twice in
 that script — once in the `-R` arguments and once in the grep list it uses to
 clear stale listeners on the VPS. A port that is missing from the grep keeps a
