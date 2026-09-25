@@ -20,8 +20,8 @@
 // ~40% fewer tokens to emit.
 
 import { Language } from "./languages";
-import { DEFAULT_LIMITS, EngineLimits, MT_LIMITS } from "./llm-limits";
-import { chatStream, LlmEngine, LlmMessage, mtEngineConfigured } from "./llm";
+import { DEFAULT_LIMITS } from "./llm-limits";
+import { chatStream, LlmEngine, LlmMessage } from "./llm";
 
 /** One earlier turn of the same conversation, oldest first. */
 export type RecentTurn = { sourceLang: string; transcript: string; translation: string };
@@ -36,34 +36,16 @@ export type RecentTurn = { sourceLang: string; transcript: string; translation: 
  *  One entry per code the model itself documents: "zh" covers both of the
  *  card's Chinese variants, and "fil" is spelled that way rather than "tl"
  *  because that is the code the model was trained under. */
-const MT_LANGUAGES = new Set([
-  "ar", "bg", "bn", "ca", "cs", "da", "de", "el", "en", "es",
-  "et", "fa", "fi", "fil", "fr", "gu", "he", "hi", "hr", "hu",
-  "id", "is", "it", "ja", "kn", "ko", "lt", "lv", "ml", "mr",
-  "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr",
-  "sv", "sw", "ta", "te", "th", "tr", "uk", "ur", "vi", "zh",
-]);
-
 /** English names of the model's instruction, which is written in English and
  *  names both languages rather than only their codes. Taken from ICU instead of
  *  a 147-entry table in the repository: a hand-kept copy drifts from
  *  lib/languages.ts the first time someone adds a language there. */
 const englishNames = new Intl.DisplayNames(["en"], { type: "language" });
 
-/** Which engine answers this pair. `mt` only when the translation model covers
- *  both sides and a translation engine is actually configured — an environment
- *  without `MT_BASE_URL` (a fresh deploy, a developer's laptop) behaves exactly
- *  as it did before the second engine existed. */
-function engineFor(source: Language, target: Language): LlmEngine {
-  const covered =
-    MT_LANGUAGES.has(source.code) && MT_LANGUAGES.has(target.code);
-  return covered && mtEngineConfigured() ? "mt" : "default";
-}
-
-/** Budget of the engine that will answer: their windows differ tenfold, so the
- *  chunking, the output ceiling and the context cap all come from this. */
-function limitsFor(engine: LlmEngine): EngineLimits {
-  return engine === "mt" ? MT_LIMITS : DEFAULT_LIMITS;
+/** Все языковые пары отвечаются через общий движок (oMLX:1234) —
+ *  TranslateGemma-4B отключён, 35B/27B лучше всех. */
+function engineFor(_source: Language, _target: Language): LlmEngine {
+  return "default";
 }
 
 /** How the general model is told which of two languages is which: native name
@@ -163,28 +145,6 @@ function systemPrompt(
  * template word for word — the model was trained on this exact wording, and
  * both the tutorial form and the terminology variant come from its card. That
  * is also why the label pairs are English (`Spanish (es)`): the instruction
- * language is English, and the Russian-facing labels of the general prompt buy
- * nothing here.
- */
-function mtPrompt(
-  source: Language,
-  target: Language,
-  text: string,
-  recent: RecentTurn[],
-  limit: number,
-): string {
-  const from = englishLabel(source);
-  const into = englishLabel(target);
-  return (
-    `You are a professional ${from} to ${into} translator. Your goal is to accurately convey ` +
-    `the meaning and nuances of the original ${from} text while adhering to ${into} grammar, ` +
-    `vocabulary, and cultural sensitivities.\n` +
-    terminologyBlock(recent, limit) +
-    `Produce only the ${into} translation, without any additional explanations or commentary. ` +
-    `Please translate the following ${from} text into ${into}:\n\n\n${text}`
-  );
-}
-
 /** The two messages of a general-engine call. The text goes in its own user
  *  message so the model cannot mistake it for part of the instructions, and
  *  so the (unchanging) system half stays a cacheable prompt prefix. */
@@ -199,19 +159,6 @@ function messages(
     { role: "system", content: systemPrompt(source, target, recent, limit) },
     { role: "user", content: text },
   ];
-}
-
-/** The one message of a translation-engine call. No system role: the model's
- *  template has none, and llama.cpp renders the message as a single Gemma user
- *  turn. */
-function mtMessages(
-  source: Language,
-  target: Language,
-  text: string,
-  recent: RecentTurn[],
-  limit: number,
-): LlmMessage[] {
-  return [{ role: "user", content: mtPrompt(source, target, text, recent, limit) }];
 }
 
 /**
@@ -245,8 +192,7 @@ export async function* translateStream(
   signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const engine = engineFor(source, target);
-  const limits = limitsFor(engine);
-  const chunks = limits.splitIntoChunks(text);
+  const chunks = DEFAULT_LIMITS.splitIntoChunks(text);
   for (const chunk of chunks) {
     // Leading whitespace of an answer is the engine's own formatting, not the
     // text's: the chunk it belongs to was trimmed before being sent, so an
@@ -254,11 +200,8 @@ export async function* translateStream(
     // after the first one in by a character.
     let first = true;
     for await (const delta of chatStream({
-      messages:
-        engine === "mt"
-          ? mtMessages(source, target, chunk.trim(), recent, limits.contextChars)
-          : messages(source, target, chunk.trim(), recent, limits.contextChars),
-      maxTokens: limits.maxOutputTokens(chunk.length),
+      messages: messages(source, target, chunk.trim(), recent, DEFAULT_LIMITS.contextChars),
+      maxTokens: DEFAULT_LIMITS.maxOutputTokens(chunk.length),
       engine,
       signal,
     })) {

@@ -1,11 +1,8 @@
 // Token accounting for the local models' context windows.
 //
-// Two engines are configured at once (see docs/local-llm.md): the general one
-// for chat, search and the language pairs the translation model does not
-// cover, and the translation one for the rest. Their windows differ by an
-// order of magnitude — 32K against 2K of usable input — so every number below
-// is derived per engine instead of being shared: raising `-c`/`LLM_CTX` moves
-// one budget and `MT_CTX` the other.
+// One engine serves everything now (see docs/local-llm.md): 35B or 27B via
+// oMLX. TranslateGemma-4B was retired — a single larger model handles all
+// language pairs and chat/search from the same port.
 //
 // Why estimate tokens from characters instead of counting them: the app has no
 // tokenizer for the served model, and a real one would have to be kept in sync
@@ -14,14 +11,12 @@
 // characters per token and Latin ~4 — so the estimate is never smaller than
 // the truth and the window is never overrun.
 
-/** One engine's budget: what fits in a single call, and how much conversation
- *  context may ride along with it. */
+/** Budget of the one engine: what fits in a single call, and how much
+ *  conversation context may ride along with it. */
 export type EngineLimits = {
   /** Characters of the RECENT TURNS block resent with every request. It is not
    *  charged to anyone's quota, but it does occupy the window and the prefill
-   *  time, so it is capped and the newest turns are the ones kept. On the
-   *  translation engine the window is small enough that the block has to stay
-   *  a fraction of it. */
+   *  time, so it is capped and the newest turns are the ones kept. */
   readonly contextChars: number;
   /** Source text of one engine call, split at paragraph/sentence/word
    *  boundaries — never longer than this engine's window allows. */
@@ -114,27 +109,14 @@ function estimateTokens(chars: number): number {
   return Math.ceil(Math.max(0, chars) / CHARS_PER_TOKEN);
 }
 
-/** General engine: the model that answers chat, search and the pairs outside
- *  the translation model's languages. */
+/** The one engine (35B/27B via oMLX) that answers chat, search and all
+ *  language pairs. */
 export const DEFAULT_LIMITS: EngineLimits = buildLimits("LLM_", {
   ctx: 32768,
   reserveTokens: 1200,
   growth: 2.2,
   chunkChars: 8000,
   contextChars: 2000,
-});
-
-/** Translation engine: TranslateGemma-4B, whose card promises 2K tokens of
- *  input, so the call has to stay small and the conversation context small
- *  with it. `MT_CTX` still has to match its server's `-c` (4096): the window
- *  covers the answer as well as the input, and the input cap comes from how
- *  much of it is held back for the prompt. */
-export const MT_LIMITS: EngineLimits = buildLimits("MT_", {
-  ctx: 4096,
-  reserveTokens: 600,
-  growth: 1.8,
-  chunkChars: 2000,
-  contextChars: 300,
 });
 
 /**

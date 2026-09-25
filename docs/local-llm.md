@@ -15,7 +15,7 @@ auth layer: both ends bind to loopback and the tunnel joins them.
 
 | Mac (127.0.0.1) | VPS (127.0.0.1) | What it is |
 | --- | --- | --- |
-| `1234` | `18812` | `llama-server` — general engine (Qwen3.5-4B): chat, search, and the pairs the translation model does not cover |
+| `1234` | `18812` | `llama-server` — general engine (Qwen3.8-27B): chat, search, and the pairs the translation model does not cover |
 | `1235` | `18822` | `llama-server` — translation engine (TranslateGemma-4B) |
 | `1238` | `18818` | `whisper-server` — speech recognition (large-v3-turbo) |
 
@@ -39,16 +39,21 @@ context per slot. It answers chat and search, and it is also what translates
 every pair the translation model does not cover:
 
 ```bash
-llama-server -m ~/models/Qwen3.5-4B-UD-Q4_K_XL.gguf --alias qwen/qwen3.5-9b \
+llama-server -m ~/models/Qwen3.8-27B-UD-Q4_K_XL.gguf \
+  --alias qwen/qwen3.8-27b,qwen/qwen3.5-9b,qwen/qwen3.5-4b \
   --host 127.0.0.1 --port 1234 --jinja -ngl 999 -c 65536 --flash-attn on \
   --cache-type-k q8_0 --cache-type-v q8_0 \
   --chat-template-kwargs '{"enable_thinking":false}'
 ```
 
-The alias still says `9b` although a 4B model is loaded. That is deliberate:
-the id is written into `LLM_MODEL`, into existing conversations and into the
-pi harness, and renaming it in four places to match a filename is a way to
-break production for cosmetics. `LLM_MODEL` in `.env`/`deploy.yml` is the only
+The alias list carries three ids. `qwen/qwen3.8-27b` is the honest name of the
+loaded model and the one to write into new configurations. The other two are
+names of engines that are no longer there: `qwen/qwen3.5-9b` is the id every
+`LLM_MODEL` used before the swap, `qwen/qwen3.5-4b` was the file that was loaded
+before it. Both are written into deployed configurations, into the pi harness
+and into preferences saved on the phone, and renaming them to match a filename
+is a way to break production for cosmetics. llama.cpp answers any of the three
+with the same loaded model. `LLM_MODEL` in `.env`/`deploy.yml` is the only
 place the id matters to this app.
 
 **Translation** — a second `llama-server`, the translation model, its own port.
@@ -131,7 +136,7 @@ defaults for everything else.
 | Variable | Local | VPS | Meaning |
 | --- | --- | --- | --- |
 | `LLM_BASE_URL` | `http://127.0.0.1:1234` | `http://127.0.0.1:18812` | general engine: chat, search, uncovered pairs |
-| `LLM_MODEL` | `qwen/qwen3.5-9b` | same | model id as the engine reports it (the id stayed after the 9B left) |
+| `LLM_MODEL` | `qwen/qwen3.8-27b` | same | model id as the engine reports it; the ids of the engines that were there before are still served as aliases |
 | `LLM_CTX` | `65536` | `65536` | must equal the general server's `-c` |
 | `MT_BASE_URL` | `http://127.0.0.1:1235` | `http://127.0.0.1:18822` | translation engine; empty disables the routing |
 | `MT_MODEL` | `translategemma-4b` | same | model id of the translation engine |
