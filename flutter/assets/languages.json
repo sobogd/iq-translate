@@ -1,0 +1,884 @@
+[
+  {
+    "code": "av",
+    "nameRu": "Аварский",
+    "nameNative": "Авар мацӀ",
+    "flag": "🇷🇺"
+  },
+  {
+    "code": "az",
+    "nameRu": "Азербайджанский",
+    "nameNative": "Azərbaycan dili",
+    "flag": "🇦🇿"
+  },
+  {
+    "code": "ay",
+    "nameRu": "Аймарский",
+    "nameNative": "Aymar aru",
+    "flag": "🇧🇴"
+  },
+  {
+    "code": "ak",
+    "nameRu": "Акан",
+    "nameNative": "Akan",
+    "flag": "🇬🇭"
+  },
+  {
+    "code": "sq",
+    "nameRu": "Албанский",
+    "nameNative": "Shqip",
+    "flag": "🇦🇱"
+  },
+  {
+    "code": "en",
+    "nameRu": "Английский",
+    "nameNative": "English",
+    "flag": "🇬🇧"
+  },
+  {
+    "code": "ar",
+    "nameRu": "Арабский",
+    "nameNative": "العربية",
+    "flag": "🇸🇦"
+  },
+  {
+    "code": "an",
+    "nameRu": "Арагонский",
+    "nameNative": "Aragonés",
+    "flag": "🇪🇸"
+  },
+  {
+    "code": "hy",
+    "nameRu": "Армянский",
+    "nameNative": "Հայերեն",
+    "flag": "🇦🇲"
+  },
+  {
+    "code": "as",
+    "nameRu": "Ассамский",
+    "nameNative": "অসমীয়া",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "aa",
+    "nameRu": "Афарский",
+    "nameNative": "Afaraf",
+    "flag": "🇩🇯"
+  },
+  {
+    "code": "af",
+    "nameRu": "Африкаанс",
+    "nameNative": "Afrikaans",
+    "flag": "🇿🇦"
+  },
+  {
+    "code": "bm",
+    "nameRu": "Бамбара",
+    "nameNative": "Bamanankan",
+    "flag": "🇲🇱"
+  },
+  {
+    "code": "be",
+    "nameRu": "Белорусский",
+    "nameNative": "Беларуская",
+    "flag": "🇧🇾"
+  },
+  {
+    "code": "bn",
+    "nameRu": "Бенгальский",
+    "nameNative": "বাংলা",
+    "flag": "🇧🇩"
+  },
+  {
+    "code": "my",
+    "nameRu": "Бирманский",
+    "nameNative": "မြန်မာဘာသာ",
+    "flag": "🇲🇲"
+  },
+  {
+    "code": "bi",
+    "nameRu": "Бислама",
+    "nameNative": "Bislama",
+    "flag": "🇻🇺"
+  },
+  {
+    "code": "bg",
+    "nameRu": "Болгарский",
+    "nameNative": "Български",
+    "flag": "🇧🇬"
+  },
+  {
+    "code": "bs",
+    "nameRu": "Боснийский",
+    "nameNative": "Bosanski",
+    "flag": "🇧🇦"
+  },
+  {
+    "code": "br",
+    "nameRu": "Бретонский",
+    "nameNative": "Brezhoneg",
+    "flag": "🇫🇷"
+  },
+  {
+    "code": "cy",
+    "nameRu": "Валлийский",
+    "nameNative": "Cymraeg",
+    "flag": "🇬🇧"
+  },
+  {
+    "code": "wa",
+    "nameRu": "Валлонский",
+    "nameNative": "Walon",
+    "flag": "🇧🇪"
+  },
+  {
+    "code": "hu",
+    "nameRu": "Венгерский",
+    "nameNative": "Magyar",
+    "flag": "🇭🇺"
+  },
+  {
+    "code": "vo",
+    "nameRu": "Волапюк",
+    "nameNative": "Volapük",
+    "flag": "🌐"
+  },
+  {
+    "code": "wo",
+    "nameRu": "Волоф",
+    "nameNative": "Wolof",
+    "flag": "🇸🇳"
+  },
+  {
+    "code": "vi",
+    "nameRu": "Вьетнамский",
+    "nameNative": "Tiếng Việt",
+    "flag": "🇻🇳"
+  },
+  {
+    "code": "ht",
+    "nameRu": "Гаитянский креольский",
+    "nameNative": "Kreyòl ayisyen",
+    "flag": "🇭🇹"
+  },
+  {
+    "code": "gl",
+    "nameRu": "Галисийский",
+    "nameNative": "Galego",
+    "flag": "🇪🇸"
+  },
+  {
+    "code": "kl",
+    "nameRu": "Гренландский",
+    "nameNative": "Kalaallisut",
+    "flag": "🇬🇱"
+  },
+  {
+    "code": "el",
+    "nameRu": "Греческий",
+    "nameNative": "Ελληνικά",
+    "flag": "🇬🇷"
+  },
+  {
+    "code": "ka",
+    "nameRu": "Грузинский",
+    "nameNative": "ქართული",
+    "flag": "🇬🇪"
+  },
+  {
+    "code": "gu",
+    "nameRu": "Гуджарати",
+    "nameNative": "ગુજરાતી",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "da",
+    "nameRu": "Датский",
+    "nameNative": "Dansk",
+    "flag": "🇩🇰"
+  },
+  {
+    "code": "fy",
+    "nameRu": "Западнофризский",
+    "nameNative": "Frysk",
+    "flag": "🇳🇱"
+  },
+  {
+    "code": "zu",
+    "nameRu": "Зулу",
+    "nameNative": "isiZulu",
+    "flag": "🇿🇦"
+  },
+  {
+    "code": "he",
+    "nameRu": "Иврит",
+    "nameNative": "עברית",
+    "flag": "🇮🇱"
+  },
+  {
+    "code": "ig",
+    "nameRu": "Игбо",
+    "nameNative": "Igbo",
+    "flag": "🇳🇬"
+  },
+  {
+    "code": "yi",
+    "nameRu": "Идиш",
+    "nameNative": "ייִדיש",
+    "flag": "🌐"
+  },
+  {
+    "code": "io",
+    "nameRu": "Идо",
+    "nameNative": "Ido",
+    "flag": "🌐"
+  },
+  {
+    "code": "id",
+    "nameRu": "Индонезийский",
+    "nameNative": "Bahasa Indonesia",
+    "flag": "🇮🇩"
+  },
+  {
+    "code": "ia",
+    "nameRu": "Интерлингва",
+    "nameNative": "Interlingua",
+    "flag": "🌐"
+  },
+  {
+    "code": "ie",
+    "nameRu": "Интерлингве",
+    "nameNative": "Interlingue",
+    "flag": "🌐"
+  },
+  {
+    "code": "ik",
+    "nameRu": "Инупиак",
+    "nameNative": "Iñupiaq",
+    "flag": "🇺🇸"
+  },
+  {
+    "code": "ga",
+    "nameRu": "Ирландский",
+    "nameNative": "Gaeilge",
+    "flag": "🇮🇪"
+  },
+  {
+    "code": "is",
+    "nameRu": "Исландский",
+    "nameNative": "Íslenska",
+    "flag": "🇮🇸"
+  },
+  {
+    "code": "es",
+    "nameRu": "Испанский",
+    "nameNative": "Español",
+    "flag": "🇪🇸"
+  },
+  {
+    "code": "it",
+    "nameRu": "Итальянский",
+    "nameNative": "Italiano",
+    "flag": "🇮🇹"
+  },
+  {
+    "code": "yo",
+    "nameRu": "Йоруба",
+    "nameNative": "Yorùbá",
+    "flag": "🇳🇬"
+  },
+  {
+    "code": "kk",
+    "nameRu": "Казахский",
+    "nameNative": "Қазақ тілі",
+    "flag": "🇰🇿"
+  },
+  {
+    "code": "kn",
+    "nameRu": "Каннада",
+    "nameNative": "ಕನ್ನಡ",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "ca",
+    "nameRu": "Каталанский",
+    "nameNative": "Català",
+    "flag": "🇪🇸"
+  },
+  {
+    "code": "ks",
+    "nameRu": "Кашмири",
+    "nameNative": "كٲشُر",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "kj",
+    "nameRu": "Кванама",
+    "nameNative": "Kuanyama",
+    "flag": "🇦🇴"
+  },
+  {
+    "code": "qu",
+    "nameRu": "Кечуа",
+    "nameNative": "Runa Simi",
+    "flag": "🇵🇪"
+  },
+  {
+    "code": "ki",
+    "nameRu": "Кикуйю",
+    "nameNative": "Gĩkũyũ",
+    "flag": "🇰🇪"
+  },
+  {
+    "code": "rw",
+    "nameRu": "Киньяруанда",
+    "nameNative": "Ikinyarwanda",
+    "flag": "🇷🇼"
+  },
+  {
+    "code": "ky",
+    "nameRu": "Киргизский",
+    "nameNative": "Кыргызча",
+    "flag": "🇰🇬"
+  },
+  {
+    "code": "zh",
+    "nameRu": "Китайский",
+    "nameNative": "中文",
+    "flag": "🇨🇳"
+  },
+  {
+    "code": "ko",
+    "nameRu": "Корейский",
+    "nameNative": "한국어",
+    "flag": "🇰🇷"
+  },
+  {
+    "code": "co",
+    "nameRu": "Корсиканский",
+    "nameNative": "Corsu",
+    "flag": "🇫🇷"
+  },
+  {
+    "code": "ku",
+    "nameRu": "Курдский",
+    "nameNative": "Kurdî",
+    "flag": "🌐"
+  },
+  {
+    "code": "km",
+    "nameRu": "Кхмерский",
+    "nameNative": "ខ្មែរ",
+    "flag": "🇰🇭"
+  },
+  {
+    "code": "la",
+    "nameRu": "Латинский",
+    "nameNative": "Latina",
+    "flag": "🌐"
+  },
+  {
+    "code": "lv",
+    "nameRu": "Латышский",
+    "nameNative": "Latviešu",
+    "flag": "🇱🇻"
+  },
+  {
+    "code": "li",
+    "nameRu": "Лимбургский",
+    "nameNative": "Limburgs",
+    "flag": "🇳🇱"
+  },
+  {
+    "code": "lt",
+    "nameRu": "Литовский",
+    "nameNative": "Lietuvių",
+    "flag": "🇱🇹"
+  },
+  {
+    "code": "lu",
+    "nameRu": "Луба-катанга",
+    "nameNative": "Kiluba",
+    "flag": "🇨🇩"
+  },
+  {
+    "code": "lb",
+    "nameRu": "Люксембургский",
+    "nameNative": "Lëtzebuergesch",
+    "flag": "🇱🇺"
+  },
+  {
+    "code": "mk",
+    "nameRu": "Македонский",
+    "nameNative": "Македонски",
+    "flag": "🇲🇰"
+  },
+  {
+    "code": "mg",
+    "nameRu": "Малагасийский",
+    "nameNative": "Malagasy",
+    "flag": "🇲🇬"
+  },
+  {
+    "code": "ms",
+    "nameRu": "Малайский",
+    "nameNative": "Bahasa Melayu",
+    "flag": "🇲🇾"
+  },
+  {
+    "code": "ml",
+    "nameRu": "Малаялам",
+    "nameNative": "മലയാളം",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "mt",
+    "nameRu": "Мальтийский",
+    "nameNative": "Malti",
+    "flag": "🇲🇹"
+  },
+  {
+    "code": "mi",
+    "nameRu": "Маори",
+    "nameNative": "Māori",
+    "flag": "🇳🇿"
+  },
+  {
+    "code": "mr",
+    "nameRu": "Маратхи",
+    "nameNative": "मराठी",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "mn",
+    "nameRu": "Монгольский",
+    "nameNative": "Монгол хэл",
+    "flag": "🇲🇳"
+  },
+  {
+    "code": "na",
+    "nameRu": "Науру",
+    "nameNative": "Dorerin Naoero",
+    "flag": "🇳🇷"
+  },
+  {
+    "code": "ng",
+    "nameRu": "Ндонга",
+    "nameNative": "Owambo",
+    "flag": "🇳🇦"
+  },
+  {
+    "code": "de",
+    "nameRu": "Немецкий",
+    "nameNative": "Deutsch",
+    "flag": "🇩🇪"
+  },
+  {
+    "code": "ne",
+    "nameRu": "Непальский",
+    "nameNative": "नेपाली",
+    "flag": "🇳🇵"
+  },
+  {
+    "code": "nl",
+    "nameRu": "Нидерландский",
+    "nameNative": "Nederlands",
+    "flag": "🇳🇱"
+  },
+  {
+    "code": "no",
+    "nameRu": "Норвежский",
+    "nameNative": "Norsk",
+    "flag": "🇳🇴"
+  },
+  {
+    "code": "nb",
+    "nameRu": "Норвежский букмол",
+    "nameNative": "Norsk bokmål",
+    "flag": "🇳🇴"
+  },
+  {
+    "code": "nn",
+    "nameRu": "Норвежский нюнорск",
+    "nameNative": "Norsk nynorsk",
+    "flag": "🇳🇴"
+  },
+  {
+    "code": "oc",
+    "nameRu": "Окситанский",
+    "nameNative": "Occitan",
+    "flag": "🇫🇷"
+  },
+  {
+    "code": "or",
+    "nameRu": "Ория",
+    "nameNative": "ଓଡ଼ିଆ",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "om",
+    "nameRu": "Оромо",
+    "nameNative": "Afaan Oromoo",
+    "flag": "🇪🇹"
+  },
+  {
+    "code": "pi",
+    "nameRu": "Пали",
+    "nameNative": "पाऴि",
+    "flag": "🌐"
+  },
+  {
+    "code": "pa",
+    "nameRu": "Панджаби",
+    "nameNative": "ਪੰਜਾਬੀ",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "fa",
+    "nameRu": "Персидский",
+    "nameNative": "فارسی",
+    "flag": "🇮🇷"
+  },
+  {
+    "code": "pl",
+    "nameRu": "Польский",
+    "nameNative": "Polski",
+    "flag": "🇵🇱"
+  },
+  {
+    "code": "pt",
+    "nameRu": "Португальский",
+    "nameNative": "Português",
+    "flag": "🇵🇹"
+  },
+  {
+    "code": "ps",
+    "nameRu": "Пушту",
+    "nameNative": "پښتو",
+    "flag": "🇦🇫"
+  },
+  {
+    "code": "rm",
+    "nameRu": "Романшский",
+    "nameNative": "Rumantsch",
+    "flag": "🇨🇭"
+  },
+  {
+    "code": "ro",
+    "nameRu": "Румынский",
+    "nameNative": "Română",
+    "flag": "🇷🇴"
+  },
+  {
+    "code": "rn",
+    "nameRu": "Рунди",
+    "nameNative": "Ikirundi",
+    "flag": "🇧🇮"
+  },
+  {
+    "code": "ru",
+    "nameRu": "Русский",
+    "nameNative": "Русский",
+    "flag": "🇷🇺"
+  },
+  {
+    "code": "sm",
+    "nameRu": "Самоанский",
+    "nameNative": "Gagana Samoa",
+    "flag": "🇼🇸"
+  },
+  {
+    "code": "sg",
+    "nameRu": "Санго",
+    "nameNative": "Sängö",
+    "flag": "🇨🇫"
+  },
+  {
+    "code": "ss",
+    "nameRu": "Свази",
+    "nameNative": "SiSwati",
+    "flag": "🇸🇿"
+  },
+  {
+    "code": "se",
+    "nameRu": "Северносаамский",
+    "nameNative": "Davvisámegiella",
+    "flag": "🇳🇴"
+  },
+  {
+    "code": "nd",
+    "nameRu": "Северный ндебеле",
+    "nameNative": "isiNdebele",
+    "flag": "🇿🇼"
+  },
+  {
+    "code": "sr",
+    "nameRu": "Сербский",
+    "nameNative": "Српски",
+    "flag": "🇷🇸"
+  },
+  {
+    "code": "si",
+    "nameRu": "Сингальский",
+    "nameNative": "සිංහල",
+    "flag": "🇱🇰"
+  },
+  {
+    "code": "sd",
+    "nameRu": "Синдхи",
+    "nameNative": "سنڌي",
+    "flag": "🇵🇰"
+  },
+  {
+    "code": "sk",
+    "nameRu": "Словацкий",
+    "nameNative": "Slovenčina",
+    "flag": "🇸🇰"
+  },
+  {
+    "code": "sl",
+    "nameRu": "Словенский",
+    "nameNative": "Slovenščina",
+    "flag": "🇸🇮"
+  },
+  {
+    "code": "so",
+    "nameRu": "Сомалийский",
+    "nameNative": "Soomaaliga",
+    "flag": "🇸🇴"
+  },
+  {
+    "code": "sw",
+    "nameRu": "Суахили",
+    "nameNative": "Kiswahili",
+    "flag": "🇹🇿"
+  },
+  {
+    "code": "su",
+    "nameRu": "Сунданский",
+    "nameNative": "Basa Sunda",
+    "flag": "🇮🇩"
+  },
+  {
+    "code": "tl",
+    "nameRu": "Тагальский",
+    "nameNative": "Tagalog",
+    "flag": "🇵🇭"
+  },
+  {
+    "code": "tg",
+    "nameRu": "Таджикский",
+    "nameNative": "Тоҷикӣ",
+    "flag": "🇹🇯"
+  },
+  {
+    "code": "th",
+    "nameRu": "Тайский",
+    "nameNative": "ไทย",
+    "flag": "🇹🇭"
+  },
+  {
+    "code": "ta",
+    "nameRu": "Тамильский",
+    "nameNative": "தமிழ்",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "tt",
+    "nameRu": "Татарский",
+    "nameNative": "Татар теле",
+    "flag": "🇷🇺"
+  },
+  {
+    "code": "tw",
+    "nameRu": "Тви",
+    "nameNative": "Twi",
+    "flag": "🇬🇭"
+  },
+  {
+    "code": "te",
+    "nameRu": "Телугу",
+    "nameNative": "తెలుగు",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "ts",
+    "nameRu": "Тсонга",
+    "nameNative": "Xitsonga",
+    "flag": "🇿🇦"
+  },
+  {
+    "code": "tr",
+    "nameRu": "Турецкий",
+    "nameNative": "Türkçe",
+    "flag": "🇹🇷"
+  },
+  {
+    "code": "tk",
+    "nameRu": "Туркменский",
+    "nameNative": "Türkmençe",
+    "flag": "🇹🇲"
+  },
+  {
+    "code": "uz",
+    "nameRu": "Узбекский",
+    "nameNative": "Oʻzbek",
+    "flag": "🇺🇿"
+  },
+  {
+    "code": "ug",
+    "nameRu": "Уйгурский",
+    "nameNative": "ئۇيغۇرچە",
+    "flag": "🇨🇳"
+  },
+  {
+    "code": "uk",
+    "nameRu": "Украинский",
+    "nameNative": "Українська",
+    "flag": "🇺🇦"
+  },
+  {
+    "code": "ur",
+    "nameRu": "Урду",
+    "nameNative": "اردو",
+    "flag": "🇵🇰"
+  },
+  {
+    "code": "fo",
+    "nameRu": "Фарерский",
+    "nameNative": "Føroyskt",
+    "flag": "🇫🇴"
+  },
+  {
+    "code": "fi",
+    "nameRu": "Финский",
+    "nameNative": "Suomi",
+    "flag": "🇫🇮"
+  },
+  {
+    "code": "fr",
+    "nameRu": "Французский",
+    "nameNative": "Français",
+    "flag": "🇫🇷"
+  },
+  {
+    "code": "ff",
+    "nameRu": "Фула",
+    "nameNative": "Fulfulde",
+    "flag": "🇸🇳"
+  },
+  {
+    "code": "ha",
+    "nameRu": "Хауса",
+    "nameNative": "Hausa",
+    "flag": "🇳🇬"
+  },
+  {
+    "code": "hi",
+    "nameRu": "Хинди",
+    "nameNative": "हिन्दी",
+    "flag": "🇮🇳"
+  },
+  {
+    "code": "ho",
+    "nameRu": "Хиримоту",
+    "nameNative": "Hiri Motu",
+    "flag": "🇵🇬"
+  },
+  {
+    "code": "hr",
+    "nameRu": "Хорватский",
+    "nameNative": "Hrvatski",
+    "flag": "🇭🇷"
+  },
+  {
+    "code": "cu",
+    "nameRu": "Церковнославянский",
+    "nameNative": "Ѩзыкъ словѣньскъ",
+    "flag": "🌐"
+  },
+  {
+    "code": "ch",
+    "nameRu": "Чаморро",
+    "nameNative": "Chamoru",
+    "flag": "🇬🇺"
+  },
+  {
+    "code": "ce",
+    "nameRu": "Чеченский",
+    "nameNative": "Нохчийн мотт",
+    "flag": "🇷🇺"
+  },
+  {
+    "code": "cs",
+    "nameRu": "Чешский",
+    "nameNative": "Čeština",
+    "flag": "🇨🇿"
+  },
+  {
+    "code": "za",
+    "nameRu": "Чжуанский",
+    "nameNative": "Vahcuengh",
+    "flag": "🇨🇳"
+  },
+  {
+    "code": "sv",
+    "nameRu": "Шведский",
+    "nameNative": "Svenska",
+    "flag": "🇸🇪"
+  },
+  {
+    "code": "sn",
+    "nameRu": "Шона",
+    "nameNative": "ChiShona",
+    "flag": "🇿🇼"
+  },
+  {
+    "code": "gd",
+    "nameRu": "Шотландский гэльский",
+    "nameNative": "Gàidhlig",
+    "flag": "🇬🇧"
+  },
+  {
+    "code": "ee",
+    "nameRu": "Эве",
+    "nameNative": "Eʋegbe",
+    "flag": "🇬🇭"
+  },
+  {
+    "code": "eo",
+    "nameRu": "Эсперанто",
+    "nameNative": "Esperanto",
+    "flag": "🌐"
+  },
+  {
+    "code": "et",
+    "nameRu": "Эстонский",
+    "nameNative": "Eesti",
+    "flag": "🇪🇪"
+  },
+  {
+    "code": "nr",
+    "nameRu": "Южный ндебеле",
+    "nameNative": "isiNdebele",
+    "flag": "🇿🇦"
+  },
+  {
+    "code": "st",
+    "nameRu": "Южный сото",
+    "nameNative": "Sesotho",
+    "flag": "🇱🇸"
+  },
+  {
+    "code": "jv",
+    "nameRu": "Яванский",
+    "nameNative": "Basa Jawa",
+    "flag": "🇮🇩"
+  },
+  {
+    "code": "ja",
+    "nameRu": "Японский",
+    "nameNative": "日本語",
+    "flag": "🇯🇵"
+  }
+]

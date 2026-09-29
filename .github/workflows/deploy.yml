@@ -3,6 +3,11 @@ name: Deploy to Prod (release)
 on:
   push:
     branches: [main]
+    paths-ignore:
+      # Flutter client has its own workflow (translator-app.yml): a flutter-only
+      # push must not rebuild the Next.js app.
+      - 'flutter/**'
+      - '.github/workflows/translator-app.yml'
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,136 @@
+name: Translator app (web build + publish)
+
+# Сборка и публикация веб-клиента (Flutter web) в /app/ на том же VPS, что и Next.
+# Same-origin обязателен: куки iqt_anon/iqt_ts_pass и CSRF-проверка Origin в proxy.ts
+# не работают с другого домена, поэтому приложение живёт на iq-translate.com/app/.
+#
+# Контент кладётся на диск (релизная директория + symlink /var/www/translator-app),
+# не в S3: статика маленькая, а symlink-смена даёт атомарный деплой.
+#
+# Push, тронувший flutter/**, но не поднявший version: в flutter/pubspec.yaml, уронит
+# публикацию — та же защита, что у cloudlyru.
+#
+# Секреты: те же, что у deploy.yml (SERVER_IP, SSH_KEY) + TS_SITE.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flutter/**'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Опубликовать поверх того же номера версии
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: iq-translate-app
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: 3.47.4
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Analysis and build
+        working-directory: flutter
+        run: |
+          flutter pub get
+          flutter analyze
+          flutter build web --release --base-href=/app/ --dart-define=TS_SITE="$TS_SITE"
+          ver=$(awk -F: '/^version:/{gsub(/ /,"",$2); split($2,a,"+"); print a[1]}' pubspec.yaml)
+          test -n "$ver" || { echo "version: не распарсили из pubspec.yaml"; exit 1; }
+          echo "APP_VERSION=$ver" >> "$GITHUB_ENV"
+          mkdir -p "$GITHUB_WORKSPACE/app-release"
+          cp -r build/web/. "$GITHUB_WORKSPACE/app-release/"
+          echo "$ver" > "$GITHUB_WORKSPACE/app-release/.version"
+          rm -rf build/web
+        env:
+          TS_SITE: ${{ secrets.TS_SITE }}
+
+      - name: Install nginx config for /app/
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          source: "nginx/translator.conf"
+          target: "/etc/nginx/sites-available/"
+
+      - name: Reload nginx
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            mv -f /etc/nginx/sites-available/translator.conf /etc/nginx/sites-available/iq-translate.conf
+            ln -sf /etc/nginx/sites-available/iq-translate.conf /etc/nginx/sites-enabled/iq-translate.conf
+            nginx -t && (sudo nginx -s reload || systemctl reload nginx)
+
+      - name: Prepare release directory
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            rel="/var/www/translator-app/releases/${{ github.sha }}"
+            mkdir -p "$rel/app"
+
+      - name: Upload build
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          source: "app-release/"
+          target: "/var/www/translator-app/releases/${{ github.sha }}/app"
+          overwrite: true
+
+      - name: Version gate and atomic switch
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: deployer
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            rel="/var/www/translator-app/releases/${{ github.sha }}"
+            ver=$(cat "$rel/app/.version")
+            cur=$(readlink /var/www/translator-app 2>/dev/null || true)
+            if [ -n "$cur" ]; then
+              old=$(cat "$cur/app/.version" 2>/dev/null || echo 0)
+              latest=$(printf '%s\n%s\n' "$old" "$ver" | sort -V | tail -1)
+              if [ "$latest" != "$ver" ] && [ "${{ inputs.force }}" != "true" ]; then
+                echo "publishing $ver on top of newer $old — refuse (use force)"
+                exit 1
+              fi
+            fi
+            ln -sfn "$rel" /var/www/translator-app
+            # Keep the two previous releases, drop the rest.
+            cd /var/www/translator-app/releases
+            ls -1t | tail -n +4 | while read -r d; do rm -rf "$d"; done
+            echo "published $ver"
+
+      - name: Result in summary
+        if: always()
+        run: |
+          {
+            echo "### Translator app (web)"
+            echo "- version: ${{ env.APP_VERSION }}"
+            echo "- url: https://iq-translate.com/app/"
+          } >> "$GITHUB_STEP_SUMMARY"
