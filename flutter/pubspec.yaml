@@ -1,10 +1,10 @@
 name: iq_translate
 description: Client for the iq-translate.com translation backend.
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.1.1+2
 
 environment:
-  sdk: ^3.13.4
+  sdk: ^3.13.3
 
 dependencies:
   flutter:
