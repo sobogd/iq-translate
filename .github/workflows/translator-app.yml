@@ -157,14 +157,14 @@ jobs:
 
       # SDK в образе уже стоит: принимаем лицензии, нужные компоненты доставляем по
       # возможности, а остальное Gradle добирает сам.
-      - name: Android SDK (platform 36, build-tools 36)
-        run: |
-          SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-$HOME/Library/Android/sdk}}"
-          SDKMANAGER="$(ls -d "$SDK"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | tail -1)"
-          test -n "$SDKMANAGER" || { echo "нет sdkmanager в $SDK"; ls "$SDK"; exit 1; }
-          yes | "$SDKMANAGER" --licenses > /dev/null || true
-          "$SDKMANAGER" --install "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
-            || echo "компоненты SDK не доустановились — собираем на том, что есть в образе"
+- name: Android SDK (platform 36, build-tools 36, ndk)
+  run: |
+    SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-$HOME/Library/Android/sdk}}"
+    SDKMANAGER="$(ls -d "$SDK"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | tail -1)"
+    test -n "$SDKMANAGER" || { echo "нет sdkmanager в $SDK"; ls "$SDK"; exit 1; }
+    yes | "$SDKMANAGER" --licenses > /dev/null || true
+    "$SDKMANAGER" --install "platform-tools" "platforms;android-36" "build-tools;36.0.0" "ndk;28.2.13676358" \
+      || echo "компоненты SDK не доустановились — собираем на том, что есть в образе"
 
       - uses: subosito/flutter-action@v2
         with:
@@ -216,7 +216,7 @@ jobs:
 
       - name: Артефакт в корне
         run: |
-          cp flutter/build/app/outputs/flutter-apks/app-release.apk "$GITHUB_WORKSPACE/translator-release.apk"
+          cp flutter/build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/translator-release.apk"
           ls -lh "$GITHUB_WORKSPACE/translator-release.apk"
 
       - name: Install nginx config
