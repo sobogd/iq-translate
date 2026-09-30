@@ -22,6 +22,7 @@ type TurnstileApi = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
   execute: (id: string) => void;
   reset: (id: string) => void;
+  removeWidget: (id: string) => void;
 };
 
 declare global {

@@ -53,7 +53,7 @@ export default function TurnstilePage() {
     const boot = () => {
       if (cancelled || !window.turnstile || !containerRef.current || !SITE_KEY) return;
       const settle = (t: string | null) => {
-        window.turnstile?.removeWidget(widgetIdRef.current ?? undefined);
+        if (widgetIdRef.current) window.turnstile?.removeWidget(widgetIdRef.current);
         widgetIdRef.current = null;
         finish(t);
       };
@@ -162,16 +162,4 @@ export default function TurnstilePage() {
       </div>
     </div>
   );
-}
-
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (
-        el: HTMLElement,
-        opts: Record<string, unknown>,
-      ) => string;
-      removeWidget: (id?: string) => void;
-    };
-  }
 }
