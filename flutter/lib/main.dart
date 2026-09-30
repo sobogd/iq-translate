@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'api.dart';
 import 'client.dart';
 import 'languages.dart';
 import 'turnstile.dart';
+import 'update.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,15 +24,50 @@ class IqTranslateApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark =
+        PlatformDispatcher.instance.platformBrightness == Brightness.dark;
     return MaterialApp(
-      title: 'Iq Translate',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF3B5BDB),
-          brightness: Brightness.dark,
-        ),
-      ),
+      title: 'IQ Translate',
+      debugShowCheckedModeBanner: false,
+      theme: _siteTheme(dark ? Brightness.dark : Brightness.light),
       home: HomeScreen(gate: gate),
+    );
+  }
+
+  static ThemeData _siteTheme(Brightness brightness) {
+    final dark = brightness == Brightness.dark;
+    final red = const Color(0xFFD9534F);
+    final scheme = ColorScheme.fromSeed(seedColor: red, brightness: brightness)
+        .copyWith(
+      primary: red,
+      onPrimary: Colors.white,
+      primaryContainer:
+          dark ? const Color(0xFF522828) : const Color(0xFFF6D9D8),
+      onPrimaryContainer:
+          dark ? const Color(0xFFF6D9D8) : const Color(0xFF522828),
+      surface: dark ? const Color(0xFF1D1D1D) : const Color(0xFFB3B3B3),
+      onSurface: dark ? const Color(0xFFFAFAFA) : const Color(0xFF111111),
+      surfaceContainerLowest:
+          dark ? const Color(0xFF141414) : const Color(0xFFC9C9C9),
+      surfaceContainerLow:
+          dark ? const Color(0xFF1E1F23) : const Color(0xFFC2C2C2),
+      surfaceContainer: dark ? const Color(0xFF23252B) : const Color(0xFFCBCBCB),
+      surfaceContainerHigh:
+          dark ? const Color(0xFF2A2C33) : const Color(0xFFD6D6D6),
+      surfaceContainerHighest:
+          dark ? const Color(0xFF32353D) : const Color(0xFFE0E0E0),
+      onSurfaceVariant:
+          dark ? const Color(0xFFAEB3C2) : const Color(0xFF666666),
+      outline: dark ? const Color(0xFF3E424F) : const Color(0xFFD0D0D0),
+      error: red,
+    );
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: scheme,
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: scheme.surfaceContainerHighest,
+      ),
     );
   }
 }
@@ -80,6 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _boot() async {
     await languages.load();
     await _loadConversation();
+    if (!kIsWeb) {
+      if (mounted) checkForUpdate(context);
+    }
   }
 
   Future<void> _loadConversation() async {
@@ -507,25 +545,40 @@ class _TurnstileOverlay extends StatelessWidget {
           Positioned.fill(child: ColoredBox(color: Colors.black.withValues(alpha: 0.5))),
           Center(
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 380, maxHeight: 460),
+              margin: const EdgeInsets.symmetric(horizontal: 24),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: scheme.surface,
+                color: scheme.surfaceContainerLow,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: scheme.outline),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('Подтвердите, что вы человек'),
-                  const SizedBox(height: 12),
-                  if (kIsWeb)
-                    HtmlElementView.fromTagName(
-                      tagName: 'div',
-                      hitTestBehavior: PlatformViewHitTestBehavior.opaque,
-                      onElementCreated: gate.attachContainer,
-                    )
-                  else
-                    const Text('Недоступно в этой версии'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          gate.solving ? 'Подтвердите, что вы человек' : 'Проверка…',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: gate.cancel,
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: gate.embed ??
+                        const Padding(
+                          padding: EdgeInsets.all(32),
+                          child: Center(child: CircularProgressIndicator()),
+                        ),
+                  ),
                 ],
               ),
             ),

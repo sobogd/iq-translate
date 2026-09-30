@@ -1,39 +1,43 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/widgets.dart';
 
 import 'api.dart';
 import 'turnstile_backend.dart';
 import 'turnstile_native.dart'
     if (dart.library.js_interop) 'turnstile_web.dart';
 
-class TurnstileGate extends ChangeNotifier implements TurnstileWidgetHost {
+class TurnstileGate extends ChangeNotifier {
   static const String siteKey = String.fromEnvironment('TS_SITE');
 
-  final TurnstileBackend _backend;
-
-  TurnstileGate() : _backend = makeTurnstileBackend() {
-    _backend.setHost(this);
-  }
+  final TurnstileBackend _backend = makeTurnstileBackend();
 
   bool interactive = false;
   bool _passHeld = false;
   bool _solving = false;
 
-  bool get _ready => kIsWeb && siteKey.isNotEmpty;
+  bool get ready => siteKey.isNotEmpty;
+
+  bool get solving => _solving;
+
+  Widget? get embed => interactive ? _backend.embed() : null;
 
   Future<bool> ensurePass() async {
-    if (!_ready) return false;
+    if (!ready) return false;
     if (_passHeld) return true;
     if (_solving) return false;
     _solving = true;
     interactive = true;
     notifyListeners();
+    // The overlay (and the platform view inside it) must be mounted before the
+    // widget is asked to solve, so wait for the frame that added it.
+    await WidgetsBinding.instance.endOfFrame;
     String? token;
     try {
       token = await _backend.solve();
-    } finally {
-      _solving = false;
+    } on Object {
+      token = null;
     }
     interactive = false;
     notifyListeners();
@@ -51,19 +55,14 @@ class TurnstileGate extends ChangeNotifier implements TurnstileWidgetHost {
     _passHeld = false;
   }
 
-  @override
-  void beforeInteractive() {
-    interactive = true;
-    notifyListeners();
+  void cancel() {
+    if (!_solving) return;
+    _backend.cancel();
   }
 
   @override
-  void afterInteractive() {
-    if (!_solving) {
-      interactive = false;
-      notifyListeners();
-    }
+  void dispose() {
+    _backend.dispose();
+    super.dispose();
   }
-
-  void attachContainer(Object element) => _backend.attach(element);
 }

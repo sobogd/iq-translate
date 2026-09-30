@@ -1,10 +1,11 @@
-abstract class TurnstileBackend {
-  void setHost(TurnstileWidgetHost host);
-  Future<String?> solve();
-  void attach(Object? element);
-}
+import 'package:flutter/widgets.dart';
 
-abstract class TurnstileWidgetHost {
-  void beforeInteractive();
-  void afterInteractive();
+abstract class TurnstileBackend {
+  Widget embed();
+
+  Future<String?> solve();
+
+  void cancel();
+
+  void dispose();
 }
