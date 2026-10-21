@@ -92,18 +92,14 @@ jobs:
             INGEST_SHARED_SECRET="${{ secrets.INGEST_SHARED_SECRET }}"
             ANALYTICS_ADMIN_EMAILS="${{ secrets.ANALYTICS_ADMIN_EMAILS }}"
             ANALYTICS_EXCLUDE_EMAILS="${{ secrets.ANALYTICS_EXCLUDE_EMAILS }}"
-            # Translation engine and speech recognition: both live on the
-            # owner's Mac and reach this VPS through the reverse-SSH tunnel
-            # (docs/local-llm.md). LLM_CTX has to match the model server's
-            # `-c` — lib/llm-limits.ts derives every request budget from it.
-            LLM_BASE_URL="${{ secrets.LLM_BASE_URL || 'http://127.0.0.1:18812' }}"
-            LLM_MODEL="${{ secrets.LLM_MODEL || 'qwen/qwen3.8-27b' }}"
-            # 65536, matching the Mac's run-llm.sh. That model is hybrid (only a
-            # quarter of its layers keep a KV cache), so the full window costs about
-            # 1.1 GB of wired memory rather than several. The two numbers are one
-            # setting in two files: a mismatch here means the app sizes requests for
-            # a window the server does not have, and llama.cpp answers 400.
-            LLM_CTX="${{ secrets.LLM_CTX || '65536' }}"
+            # Translation engine: oMLX running on this VPS (port 9999);
+            # speech recognition stays on the Mac through the reverse-SSH
+            # tunnel. LLM_CTX has to match the model server's context window
+            # — lib/llm-limits.ts derives every request budget from it.
+            LLM_BASE_URL="${{ secrets.LLM_BASE_URL || 'http://127.0.0.1:9999' }}"
+            LLM_MODEL="${{ secrets.LLM_MODEL || 'Qwen3.8-27B-Uncensored-oQ4e-mtp' }}"
+            LLM_API_KEY="${{ secrets.LLM_API_KEY }}"
+            LLM_CTX="${{ secrets.LLM_CTX || '56000' }}"
             LLM_REASONING="none"
             LLM_TEMPLATE_KWARGS={"enable_thinking":false}
             # Second engine: TranslateGemma-4B on the same Mac, its own tunnel
